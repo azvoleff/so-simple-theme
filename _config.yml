@@ -1,5 +1,5 @@
-title:            Site Title
-description:      Describe your website here.
+title:            azvoleff.com
+description:      Alex Zvoleff - Postdoctoral Associate at Conservation International
 logo:             site-logo.png
 disqus_shortname: 
 search:           true
@@ -8,13 +8,13 @@ url:              http://localhost:4000
 
 # Owner/author information
 owner:
-  name:           Your Name
-  avatar:         bio-photo.jpg
-  email:          you@email.com
+  name:           Alex Zvoleff
+  avatar:         headshot.jpg
+  email:          azvoleff@conservation.org
   # Social networking links used in footer. Update and remove as you like.
   twitter:        
   facebook:       
-  github:         
+  github:         azvoleff
   stackexchange:  
   linkedin:       
   instagram:      
