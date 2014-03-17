@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Homepage
-description: "Homepage for Alex Zvoleff, Postdoctoral Associate at Conservation International"
+title: Other
+description: "Other Stuff - azvoleff.com"
 tags: [Alex Zvoleff, R, python, remote sensing, imagery, land use, land cover, conservation, forest, human, social, survey, statistics, spatial]
 ---
 
