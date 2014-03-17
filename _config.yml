@@ -12,11 +12,11 @@ owner:
   avatar:         headshot.jpg
   email:          azvoleff@conservation.org
   # Social networking links used in footer. Update and remove as you like.
-  twitter:        
+  twitter:        azvoleff
   facebook:       
-  github:         http://github.com/azvoleff
-  stackexchange:  
-  linkedin:       
+  github:         azvoleff
+  stackexchange:  azvoleff
+  linkedin:       azvoleff
   instagram:      
   flickr:         
   tumblr:         
