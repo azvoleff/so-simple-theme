@@ -42,10 +42,12 @@ released devolped by [Hansen et al.
 ## Past Research
 
 <a name='PyABM'>
+
 ### PyABM
 An [open-source agent-based model toolkit](/pyabm) written in Python.
 
 <a name='ChitwanABM'>
+
 ### ChitwanABM
 [ChitwanABM](/chitwanabm) is an agent-based model of the western Chitwan 
 Valley, Nepal, used to explore connections between population and environment.
