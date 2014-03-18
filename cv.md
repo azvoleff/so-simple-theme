@@ -15,4 +15,4 @@ B.S. Earth Sciences, University of California, San Diego, 2006.
 
 ## Download CV
 
-[Download CV](Zvoleff_CV.pdf)
+[Download CV](pdfs/Zvoleff_CV.pdf)
