@@ -1,0 +1,86 @@
+---
+layout: post
+title: "Calculating image textures with GLCM"
+description: "An overview of how to use the glcm R package to calculate image texture measures"
+category: articles
+tags: [R, teamlucc, remote sensing]
+modified: 2014-03-19
+comments: true
+share: true
+---
+
+`glcm` can calculate image textures from either a matrix or a `Raster*` object 
+from the `raster` package. First install the package if it is not yet 
+installed:
+
+```{r}
+if (!(require(glcm))) install.packages("glcm")
+```
+
+The below examples use an image included in the `glcm` package, a 
+red/green/blue cutout of a Landsat 5 image from 1986 from a Tropical Ecology 
+Assessment and Monitoring (TEAM) Network site in Volcan Barva, Costa Rica. The 
+image is included in the glcm package as `L5TSR_1986`:
+
+```{r}
+library(raster) # needed for plotRGB function
+plotRGB(L5TSR_1986, 3, 2, 1, scale=1500)
+```
+
+To calculate GLCM textures from this image using the default settings, type:
+
+```{r}
+textures <- glcm(raster(L5TSR_1986, layer=3))
+```
+
+where `raster(L5TSR_1986, layer=3)` selects the third (red) layer.  To see the 
+textures that have been calculated by default, type:
+
+```{r}
+names(textures)
+```
+
+This shows that 8 GLCM texture statistics have been calculated by default:
+
+* mean
+* variance
+* homogeneity
+* contrast
+* dissimilarity
+* entropy
+* second moment
+* correlation.
+
+These can all be visualized in R:
+
+```{r, fig.cap='"mean" GLCM texture calculated by glcm R package'}
+plot(textures$glcm_mean)
+```
+
+```{r, fig.cap='"variance" GLCM texture calculated by glcm R package'}
+plot(textures$glcm_variance)
+```
+
+```{r, fig.cap='"homogeneity" GLCM texture calculated by glcm R package'}
+plot(textures$glcm_homogeneity)
+```
+
+```{r, fig.cap='"contrast" GLCM texture calculated by glcm R package'}
+plot(textures$glcm_contrast)
+```
+
+```{r, fig.cap='"dissimilarity" GLCM texture calculated by glcm R package'}
+plot(textures$glcm_dissimilarity)
+```
+
+```{r, fig.cap='"entropy" GLCM texture calculated by glcm R package'}
+plot(textures$glcm_entropy)
+```
+
+```{r, fig.cap='"second moment" GLCM texture calculated by glcm R package'}
+plot(textures$glcm_second_moment)
+```
+
+```{r, fig.cap='"correlation" GLCM texture calculated by glcm R package'}
+plot(textures$glcm_correlation)
+```

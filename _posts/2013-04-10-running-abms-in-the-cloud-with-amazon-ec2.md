@@ -1,96 +1,39 @@
 ---
 layout: post
-title: Sample Post
-description: "Just about everything you'll need to style in the theme: headings, paragraphs, blockquotes, tables, code blocks, and more."
-modified: 2013-05-31
+title: "Running ABMs in the Cloud with Amazon EC2"
+description: "Introduction to potential for using Amazon EC2 to run ABMs in the cloud"
 category: articles
-tags: [sample post]
-image:
-  feature: so-simple-sample-image-1.jpg
-  credit: Michael Rose
-  creditlink: http://mademistakes.com
+tags: [python, pyabm, high performance computing]
 comments: true
 share: true
 ---
 
-Below is just about everything you'll need to style in the theme. Check the source code to see the many embedded elements within paragraphs.
+PyABM can be installed on an Amazon Elastic Computing Core (EC2) instance to 
+allow you to run agent-based models (ABMs) in the cloud. If you are new to 
+Amazon EC2, see the [EC2 overview](http://aws.amazon.com/ec2/)
+before you get started. Amazon also has a special page on [high performance 
+computing (HPC) with EC2](http://aws.amazon.com/hpc-applications/). You will 
+also probably want to look at the available [Amazon EC2 instance 
+types](http://aws.amazon.com/ec2/instance-types/), and of course the 
+[pricing](http://aws.amazon.com/ec2/pricing/)
+information before you get started.
 
-# Heading 1
+A basic cluster with a manager node and two worker nodes will run you about 
+$1.50 - $2.00 per hour, depending on the options you choose. You can vary the 
+number of CPU cores and the memory in your worker nodes depending on the needs 
+of your modeling. In general my models are CPU limited (not requiring large 
+amounts of memory) so I will create a small cluster of three Amazon EC2 
+instances, with one "Large Standard On-Demand" (m1.large) instance to manage 
+the cluster, and two "Extra Large High-CPU On-Demand" (c1.xlarge) instances as 
+worker nodes.This configuration gives me a total of 16 processor cores to work 
+with (8 per worker node), so I can run 16 model runs at the same time.
 
-## Heading 2
+The cost to run this cluster is $1.58 per hour with current Amazon EC2 pricing.  
+Note that pricing varies depending on the region you choose to place your 
+clusters in - the cheapest region is currently in northern Virginia in the 
+United States.
 
-### Heading 3
+The easiest way I have found to get Amazon EC2 clusters up and running is using 
+[StarCluster]("http://star.mit.edu/cluster/) - a python program that makes 
+setting up, running, and managing Amazon EC2 clusters much easier.
 
-#### Heading 4
-
-##### Heading 5
-
-###### Heading 6
-
-### Body text
-
-Lorem ipsum dolor sit amet, test link adipiscing elit. **This is strong**. Nullam dignissim convallis est. Quisque aliquam.
-
-![Smithsonian Image]({{ site.url }}/images/3953273590_704e3899d5_m.jpg)
-{: .pull-right}
-
-*This is emphasized*. Donec faucibus. Nunc iaculis suscipit dui. 53 = 125. Water is H<sub>2</sub>O. Nam sit amet sem. Aliquam libero nisi, imperdiet at, tincidunt nec, gravida vehicula, nisl. The New York Times <cite>(That’s a citation)</cite>. <u>Underline</u>. Maecenas ornare tortor. Donec sed tellus eget sapien fringilla nonummy. Mauris a ante. Suspendisse quam sem, consequat at, commodo vitae, feugiat in, nunc. Morbi imperdiet augue quis tellus.
-
-HTML and <abbr title="cascading stylesheets">CSS<abbr> are our tools. Mauris a ante. Suspendisse quam sem, consequat at, commodo vitae, feugiat in, nunc. Morbi imperdiet augue quis tellus. Praesent mattis, massa quis luctus fermentum, turpis mi volutpat justo, eu volutpat enim diam eget metus.
-
-### Blockquotes
-
-> Lorem ipsum dolor sit amet, test link adipiscing elit. Nullam dignissim convallis est. Quisque aliquam.
-
-## List Types
-
-### Ordered Lists
-
-1. Item one
-   1. sub item one
-   2. sub item two
-   3. sub item three
-2. Item two
-
-### Unordered Lists
-
-* Item one
-* Item two
-* Item three
-
-## Tables
-
-| Header1 | Header2 | Header3 |
-|:--------|:-------:|--------:|
-| cell1   | cell2   | cell3   |
-| cell4   | cell5   | cell6   |
-|----
-| cell1   | cell2   | cell3   |
-| cell4   | cell5   | cell6   |
-|=====
-| Foot1   | Foot2   | Foot3
-{: rules="groups"}
-
-## Code Snippets
-
-Syntax highlighting via Pygments
-
-{% highlight css %}
-#container {
-  float: left;
-  margin: 0 -240px 0 0;
-  width: 100%;
-}
-{% endhighlight %}
-
-Non Pygments code example
-
-    <div id="awesome">
-        <p>This is great isn't it?</p>
-    </div>
-
-## Buttons
-
-Make any link standout more when applying the `.btn` class.
-
-<div markdown="0"><a href="#" class="btn">This is a button</a></div>
