@@ -1,30 +1,30 @@
-## Classifying an image with teamlucc
+---
+layout: post
+title: "Classifying an image with teamlucc"
+description: "An overview of how to use the teamlucc package to classify a satellite image"
+category: articles
+tags: [R, teamlucc, remote sensing]
+modified: 2014-03-19
+comments: true
+share: true
+---
 
 First load the `devtools` package, used for installing `teamlucc`. Install the 
 `devtools` package if it is not already installed:
 
 
-```r
+{% highlight r %}
 if (!require(devtools)) install.packages("devtools")
-```
+{% endhighlight %}
 
 
 Now load the teamlucc package, using `devtools` to install it from github if it 
 is not yet installed.
 
 
-```r
+{% highlight r %}
 if (!require(teamlucc)) install_github("azvoleff/teamlucc")
-```
-
-```
-## Loading required package: teamlucc
-## Loading required package: Rcpp
-## Loading required package: RcppArmadillo
-## Loading required package: raster
-## Loading required package: sp
-## SDMTools 1.1-13 (2012-11-08)
-```
+{% endhighlight %}
 
 
 The first step in the classification is putting together a training dataset. 
@@ -34,13 +34,15 @@ L5TSR_1986 raster (a portion of a 1986 Landsat 5 surface reflectance image)
 that is included with the `teamlucc` package.
 
 
-```r
+{% highlight r %}
 tr_spdf <- get_extent_polys(L5TSR_1986)
-```
+{% endhighlight %}
 
-```
+
+
+{% highlight text %}
 ## Error: no method for coercing this S4 class to a vector
-```
+{% endhighlight %}
 
 
 Now perform the actual image classification, using the `team_classify` 
@@ -59,12 +61,14 @@ laptop, allowing one free core (I can run four threads on my laptop) so that I
 can still check email, etc. while scripts are running.
 
 
-```r
+{% highlight r %}
 results <- team_classify(predictor_file, train_shp, output_path, "class", training = 1, 
     n_cpus = 2)
-```
+{% endhighlight %}
 
-```
+
+
+{% highlight text %}
 ## Error: object 'train_shp' not found
-```
+{% endhighlight %}
 
