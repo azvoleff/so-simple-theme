@@ -93,6 +93,7 @@ is almost never random), so in most cases I don't recommend making heavy use of
 the `training` parameter. It can be useful though in testing.
 
 ```{r}
+set.seed(0) # Set a random seed so results can be reproduced
 train_data <- extract_training_data(L5TSR_1986, train_polys, 
                                     class_col="class_1986", training=.6)
 ```

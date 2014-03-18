@@ -114,6 +114,7 @@ the `training` parameter. It can be useful though in testing.
 
 
 {% highlight r %}
+set.seed(0)  # Set a random seed so results can be reproduced
 train_data <- extract_training_data(L5TSR_1986, train_polys, class_col = "class_1986", 
     training = 0.6)
 {% endhighlight %}
@@ -138,8 +139,8 @@ summary(train_data)
 ## 
 ## Training data statistics:
 ##        class n_pixels n_polys train_frac
-## 1     Forest       68      17       0.59
-## 2 Non.forest       52      13       0.62
+## 1     Forest       68      17       0.71
+## 2 Non.forest       52      13       0.46
 ## 
 ## Training fraction:	0.6
 {% endhighlight %}
@@ -208,22 +209,22 @@ summary(acc)
 ## Sample contingency table:
 ##             observed
 ## predicted     Forest Non.forest     Sum   Users
-##   Forest     27.0000     5.0000 32.0000  0.8438
-##   Non.forest  1.0000    15.0000 16.0000  0.9375
-##   Sum        28.0000    20.0000 48.0000        
-##   Producers   0.9643     0.7500          0.8750
+##   Forest     18.0000     9.0000 27.0000  0.6667
+##   Non.forest  2.0000    19.0000 21.0000  0.9048
+##   Sum        20.0000    28.0000 48.0000        
+##   Producers   0.9000     0.6786          0.7708
 ## 
 ## Population contingency table:
 ##             observed
 ## predicted    Forest Non.forest    Sum  Users
-##   Forest     0.5764     0.1067 0.6831 0.8438
-##   Non.forest 0.0198     0.2971 0.3169 0.9375
-##   Sum        0.5962     0.4038 1.0000       
-##   Producers  0.9668     0.7357        0.8735
+##   Forest     0.4551     0.2275 0.6826 0.6667
+##   Non.forest 0.0302     0.2872 0.3174 0.9048
+##   Sum        0.4853     0.5147 1.0000       
+##   Producers  0.9377     0.5579        0.7422
 ## 
-## Overall accuracy:	0.8735
+## Overall accuracy:	0.7422
 ## 
-## Quantity disagreement:		0.0869
-## Allocation disagreement:	0.0396
+## Quantity disagreement:		0.1973
+## Allocation disagreement:	0.0605
 {% endhighlight %}
 
