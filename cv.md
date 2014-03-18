@@ -5,7 +5,6 @@ description: "CV for Alex Zvoleff, Postdoctoral Associate at Conservation Intern
 tags: [Alex Zvoleff, CV, R, python, remote sensing, imagery, land use, land cover, conservation, forest, human, social, survey, statistics, spatial]
 image:
   feature: bg_phewa_tal.jpg
-  credit: Alex Zvoleff
 ---
 
 ## Education
