@@ -14,28 +14,22 @@ share: true
 First load the `devtools` package, used for installing `teamlucc`. Install the 
 `devtools` package if it is not already installed:
 
-
-{% highlight r %}
-if (!require(devtools)) install.packages("devtools")
-{% endhighlight %}
-
+```{r}
+if (!require(devtools)) install.packages('devtools')
+```
 
 Now load the teamlucc package, using `devtools` to install it from github if it 
 is not yet installed.
 
-
-{% highlight r %}
-if (!require(teamlucc)) install_github("azvoleff/teamlucc")
-{% endhighlight %}
-
+```{r}
+if (!require(teamlucc)) install_github('azvoleff/teamlucc')
+```
 
 Also load the `rgdal` package needed for reading/writing shapefiles:
 
-
-{% highlight r %}
+```{r}
 library(rgdal)
-{% endhighlight %}
-
+```
 
 ## Collect training data for supervised classification
 
@@ -47,31 +41,25 @@ that is included with the `teamlucc` package. Use the `get_extent_polys`
 function to quickly construct a shapefile in the same coordinate system as the 
 image:
 
-
-{% highlight r %}
+```{r}
 train_polys <- get_extent_polys(L5TSR_1986)
-{% endhighlight %}
-
+```
 
 Add an empty field named "class_1986" to the object, and delete the extent polygon 
 (because we don't need it, and just want an empty shapefile):
 
-
-{% highlight r %}
-train_polys$class_1986 <- ""  # Add an empty column named 'class_1986'
-train_polys <- train_polys[-1, ]  # Delete extent polygon
-{% endhighlight %}
-
+```{r}
+train_polys$class_1986 <- '' # Add an empty column named "class_1986"
+train_polys <- train_polys[-1, ] # Delete extent polygon
+```
 
 Now save the `train_polys` object to a shapefile using `writeOGR` from the `rgdal` 
 package. The "." below just means "save the shapefile in the current 
 directory".
 
-
-{% highlight r %}
+```{r}
 writeOGR(train_polys, ".", "training_data", "ESRI Shapefile")
-{% endhighlight %}
-
+```
 
 Open the generated "training_data.shp" shapefile in a GIS program (I recommend 
 [QGIS](http://www.qgis.org)) and digitize a number of polygons in each of the 
@@ -84,11 +72,9 @@ class, save the shapefile, and load it back into R using
 Or: (for this example) you can use the thirty training polygons included in the 
 `teamlucc` package in the `L5TSR_1986_2001_training` dataset:
 
-
-{% highlight r %}
+```{r}
 train_polys <- L5TSR_1986_2001_training
-{% endhighlight %}
-
+```
 
 ## Classify image
 
@@ -106,75 +92,36 @@ data anyways, to ensure the image is randomly sampled (training data collection
 is almost never random), so in most cases I don't recommend making heavy use of 
 the `training` parameter. It can be useful though in testing.
 
-
-{% highlight r %}
-train_data <- extract_training_data(L5TSR_1986, train_polys, class_col = "class_1986", 
-    training = 0.6)
-{% endhighlight %}
-
+```{r}
+train_data <- extract_training_data(L5TSR_1986, train_polys, 
+                                    class_col="class_1986", training=.6)
+```
 
 A summary method is provided by `teamlucc` for printing summary statistics on 
 training datasets:
 
-
-{% highlight r %}
+```{r}
 summary(train_data)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Object of class "Training_data"
-## 
-## Number of classes:	2
-## Number of polygons:	30
-## Number of pixels:	120
-## 
-## Training data statistics:
-##        class n_pixels n_polys train_frac
-## 1     Forest       68      17       0.76
-## 2 Non.forest       52      13       0.38
-## 
-## Training fraction:	0.6
-{% endhighlight %}
-
+```
 
 To perform the actual image classification, we will use the `classify_image` 
 function:
 
-
-{% highlight r %}
+```{r}
 classification <- classify_image(L5TSR_1986, train_data)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## [1] "Training classifier..."
-## [1] "Predicting classes..."
-## [1] "Calculating class probabilities..."
-{% endhighlight %}
-
+```
 
 To see the predicted classes, use `spplot`:
 
-
-{% highlight r %}
+```{r, predicted_classes, fig.cap="Predicted classes"}
 spplot(classification$pred_classes)
-{% endhighlight %}
-
-![Predicted classes](/_postsfigs/2014-03-19-image-classification-with-teamlucc/predicted_classes.png) 
-
+```
 
 We can also see the class probabilities (per pixel probabilities of membership of each class):
 
-
-{% highlight r %}
+```{r, class_probabilities, fig.cap="Predicted probabilities of each class"}
 spplot(classification$pred_probs)
-{% endhighlight %}
-
-![Predicted probabilities of each class](/_postsfigs/2014-03-19-image-classification-with-teamlucc/class_probabilities.png) 
-
+```
 
 Note that we can pass the `n_cpus=2` parameter to tell 
 `team_classify` to use parallel processing if we have two (or more) CPUs. Don't 
@@ -185,39 +132,7 @@ can still check email, etc. while scripts are running.
 
 ## Accuracy assessment
 
-
-{% highlight r %}
-acc <- accuracy(classification$model, pop = classification$pred_classes)
+```{r}
+acc <- accuracy(classification$model, pop=classification$pred_classes)
 summary(acc)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Object of class "accuracy"
-## 
-## Training samples:	72
-## Testing samples:	48
-## 
-## Sample contingency table:
-##             observed
-## predicted     Forest Non.forest     Sum   Users
-##   Forest     15.0000     3.0000 18.0000  0.8333
-##   Non.forest  1.0000    29.0000 30.0000  0.9667
-##   Sum        16.0000    32.0000 48.0000        
-##   Producers   0.9375     0.9062          0.9167
-## 
-## Population contingency table:
-##             observed
-## predicted    Forest Non.forest    Sum  Users
-##   Forest     0.5550     0.1110 0.6660 0.8333
-##   Non.forest 0.0111     0.3229 0.3340 0.9667
-##   Sum        0.5661     0.4339 1.0000       
-##   Producers  0.9803     0.7442        0.8779
-## 
-## Overall accuracy:	0.8779
-## 
-## Quantity disagreement:		0.0999
-## Allocation disagreement:	0.0223
-{% endhighlight %}
-
+```
