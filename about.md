@@ -15,3 +15,16 @@ I work on land use and land cover change, using a mixture of remote sensing,
 spatial modeling and statistics, and social survey techniques to investigate 
 relationships between human and environmental change.
 
+## Contact Information
+
+| Email: | azvoleff@conservation.org |
+| Phone: | 703-341-2749              |
+| Fax:   | 703-979-0953              |
+| Skype: | azvoleff                  |
+
+## Mailing Address
+
+TEAM Network  
+Conservation International  
+2011 Crystal Dr. Suite 500  
+Arlington, VA 22202  
