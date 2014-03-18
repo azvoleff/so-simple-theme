@@ -7,14 +7,13 @@ image:
   feature: bg_nepal_paddy.jpg
 ---
 
-## Interests
+## Research Interests
 * Land-use and land-cover change
 * Population, health, and environment approaches to conservation
 * Feedbacks between climate variability and change and human systems
 * Methodologies for studying coupled human-environment systems
 
 ## Current Work
-
 I am working with the [Tropical Ecology Assessment and Monitoring (TEAM) 
 Network](http://teamnetwork.org) on a project investigating the effects of 
 climate change and land use and cover change around tropical protected areas on 
@@ -25,7 +24,6 @@ biodiversity.
 Below are several ongoing projects related to TEAM.
 
 #### teamlucc
-
 [teamlucc](/teamlucc) is an R package to support the preprocessing and 
 classification of satellite imagery for biodiversity monitoring and land cover 
 change modeling.
@@ -35,22 +33,20 @@ change modeling.
 from grey-level co-occurrence matrices (GLCM).
 
 #### gfcanalysis
-[glcm](/gfcanalysis) is an R package to facilitate analyses using the [Global 
+[gfcanalysis](/gfcanalysis) is an R package to facilitate analyses using the [Global 
 Forest Change 
 dataset](http://earthenginepartners.appspot.com/science-2013-global-forest) 
-released devolped by [Hansen et al.  
+released devolped by [Hansen et al. 
 (2013)](http://www.sciencemag.org/content/342/6160/850).
 
 ## Past Research
 
 ### PyABM
-
 An [open-source agent-based model toolkit](/pyabm) written in Python.
 
 ### ChitwanABM
-An [agent-based model of the western Chitwan Valley, 
-Nepal](/chitwanabm), coded in Python, used to explore connections 
-between population and environment.
+[ChitwanABM](/chitwanabm) is an agent-based model of the western Chitwan 
+Valley, Nepal, used to explore connections between population and environment.
 
 ### Land Use and Cover Change in the Chitwan Valley, Nepal
 Worked with [Dr. Li An](http://geography.sdsu.edu/People/Faculty/an.html) on an 
@@ -65,7 +61,8 @@ use, as well as of the spatial distribution of land use change, which may be an
 important determinant of habitat quality in the forest areas surrounding the 
 study area.
 
-PyABM and ChitwanABM (see above) are both outcomes of this project.
+[PyABM](#PyABM) and [ChitwanABM](#ChitwanABM) are both outcomes of this 
+project.
 
 ### Health, Poverty, and Place in Accra, Ghana
 I was also a part of a team working on a NIH funded project in Accra, Ghana ["Health, 
