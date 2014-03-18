@@ -32,6 +32,8 @@ bing_verify:
 # Links to include in top navigation
 # For external links add external: true
 links:
+  - title: About
+    url: /about
   - title: CV
     url: /cv
   - title: Research
