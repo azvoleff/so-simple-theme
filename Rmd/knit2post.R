@@ -7,6 +7,6 @@ knit2post <- function(input, base.url = "/_posts") {
     opts_chunk$set(fig.path = fig.path)
     opts_chunk$set(fig.cap = "center")
     render_jekyll()
-    knit(file.path(cur_dir, input), envir = parent.frame())
+    knit(file.path(cur_dir, input), envir = parent.frame(), encoding="UTF-8")
     setwd(cur_dir)
 }

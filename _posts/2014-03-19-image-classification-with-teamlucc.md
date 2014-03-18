@@ -73,6 +73,12 @@ writeOGR(train_polys, ".", "training_data", "ESRI Shapefile")
 {% endhighlight %}
 
 
+
+{% highlight text %}
+## Error: layer exists, use a new layer name
+{% endhighlight %}
+
+
 Open the generated "training_data.shp" shapefile in a GIS program (I recommend 
 [QGIS](http://www.qgis.org)) and digitize a number of polygons in each of the 
 land cover classes you want to map. For this example, we will simply classify 
@@ -132,8 +138,8 @@ summary(train_data)
 ## 
 ## Training data statistics:
 ##        class n_pixels n_polys train_frac
-## 1     Forest       68      17       0.76
-## 2 Non.forest       52      13       0.38
+## 1     Forest       68      17       0.59
+## 2 Non.forest       52      13       0.62
 ## 
 ## Training fraction:	0.6
 {% endhighlight %}
@@ -202,22 +208,22 @@ summary(acc)
 ## Sample contingency table:
 ##             observed
 ## predicted     Forest Non.forest     Sum   Users
-##   Forest     15.0000     3.0000 18.0000  0.8333
-##   Non.forest  1.0000    29.0000 30.0000  0.9667
-##   Sum        16.0000    32.0000 48.0000        
-##   Producers   0.9375     0.9062          0.9167
+##   Forest     27.0000     5.0000 32.0000  0.8438
+##   Non.forest  1.0000    15.0000 16.0000  0.9375
+##   Sum        28.0000    20.0000 48.0000        
+##   Producers   0.9643     0.7500          0.8750
 ## 
 ## Population contingency table:
 ##             observed
 ## predicted    Forest Non.forest    Sum  Users
-##   Forest     0.5550     0.1110 0.6660 0.8333
-##   Non.forest 0.0111     0.3229 0.3340 0.9667
-##   Sum        0.5661     0.4339 1.0000       
-##   Producers  0.9803     0.7442        0.8779
+##   Forest     0.5764     0.1067 0.6831 0.8438
+##   Non.forest 0.0198     0.2971 0.3169 0.9375
+##   Sum        0.5962     0.4038 1.0000       
+##   Producers  0.9668     0.7357        0.8735
 ## 
-## Overall accuracy:	0.8779
+## Overall accuracy:	0.8735
 ## 
-## Quantity disagreement:		0.0999
-## Allocation disagreement:	0.0223
+## Quantity disagreement:		0.0869
+## Allocation disagreement:	0.0396
 {% endhighlight %}
 
