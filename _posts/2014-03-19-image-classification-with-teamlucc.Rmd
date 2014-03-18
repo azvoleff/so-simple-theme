@@ -1,0 +1,23 @@
+## Classifying an image with teamlucc
+
+First load the `devtools` package, used for installing `teamlucc`.
+
+```{r}
+if (!require(devtools)) install.packages('devtools')
+```
+
+```{r}
+if (!require(teamlucc)) install_github('azvoleff/teamlucc')
+```
+
+Now load the teamlucc package, using `devtools` to install it from github if it 
+is not yet installed.
+
+The first step in the classification is putting together a training dataset. `teamlucc` includes a function to output a shapefile that can be used for collecting training data:
+
+get_extent_polys(raster_obj)
+
+```{r}
+results <- team_classify(predictor_file, train_shp, output_path, class_col, 
+                         training, n_cpus, overwrite, notify)
+```
