@@ -17,10 +17,10 @@ relationships between human and environmental change.
 
 ## Contact Information
 
-| Email: | azvoleff@conservation.org |
-| Phone: | 703-341-2749              |
-| Fax:   | 703-979-0953              |
-| Skype: | azvoleff                  |
+| Email: | <a href="mailto:azvoleff@conservation.org">azvoleff@conservation.org</a> |
+| Phone: | 703-341-2749 |
+| Fax:   | 703-979-0953 |
+| Skype: | azvoleff     |
 
 ## Mailing Address
 
