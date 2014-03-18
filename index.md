@@ -3,8 +3,6 @@ layout: page
 title: Homepage
 description: "Homepage for Alex Zvoleff, Postdoctoral Associate at Conservation International"
 tags: [Alex Zvoleff, R, python, remote sensing, imagery, land use, land cover, conservation, forest, human, social, survey, statistics, spatial]
-image:
-  feature: bg_forest_path.jpg
 ---
 
 <ul class="post-list">
