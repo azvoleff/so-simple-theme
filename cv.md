@@ -3,6 +3,7 @@ layout: page
 title: CV
 description: "CV for Alex Zvoleff, Postdoctoral Associate at Conservation International"
 tags: [Alex Zvoleff, CV, R, python, remote sensing, imagery, land use, land cover, conservation, forest, human, social, survey, statistics, spatial]
+image:
   feature: bg_salkantay.jpg
 ---
 
