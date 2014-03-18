@@ -4,7 +4,7 @@ title: Research
 description: "Research - azvoleff.com"
 tags: [Alex Zvoleff, R, python, remote sensing, imagery, land use, land cover, conservation, forest, human, social, survey, statistics, spatial]
 image:
-  feature: bg_salkantay.jpg
+  feature: bg_nepal_paddy.jpg
 ---
 
 ## TEAM
