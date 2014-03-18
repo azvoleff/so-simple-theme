@@ -30,7 +30,7 @@ library(raster)  # needed for plotRGB function
 plotRGB(L5TSR_1986, 3, 2, 1, scale = 1500)
 {% endhighlight %}
 
-![center](/../images/2014-02-17-calculating-image-textures-with-glcm/unnamed-chunk-2.png) 
+![1986 Landsat 5 image from Volcan Barva](/../images/2014-02-17-calculating-image-textures-with-glcm/L5TSR_1986_plot.png) 
 
 
 To calculate GLCM textures from this image using the default settings, type:
@@ -58,25 +58,15 @@ names(textures)
 {% endhighlight %}
 
 
-This shows that 8 GLCM texture statistics have been calculated by default:
-
-* mean
-* variance
-* homogeneity
-* contrast
-* dissimilarity
-* entropy
-* second moment
-* correlation.
-
-These can all be visualized in R:
+This shows the eight GLCM texture statistics that have been calculated by 
+default.  These can all be visualized in R:
 
 
 {% highlight r %}
 plot(textures$glcm_mean)
 {% endhighlight %}
 
-!["mean" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/unnamed-chunk-5.png) 
+!["mean" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/mean.png) 
 
 
 
@@ -84,7 +74,7 @@ plot(textures$glcm_mean)
 plot(textures$glcm_variance)
 {% endhighlight %}
 
-!["variance" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/unnamed-chunk-6.png) 
+!["variance" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/variance.png) 
 
 
 
@@ -92,7 +82,7 @@ plot(textures$glcm_variance)
 plot(textures$glcm_homogeneity)
 {% endhighlight %}
 
-!["homogeneity" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/unnamed-chunk-7.png) 
+!["homogeneity" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/homogeneity.png) 
 
 
 
@@ -100,7 +90,7 @@ plot(textures$glcm_homogeneity)
 plot(textures$glcm_contrast)
 {% endhighlight %}
 
-!["contrast" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/unnamed-chunk-8.png) 
+!["contrast" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/contrast.png) 
 
 
 
@@ -108,7 +98,7 @@ plot(textures$glcm_contrast)
 plot(textures$glcm_dissimilarity)
 {% endhighlight %}
 
-!["dissimilarity" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/unnamed-chunk-9.png) 
+!["dissimilarity" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/dissimilarity.png) 
 
 
 
@@ -116,7 +106,7 @@ plot(textures$glcm_dissimilarity)
 plot(textures$glcm_entropy)
 {% endhighlight %}
 
-!["entropy" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/unnamed-chunk-10.png) 
+!["entropy" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/entropy.png) 
 
 
 
@@ -124,7 +114,7 @@ plot(textures$glcm_entropy)
 plot(textures$glcm_second_moment)
 {% endhighlight %}
 
-!["second moment" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/unnamed-chunk-11.png) 
+!["second moment" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/second_moment.png) 
 
 
 
@@ -132,5 +122,5 @@ plot(textures$glcm_second_moment)
 plot(textures$glcm_correlation)
 {% endhighlight %}
 
-!["correlation" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/unnamed-chunk-12.png) 
+!["correlation" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/correlation.png) 
 
