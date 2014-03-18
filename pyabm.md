@@ -15,10 +15,10 @@ programming and analysis of agent-based models written in the
 standardize model and scenario development, ensuring documentation and
 repeatability of model results.
 
-PyABM development is ongoing. PyABM was originally developed to facilitate 
-running the [ChitwanABM](/chitwanabm) agent based model. As the ChitwanABM model 
-nears completion, PyABM will be continually updated, as code is integrated into 
-PyABM from ChitwanABM.
+PyABM was originally developed to facilitate running the 
+[ChitwanABM](/chitwanabm) agent based model. Development of the ChitwanABM is 
+complete, and future work on the PyABM toolkit is currently on hold (as of 
+March 2014).
 
 Please feel free to contact me with any questions about using the toolkit.
 
