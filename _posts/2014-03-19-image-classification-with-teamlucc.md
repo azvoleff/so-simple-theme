@@ -201,13 +201,13 @@ user's, producer's, and overall accuracies, calculated as in Olofssonet al.
 
 [^1]:
     Pontius, R. G., and M. Millones. 2011. Death to Kappa: birth of quantity 
-    disagreement and allocation disagreement for accuracy assessment.  
+    disagreement and allocation disagreement for accuracy assessment.
     International Journal of Remote Sensing 32:4407-4429.
 
 [^2]:
-    Olofsson, P., G. M. Foody, S. V.  Stehman, and C. E. Woodcock. 2013.  
+    Olofsson, P., G. M. Foody, S. V.  Stehman, and C. E. Woodcock. 2013.
     Making better use of accuracy data in land change studies: Estimating 
-    accuracy and area and quantifying uncertainty using stratified estimation.  
+    accuracy and area and quantifying uncertainty using stratified estimation.
     Remote Sensing of Environment 129:122-131.
 
 To calculate a basic contingency table, assuming that population frequencies of 
