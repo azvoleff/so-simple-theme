@@ -4,7 +4,6 @@ title: "PyABM logging setup"
 description: "How to use PyABM logging"
 category: articles
 tags: [python, pyabm]
-modified: 2012-11-19
 comments: true
 share: true
 ---

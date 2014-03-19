@@ -4,7 +4,6 @@ title: "PyABM configuration using 'pyabmrc' files"
 description: "How to use pyabmrc files to configure PyABM"
 category: articles
 tags: [python, pyabm]
-modified: 2012-11-18
 comments: true
 share: true
 ---

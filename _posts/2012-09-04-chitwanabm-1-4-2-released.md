@@ -1,10 +1,9 @@
 ---
 layout: post
 title: "ChitwanABM 1.4.2 Released"
-description: "ChitwanABM 1.4.2 is now available on PyPi."
+description: "ChitwanABM 1.4.2 is now available on PyPI."
 category: articles
 tags: [python, ABM, chitwanabm, pyabm, Nepal]
-modified: 2012-09-04
 comments: true
 share: true
 ---

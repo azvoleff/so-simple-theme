@@ -4,7 +4,6 @@ title: "PyABM 0.3.1 released"
 description: "PyABM 0.3.1 is now available on PyPI"
 category: articles
 tags: [python, ABM, pyabm]
-modified: 2012-09-04
 comments: true
 share: true
 ---

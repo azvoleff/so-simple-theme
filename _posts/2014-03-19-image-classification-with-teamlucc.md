@@ -4,7 +4,6 @@ title: "Classifying an image with teamlucc"
 description: "An overview of how to use the teamlucc package to classify a satellite image"
 category: articles
 tags: [R, teamlucc, remote sensing]
-modified: 2014-03-19
 comments: true
 share: true
 ---

@@ -4,7 +4,6 @@ title: "ChitwanABM 1.5 Released"
 description: "ChitwanABM 1.5 is now available on PyPI."
 category: articles
 tags: [python, ABM, chitwanabm, pyabm, Nepal]
-modified: 2013-02-23
 comments: true
 share: true
 ---

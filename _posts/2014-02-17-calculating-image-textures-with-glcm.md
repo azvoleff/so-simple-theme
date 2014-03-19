@@ -4,7 +4,6 @@ title: "Calculating image textures with GLCM"
 description: "An overview of how to use the glcm R package to calculate image texture measures"
 category: articles
 tags: [R, teamlucc, remote sensing]
-modified: 2014-03-19
 comments: true
 share: true
 ---

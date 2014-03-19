@@ -4,7 +4,6 @@ title: "Modifying the PyABM source code"
 description: "How to modify the installed PyABM source code using a pip editable install"
 category: articles
 tags: [python, pyabm]
-modified: 2012-11-27
 comments: true
 share: true
 ---
