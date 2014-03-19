@@ -12,8 +12,8 @@ image:
   {% if currentyear != year %}
     {% unless forloop.first %}</ul>{% endunless %}
     <h2>{{ currentyear }}</h2>
-    <ul>
+    <ul class="post-list">
     {% capture year %}{{currentyear}}{% endcapture %} 
   {% endif %}
-    <article><a href="{{ site.url }}{{ post.url }}">{{ post.title }} <span class="entry-date"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time></span></a></article>
+      <li><article><a href="{{ site.url }}{{ post.url }}">{{ post.title }} <span class="entry-date"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time></span></a></article></li>
 {% endfor %}
