@@ -11,7 +11,7 @@ image:
   {% capture currentyear %}{{post.date | date: "%Y"}}{% endcapture %}
   {% if currentyear != year %}
     {% unless forloop.first %}</ul>{% endunless %}
-    ## {{ currentyear }}
+    <h2>{{ currentyear }}</h2>
     <ul class="post-list">
     {% capture year %}{{currentyear}}{% endcapture %} 
   {% endif %}
