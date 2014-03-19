@@ -7,14 +7,13 @@ image:
   feature: bg_hillside.jpg
 ---
 
-<ul class="post-list">
-{% for post in site.posts %} 
-  <li>
-  <article><a href="{{ site.url }}{{ post.url }}">{{ post.title }} <span class="entry-date"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time></span></a></article>
-  <br>
-  <article> {{ post.excerpt | strip_html }}
-  <a href="{{ site.url }}{{ post.url }}">...click for more...</a></article>
-  <br>
-  </li>
+{% for post in site.posts %}
+  {% capture currentyear %}{{post.date | date: "%Y"}}{% endcapture %}
+  {% if currentyear != year %}
+    {% unless forloop.first %}</ul>{% endunless %}
+    <h2>{{ currentyear }}</h1>
+    <ul>
+    {% capture year %}{{currentyear}}{% endcapture %} 
+  {% endif %}
+    <article><a href="{{ site.url }}{{ post.url }}">{{ post.title }} <span class="entry-date"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time></span></a></article>
 {% endfor %}
-</ul>
