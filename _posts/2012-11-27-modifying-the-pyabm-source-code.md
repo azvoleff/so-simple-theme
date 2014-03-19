@@ -4,6 +4,7 @@ title: "Modifying the PyABM source code"
 description: "How to modify the installed PyABM source code using a pip editable install"
 category: articles
 tags: [python, pyabm]
+modified: 2014-03-19
 comments: true
 share: true
 ---
@@ -11,7 +12,7 @@ share: true
 ## Modifying the latest release of PyABM
 If you plan on making any changes to the PyABM source code, you can use a 
 [pip](http://www.pip-installer.org) ["editable 
-install"](http://www.pip-installer.org/en/latest/usage.html#editable-mode) to 
+install"](http://www.pip-installer.org/en/latest/reference/pip_install.html?highlight=editable%20install#editable-installs) to 
 install PyABM in your local user folder so that you can edit the source code in 
 place without having to rebuild and reinstall the PyABM package every time you 
 make a change. To use this feature, first install pip, then open a command 
