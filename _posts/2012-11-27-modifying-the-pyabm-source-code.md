@@ -17,13 +17,13 @@ place without having to rebuild and reinstall the PyABM package every time you
 make a change. To use this feature, first install pip, then open a command 
 window and type:
 
-{% highlight shell %}
+{% highlight sh %}
 sudo pip install -e pyabm
 {% endhighlight %}
 
 in a command prompt in Linux, or
 
-{% highlight shell %}
+{% highlight sh %}
     pip install -e pyabm
 {% endhighlight %}
 
@@ -48,13 +48,13 @@ immediately.
 If you have git installed on your system, you can use pip to clone and install 
 the development version of PyABM from github by typing:
 
-{% highlight shell %}
+{% highlight sh %}
     sudo pip install -e git+https://github.com/azvoleff/pyabm.git#egg=pyabm
 {% endhighlight %}
 
 in a command prompt in Linux, or
 
-{% highlight shell %}
+{% highlight sh %}
     pip install -e git+https://github.com/azvoleff/pyabm.git#egg=pyabm
 {% endhighlight %}
 
@@ -62,7 +62,7 @@ on Windows. An advantage of cloning PyABM from github is that you can easily
 update your copy of PyABM to include the latest changes by navigating to the 
 main PyABM folder and typing
 
-{% highlight shell %}
+{% highlight sh %}
     git pull
 {% endhighlight %}
 
@@ -74,7 +74,7 @@ PyABM as a [zip file](https://github.com/azvoleff/pyabm/archive/master.zip).
 After downloading the PyABM source code, navigate to the main PyABM folder (the 
 one with setup.py) and type:
 
-{% highlight shell %}
+{% highlight sh %}
     python setup.py develop
 {% endhighlight %}
 
