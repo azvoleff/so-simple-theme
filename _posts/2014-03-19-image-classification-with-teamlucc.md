@@ -193,11 +193,11 @@ components of image classification. The `teamlucc` package includes an
 `accuracy` function to assist with measuring the accuracy of image 
 classifications. In addition to the standard contingency tables often used for 
 describing accuracy, `accuracy` also calculates "quantity disagreement" and
-"allocation disagreement" as introduced by Pontius and Millones [^1]. Unbiased 
-contingency tables can be calculated with `accuracy` by supplying a `pop` 
-parameter to `accuracy`. `accuracy` provides 95% confidence intervals for 
-user's, producer's, and overall accuracies, calculated as in Olofssonet al. 
-2013 [^2].
+"allocation disagreement" as introduced by Pontius and Millones 2011[^1].  
+Unbiased contingency tables can be calculated with `accuracy` by supplying a 
+`pop` parameter to `accuracy`. `accuracy` provides 95% confidence intervals for 
+user's, producer's, and overall accuracies, calculated as in Olofsson et al.  
+2013[^2].
 
 [^1]:
     Pontius, R. G., and M. Millones. 2011. Death to Kappa: birth of quantity 
