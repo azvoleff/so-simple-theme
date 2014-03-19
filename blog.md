@@ -12,7 +12,8 @@ image:
   <li>
   <article><a href="{{ site.url }}{{ post.url }}">{{ post.title }} <span class="entry-date"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time></span></a></article>
   <br>
-  <article><a href="{{ site.url }}{{ post.url }}"> {{ post.excerpt | strip_html }} ...</a></article>
+  <article> {{ post.excerpt | strip_html }}
+  <a href="{{ site.url }}{{ post.url }}">...</a></article>
   <br>
   </li>
 {% endfor %}
