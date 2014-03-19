@@ -47,6 +47,6 @@ The [ChitwanABM](/chitwanabm) agent-based model is built using the PyABM
 toolkit. The code of the ChitwanABM is open source (released under the GPL).
 
 ## Developed With...
-![Python]({{ http://www.python.org }} /images/Python_logo_200x53.png)
-![R Statistical Computing Environment]({{ http://www.r-project.org }} /images/R_logo_71x54.png)
+[<img src="/images/Python_logo_200x53.png" alt="Python" align="middle">](http://www.python.org)
+[<img src="/images/R_logo_71x54.png" alt="R Statistical Computing Environment" align="middle">](http://www.r-project.org)
 
