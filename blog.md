@@ -7,12 +7,11 @@ image:
   feature: bg_hillside.jpg
 ---
 
-<ul>
-  {% for post in site.posts %}
-    <li>
-      <a href="{{ post.url }}">{{ post.title }}</a>
-      {{ post.excerpt }}
-    </li>
-  {% endfor %}
+<ul class="post-list">
+{% for post in site.posts %} 
+  <li>
+  <article><a href="{{ site.url }}{{ post.url }}">{{ post.title }} <span class="entry-date"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time></span></a></article>
+  {{ post.excerpt }}
+  </li>
+{% endfor %}
 </ul>
-
