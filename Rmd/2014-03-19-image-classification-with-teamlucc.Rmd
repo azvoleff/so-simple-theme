@@ -108,7 +108,9 @@ summary(train_data)
 ```
 
 To perform the actual image classification, we will use the `classify_image` 
-function:
+function. This function automates image classification using a support vector 
+machine (SVM) classifier. There are many options that can be provided to 
+`classify_image` - for this example we will just use the defaults:
 
 ```{r}
 classification <- classify_image(L5TSR_1986, train_data)
@@ -146,14 +148,14 @@ parameter to `accuracy`. `accuracy` provides 95% confidence intervals for
 user's, producer's, and overall accuracies, calculated as in Olofssonet al. 
 2013 [^2].
 
-[^1] Pontius, R. G., and M. Millones. 2011. Death to Kappa: birth of quantity 
+[^1]: Pontius, R. G., and M. Millones. 2011. Death to Kappa: birth of quantity 
 disagreement and allocation disagreement for accuracy assessment. International 
 Journal of Remote Sensing 32:4407-4429.
 
-[^2] Olofsson, P., G. M. Foody, S. V.  Stehman, and C. E. Woodcock. 2013. Making 
-better use of accuracy data in land change studies: Estimating accuracy and 
-area and quantifying uncertainty using stratified estimation. Remote Sensing of 
-Environment 129:122-131.
+[^2]: Olofsson, P., G. M. Foody, S. V.  Stehman, and C. E. Woodcock. 2013.  
+Making better use of accuracy data in land change studies: Estimating accuracy 
+and area and quantifying uncertainty using stratified estimation. Remote 
+Sensing of Environment 129:122-131.
 
 To calculate a basic contingency table, assuming that population frequencies of 
 the observed classes can be estimated from the classification output, run the 
