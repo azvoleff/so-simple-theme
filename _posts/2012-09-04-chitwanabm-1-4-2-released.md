@@ -7,6 +7,7 @@ tags: [python, ABM, chitwanabm, pyabm, Nepal]
 comments: true
 share: true
 ---
+
 The latest release of Chitwan ABM (version 1.4.2) is now available at the 
 [Python Package Index](http://pypi.python.org/pypi/chitwanabm/1.4.2).
 

@@ -11,7 +11,9 @@ share: true
 [PyABM](/pyabm) configuration is done using a pyabmrc text file. When loaded in 
 Python, using:
 
-    import pyabm
+{% highlight python %}
+import pyabm
+{% endhighlight %}
 
 PyABM will search for a pyabmrc file. PyABM will search three locations, in 
 order:

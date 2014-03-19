@@ -17,11 +17,15 @@ place without having to rebuild and reinstall the PyABM package every time you
 make a change. To use this feature, first install pip, then open a command 
 window and type:
 
-    sudo pip install -e pyabm
+{% highlight shell %}
+sudo pip install -e pyabm
+{% endhighlight %}
 
 in a command prompt in Linux, or
 
+{% highlight shell %}
     pip install -e pyabm
+{% endhighlight %}
 
 on Windows. This will install the latest release of PyABM as an editable 
 install so that you can `import pyabm` from any python window or script, and 
@@ -44,17 +48,23 @@ immediately.
 If you have git installed on your system, you can use pip to clone and install 
 the development version of PyABM from github by typing:
 
+{% highlight shell %}
     sudo pip install -e git+https://github.com/azvoleff/pyabm.git#egg=pyabm
+{% endhighlight %}
 
 in a command prompt in Linux, or
 
+{% highlight shell %}
     pip install -e git+https://github.com/azvoleff/pyabm.git#egg=pyabm
+{% endhighlight %}
 
 on Windows. An advantage of cloning PyABM from github is that you can easily 
 update your copy of PyABM to include the latest changes by navigating to the 
 main PyABM folder and typing
 
+{% highlight shell %}
     git pull
+{% endhighlight %}
 
 to pull the latest version of the PyABM source code from git and (depending on 
 your settings in git) merge any upstream changes with your local edits.
@@ -64,7 +74,9 @@ PyABM as a [zip file](https://github.com/azvoleff/pyabm/archive/master.zip).
 After downloading the PyABM source code, navigate to the main PyABM folder (the 
 one with setup.py) and type:
 
+{% highlight shell %}
     python setup.py develop
+{% endhighlight %}
 
 This will install a development version of PyABM and setup your system so that 
 you can `import pyabm` from your Python interpreter from your Python scripts.

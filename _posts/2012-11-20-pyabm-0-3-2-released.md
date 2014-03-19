@@ -10,3 +10,4 @@ share: true
 
 The latest release of PyABM (version 0.3.2) is now available at the 
 [Python Package Index](http://pypi.python.org/pypi/pyabm/0.3.2).
+
