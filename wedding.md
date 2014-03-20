@@ -45,11 +45,11 @@ will be in touch as the date approaches.
 
 ## Hotels
 
-### <a href="http://www.jdvhotels.com/hotels/california/san-francisco-hotels/galleria-park-hotel">Galleria Park Hotel</a>
+### [Galleria Park Hotel](http://www.jdvhotels.com/hotels/california/san-francisco-hotels/galleria-park-hotel)
 <p style="padding-left: 30px;">$170 - $185 per night (single rooms) $190 per night (double rooms)
 <strong>Address:</strong> <a href="https://www.google.com/maps/preview/place/Galleria+Park+Hotel/@37.7897284,-122.4035623,17z">191 Sutter St</a> <a href="https://www.google.com/maps/preview/place/Galleria+Park+Hotel/@37.7897284,-122.4035623,17z">San Francisco, CA 94104</a> (415) 781-3060</p>
 
-### <a href="http://www.stanyanpark.com">Stanyan Park Hotel</a>
+### [Stanyan Park Hotel](http://www.stanyanpark.com)
 <p style="padding-left: 30px;">$175-$220 per night (single rooms) .5 mile walk from Zvoleff home
 <strong>Address: </strong><a href="https://www.google.com/maps/preview/place/Stanyan+Park+Hotel/@37.7681372,-122.453239,17z">750 Stanyan St San Francisco, CA 94117 </a>(415) 751-1000</p>
 
