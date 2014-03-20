@@ -15,12 +15,12 @@ tags: [R, remote sensing, land use and cover change, GIS]
 </ul>
 
 ## Overview
-"teamlucc" is a package supporting the analysis of land use and cover change 
+`teamlucc` is a package supporting the analysis of land use and cover change 
 (LUCC) around the monitoring sites of the <a title="TEAM Network" 
 href="http://www.teamnetwork.org">Tropical Ecology Assessment and Monitoring 
 (TEAM) Network</a>.
 
-Development of "teamlucc" is ongoing. See the [`teamlucc` github project 
+Development of `teamlucc` is ongoing. See the [`teamlucc` github project 
 page](https://github.com/azvoleff/teamlucc) for the latest development release.
 
 ## Developed With...

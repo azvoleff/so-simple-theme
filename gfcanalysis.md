@@ -15,7 +15,7 @@ tags: [remote sensing, Landsat, R]
 </ul>
 
 ## Overview
-"gfcanalysis" is a package supporting analysis of land use and cover change 
+`gfcanalysis` is a package supporting analysis of land use and cover change 
 (LUCC) around the monitoring sites of the [Tropical Ecology Assessment and 
 Monitoring (TEAM) Network](http://www.teamnetwork.org).
 
