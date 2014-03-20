@@ -71,4 +71,4 @@ exclude: ["lib", "config.rb", "Gemfile", "Capfile", "Gemfile.lock", "config", "l
 
 piwik:
   base_url: stats.azvoleff.com
-  site_id: 5
+  site_id: 1
