@@ -8,6 +8,7 @@ layout: nil
     </url>
     
     {% for page in site.pages %}
+    {% if !page.sitemap_exclude %}
     <url>
         <loc>{{ site.url }}{{ page.url }}</loc>
     </url>
