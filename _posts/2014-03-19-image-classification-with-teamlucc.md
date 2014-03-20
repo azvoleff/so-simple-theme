@@ -29,11 +29,34 @@ if (!require(teamlucc)) install_github("azvoleff/teamlucc")
 {% endhighlight %}
 
 
+
+{% highlight text %}
+## Loading required package: teamlucc
+## Loading required package: Rcpp
+## Loading required package: RcppArmadillo
+## Loading required package: raster
+## Loading required package: sp
+## SDMTools 1.1-13 (2012-11-08)
+{% endhighlight %}
+
+
 Also load the `rgdal` package needed for reading/writing shapefiles:
 
 
 {% highlight r %}
 library(rgdal)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## rgdal: version: 0.8-16, (SVN revision 498)
+## Geospatial Data Abstraction Library extensions to R successfully loaded
+## Loaded GDAL runtime: GDAL 1.10.1, released 2013/08/26
+## Path to GDAL shared files: C:/Users/azvoleff/Documents/R/win-library/3.0/rgdal/gdal
+## GDAL does not use iconv for recoding strings.
+## Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]
+## Path to PROJ.4 shared files: C:/Users/azvoleff/Documents/R/win-library/3.0/rgdal/proj
 {% endhighlight %}
 
 
@@ -143,7 +166,7 @@ summary(train_data)
 To perform the actual image classification, we will use the `classify_image` 
 function. This function automates image classification using a support vector 
 machine (SVM) classifier. There are many options that can be provided to 
-`classify_image` - for this example we will just use the defaults:
+`classify_image` - for this example we will just use the defaults.
 
 
 {% highlight r %}
@@ -154,6 +177,34 @@ classification <- classify_image(L5TSR_1986, train_data)
 
 {% highlight text %}
 ## [1] "Training classifier..."
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Loading required package: kernlab
+## 
+## Attaching package: 'kernlab'
+## 
+## The following objects are masked from 'package:raster':
+## 
+##     buffer, rotated
+## 
+## Loading required package: class
+## 
+## Attaching package: 'e1071'
+## 
+## The following object is masked from 'package:raster':
+## 
+##     interpolate
+## 
+## Loading required package: lattice
+## Loading required package: ggplot2
+{% endhighlight %}
+
+
+
+{% highlight text %}
 ## [1] "Predicting classes..."
 ## [1] "Calculating class probabilities..."
 {% endhighlight %}
@@ -179,12 +230,89 @@ spplot(classification$pred_probs)
 ![Predicted probabilities of each class](/../images/2014-03-19-image-classification-with-teamlucc/class_probabilities.png) 
 
 
-Note that we can pass the `n_cpus=2` parameter to tell 
-`team_classify` to use parallel processing if we have two (or more) CPUs. Don't 
-set `n_cpus` to use all of your processors unless you want R to totally take 
-over your system while it runs. I usually set `n_cpus=3` when running on my 
-laptop, allowing one free core (I can run four threads on my laptop) so that I 
-can still check email, etc. while scripts are running.
+### Parallel processing
+
+Training a classifier and predicting land cover classes is very CPU-intensive.  
+If you have a machine that has multiple processors (or multiple cores), using 
+more than one processor can significantly increase the speed of some 
+calculations. `teamlucc` supports parallel computations (using the capabilities 
+of the `raster` package). To enable this functionality, first install the
+`snow` package if it is not already installed:
+
+
+{% highlight r %}
+if (!require(devtools)) install.packages("snow")
+{% endhighlight %}
+
+
+Now, just call `beginCluster()`, and by default any calculations that are coded 
+to run in parallel will use all the available CPUs on your machine. After 
+running computations, always call `endCluster()` to stop the cluster. Both the 
+`extract_training_data` and `image_classify` functions in `teamlucc` support 
+parallel computations. Below is the code for the same classification problem we 
+just ran, but this time run in parallel:
+
+
+{% highlight r %}
+beginCluster()
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Loading required package: snow
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## 4 cores detected
+{% endhighlight %}
+
+
+
+{% highlight r %}
+train_data_par <- extract_training_data(L5TSR_1986, train_polys, class_col = "class_1986", 
+    training = 0.6)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Using cluster with 4 nodes
+{% endhighlight %}
+
+
+
+{% highlight r %}
+classification_par <- classify_image(L5TSR_1986, train_data)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Loading required package: doSNOW
+## Loading required package: foreach
+## foreach: simple, scalable parallel programming from Revolution Analytics
+## Use Revolution R for scalability, fault tolerance and more.
+## http://www.revolutionanalytics.com
+## Loading required package: iterators
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## [1] "Training classifier..."
+## [1] "Predicting classes..."
+## [1] "Calculating class probabilities..."
+{% endhighlight %}
+
+
+
+{% highlight r %}
+endCluster()
+{% endhighlight %}
+
 
 ## Accuracy assessment
 
@@ -247,14 +375,14 @@ summary(acc)
 ## Population contingency table:
 ##             observed
 ## predicted    Forest Non.forest    Sum  Users
-##   Forest     0.4551     0.2275 0.6826 0.6667
-##   Non.forest 0.0302     0.2872 0.3174 0.9048
-##   Sum        0.4853     0.5147 1.0000       
-##   Producers  0.9377     0.5579        0.7422
+##   Forest     0.4490     0.2245 0.6736 0.6667
+##   Non.forest 0.0311     0.2954 0.3264 0.9048
+##   Sum        0.4801     0.5199 1.0000       
+##   Producers  0.9352     0.5681        0.7444
 ## 
-## Overall accuracy:	0.7422
+## Overall accuracy:	0.7444
 ## 
-## Quantity disagreement:		0.1973
-## Allocation disagreement:	0.0605
+## Quantity disagreement:		0.1934
+## Allocation disagreement:	0.0622
 {% endhighlight %}
 
