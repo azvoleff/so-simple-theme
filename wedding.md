@@ -18,7 +18,7 @@ sitemap_exclude: True
 ### Friday, April 18, 2014
 
 | 2PM    | Ceremony at San Francisco City Hall, Fourth Floor North Gallery |
-| 4PM    | Reception at Zvoleff Home |
+| 4PM    | Reception at Zvoleff home |
 | 6:30PM | Dinner at <a href="http://sfsociale.com/">Sociale</a>
 
 ### Saturday &amp; Sunday (April 19 &amp; 20th)
@@ -32,15 +32,15 @@ will be in touch as the date approaches.
 ## Addresses
 
 ### <a href="http://sfgsa.org/index.aspx?page=1085">San Francisco City Hall</a>
-<p style="padding-left: 30px;">Cross streets are Van Ness or Polk Street and McCallister. Entrance off of Polk St.
+<p style="padding-left: 30px;">Cross streets are Van Ness or Polk Street and McCallister. Entrance off of Polk St.<br>
 <strong>Address </strong><a href="https://www.google.com/maps/preview/place/San+Francisco+City+Hall/@37.7793427,-122.4189105,17z">1 Dr Carlton B Goodlett Pl San Francisco, CA 94102 </a></p>
 
-### <a href="https://maps.google.com/maps?q=416+stanyan+st+san+francisco">Zvoleff Home</a>
-<p style="padding-left: 30px;">Cross streets are Fulton St. and Stanyan St.
+### <a href="https://maps.google.com/maps?q=416+stanyan+st+san+francisco">Zvoleff home</a>
+<p style="padding-left: 30px;">Cross streets are Fulton St. and Stanyan St.<br>
 <strong>Address </strong><a href="https://www.google.com/maps/preview/place/416+Stanyan+St/@37.7745543,-122.454306,17z">416 Stanyan Street</a> <a href="https://www.google.com/maps/preview/place/416+Stanyan+St/@37.7745543,-122.454306,17z">San Francisco, CA 94117</a></p>
 
 ### <a href="http://www.sfsociale.com">Sociale (restaurant)</a>
-<p style="padding-left: 30px;">Cross streets are Sacramento St. and Spruce St.
+<p style="padding-left: 30px;">Cross streets are Sacramento St. and Spruce St.<br>
 <strong>Address </strong><a href="https://www.google.com/maps/place/Sociale/@37.7875304,-122.4530431,18z">3665 Sacramento St, San Francisco, CA 94118</a></p>
 
 ## Hotels
@@ -50,7 +50,7 @@ will be in touch as the date approaches.
 <strong>Address:</strong> <a href="https://www.google.com/maps/preview/place/Galleria+Park+Hotel/@37.7897284,-122.4035623,17z">191 Sutter St</a> <a href="https://www.google.com/maps/preview/place/Galleria+Park+Hotel/@37.7897284,-122.4035623,17z">San Francisco, CA 94104</a> (415) 781-3060</p>
 
 ### <a href="http://www.stanyanpark.com">Stanyan Park Hotel</a>
-<p style="padding-left: 30px;">$175-$220 per night (single rooms) .5 mile walk from Zvoleff Home
+<p style="padding-left: 30px;">$175-$220 per night (single rooms) .5 mile walk from Zvoleff home
 <strong>Address: </strong><a href="https://www.google.com/maps/preview/place/Stanyan+Park+Hotel/@37.7681372,-122.453239,17z">750 Stanyan St San Francisco, CA 94117 </a>(415) 751-1000</p>
 
 ## Transportation Options
@@ -82,8 +82,8 @@ hotels, and there is a garage at City Hall.
 
 ### <a href="http://www.sfmta.com/">Muni (bus)</a>
 <ul>
-	<li>5 Fulton-goes between City Hall and Zvoleff Home to downtown</li>
-	<li>21 Hayes-goes between City Hall and Zvoleff Home and downtown</li>
+	<li>5 Fulton-goes between City Hall and Zvoleff home to downtown</li>
+	<li>21 Hayes-goes between City Hall and Zvoleff home and downtown</li>
 </ul>
 
 ## Places to See
