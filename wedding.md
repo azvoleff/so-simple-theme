@@ -44,6 +44,7 @@ will be in touch as the date approaches.
 <strong>Address </strong><a href="https://www.google.com/maps/place/Sociale/@37.7875304,-122.4530431,18z">3665 Sacramento St, San Francisco, CA 94118</a></p>
 
 ## Hotels
+
 ### <a href="http://www.jdvhotels.com/hotels/california/san-francisco-hotels/galleria-park-hotel">Galleria Park Hotel</a>
 <p style="padding-left: 30px;">$170 - $185 per night (single rooms) $190 per night (double rooms)
 <strong>Address:</strong> <a href="https://www.google.com/maps/preview/place/Galleria+Park+Hotel/@37.7897284,-122.4035623,17z">191 Sutter St</a> <a href="https://www.google.com/maps/preview/place/Galleria+Park+Hotel/@37.7897284,-122.4035623,17z">San Francisco, CA 94104</a> (415) 781-3060</p>
