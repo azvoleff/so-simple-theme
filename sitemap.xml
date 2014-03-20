@@ -8,18 +8,18 @@ layout: nil
     </url>
     
     {% for page in site.pages %}
-        {% if !page.sitemap_exclude %}
+        {% unless page.sitemap_exclude %}
         <url>
             <loc>{{ site.url }}{{ page.url }}</loc>
         </url>
-        {% endif %}
+        {% endunless %}
     {% endfor %}
 
     {% for post in site.posts %}
-        {% if !page.sitemap_exclude %}
+        {% unless page.sitemap_exclude %}
         <url>
             <loc>{{ site.url }}{{ post.url }}</loc>
         </url>
-        {% endif %}
+        {% endunless %}
     {% endfor %}
 </urlset>
