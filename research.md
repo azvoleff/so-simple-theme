@@ -2,7 +2,7 @@
 layout: page
 title: Research
 description: "Research - azvoleff.com"
-tags: [Alex Zvoleff, R, python, research, remote sensing, imagery, satellite, land use, land cover, conservation, forest, human, social, survey, statistics, spatial]
+tags: [Alex Zvoleff, R, python, remote sensing]
 image:
   feature: bg_nepal_paddy.jpg
 ---

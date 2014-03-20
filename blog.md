@@ -2,7 +2,7 @@
 layout: page
 title: Blog
 description: "Blog - azvoleff.com"
-tags: [Alex Zvoleff, R, python, remote sensing, imagery, land use, land cover, conservation, forest, human, social, survey, statistics, spatial]
+tags: [Alex Zvoleff, R, python, remote sensing]
 image:
   feature: bg_hillside.jpg
 ---

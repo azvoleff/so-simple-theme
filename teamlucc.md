@@ -3,14 +3,25 @@
 layout: page
 title: teamlucc
 description: "teamlucc - azvoleff.com"
-tags: [Alex Zvoleff, CV, R, python, remote sensing, imagery, land use, land cover, conservation, forest, human, social, survey, statistics, spatial]
+tags: [R, remote sensing, land use and cover change, GIS]
 
 ---
 
-## Overview
-"teamlucc" is a package supporting the analysis of land use and cover change (LUCC) around the monitoring sites of the <a title="TEAM Network" href="http://www.teamnetwork.org">Tropical Ecology Assessment and Monitoring (TEAM) Network</a>.
+## Recent News
+<ul class="post-list">
+{% for post in site.tags.teamlucc limit:5 %} 
+  <li><article><a href="{{ site.url }}{{ post.url }}">{{ post.title }} <span class="entry-date"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time></span></a></article></li>
+{% endfor %}
+</ul>
 
-Development of "teamlucc" is ongoing. See the <a title="teamr" href="https://github.com/azvoleff/teamlucc">teamlucc github project page</a> for the latest development release.
+## Overview
+"teamlucc" is a package supporting the analysis of land use and cover change 
+(LUCC) around the monitoring sites of the <a title="TEAM Network" 
+href="http://www.teamnetwork.org">Tropical Ecology Assessment and Monitoring 
+(TEAM) Network</a>.
+
+Development of "teamlucc" is ongoing. See the [`teamlucc` github project 
+page](https://github.com/azvoleff/teamlucc) for the latest development release.
 
 ## Developed With...
 ![R Statistical Computing Environment]({{ http://www.r-project.org }} /images/R_logo_71x54.png)

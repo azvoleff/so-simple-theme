@@ -3,7 +3,7 @@
 layout: page
 title: PyABM
 description: "PyABM - azvoleff.com"
-tags: [Alex Zvoleff, agent-based modeling, ABM, model, spatial, simulation, R, python, land use, land cover, human, social, survey, statistics]
+tags: [Alex Zvoleff, ABM, pyabm, python]
 
 ---
 
@@ -23,7 +23,11 @@ March 2014).
 Please feel free to contact me with any questions about using the toolkit.
 
 ## Recent News
-TODO: Include recent PyABM posts here.
+<ul class="post-list">
+{% for post in site.tags.pyabm limit:5 %} 
+  <li><article><a href="{{ site.url }}{{ post.url }}">{{ post.title }} <span class="entry-date"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time></span></a></article></li>
+{% endfor %}
+</ul>
 
 ## Download PyABM
 
