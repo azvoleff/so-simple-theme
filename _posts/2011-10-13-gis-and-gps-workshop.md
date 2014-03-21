@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "GIS and GPS Workshop (fall 2011)"
-description: "GIS and GPS workshop held in Fall 2011 at the Chitwan District Development Committee headquarters"n
+description: "GIS and GPS workshop held in Fall 2011 at the Chitwan District Development Committee headquarters"
 category: articles
 modified: 2014-03-20
 tags: [nepal, chitwan, gis, gps, remote sensing, teaching]
