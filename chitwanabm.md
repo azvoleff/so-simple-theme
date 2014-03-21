@@ -78,6 +78,3 @@ The ChitwanABMagent-based model is built using the <a title="PyABM" href="http:/
 * <a href="http://www.azvoleff.com/wp-content/uploads/2012/11/Zvoleff_An_PIRE_2010_lowres.pdf">Presentation</a> given at 2010 NSF PIRE meeting on 8/11/2010 in Ann Arbor, Michigan.
 * <a href="http://www.azvoleff.com/wp-content/uploads/2012/11/Zvoleff_An_PIRE_2009_lowres.pdf">Presentation</a> given at 2009 NSF PIRE meeting on 8/20/2009 in East Lansing, Michigan.
 
-
-## Developed With...
-<p style="text-align: center;"> <a href="http://www.python.org"><img title="Python_logo" alt="Python 2.7" src="http://www.azvoleff.com/wp-content/uploads/2012/11/Python_logo.png" width="200" height="90" /></a> <a href="http://www.r-project.org"><img title="R_logo" alt="R Statistical Computing Environment" src="http://www.azvoleff.com/wp-content/uploads/2012/11/R_logo.png" width="71" height="90" /></a></p>

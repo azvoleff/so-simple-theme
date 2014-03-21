@@ -15,12 +15,20 @@ tags: [remote sensing, Landsat, R]
 </ul>
 
 ## Overview
-`gfcanalysis` is a package supporting analysis of land use and cover change 
-(LUCC) around the monitoring sites of the [Tropical Ecology Assessment and 
+`gfcanalysis` is an R package to facilitate analyses of forest change using the 
+Global Forest Change dataset released by Hansen et al. 2013[^1]. The package 
+was designed to support the work of the Tropical Ecology Assessment & 
 Monitoring (TEAM) Network](http://www.teamnetwork.org).
 
-Development of `gfcanalysis` is ongoing. See the [gfcanalysis github project 
-page](https://github.com/azvoleff/gfcanalysis) for the latest release.
+See the [`gfcanalysis` github project 
+page](https://github.com/azvoleff/gfcanalysis) for the latest release, and 
+details on how to install `gfcanalysis`.
 
-## Developed With...
-![R Statistical Computing Environment]({{ http://www.r-project.org }} /images/R_logo_71x54.png)
+[^1]:
+    Hansen, M. C., P. V. Potapov, R. Moore, M. Hancher, S. A. Turubanova, A. 
+    Tyukavina, D. Thau, S. V. Stehman, S. J. Goetz, T. R. Loveland, A. Kommareddy, 
+    A. Egorov, L. Chini, C. O. Justice, and J. R. G. Townshend. 2013. 
+    High-Resolution Global Maps of 21st-Century Forest Cover Change. Science 342, 
+    (15 November): 850--853. Data available on-line from: 
+    http://earthenginepartners.appspot.com/science-2013-global-forest.
+

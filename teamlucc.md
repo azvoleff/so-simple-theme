@@ -23,6 +23,3 @@ href="http://www.teamnetwork.org">Tropical Ecology Assessment and Monitoring
 Development of `teamlucc` is ongoing. See the [`teamlucc` github project 
 page](https://github.com/azvoleff/teamlucc) for the latest development release.
 
-## Developed With...
-![R Statistical Computing Environment]({{ http://www.r-project.org }} /images/R_logo_71x54.png)
-

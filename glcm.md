@@ -19,6 +19,3 @@ tags: [R, remote sensing, land use and cover change]
 co-occurrence matrices (GLCM). See the [`glcm` github project 
 page](https://github.com/azvoleff/glcm) for the latest development release.
 
-## Developed With...
-![R Statistical Computing Environment]({{ http://www.r-project.org }} /images/R_logo_71x54.png)
-
