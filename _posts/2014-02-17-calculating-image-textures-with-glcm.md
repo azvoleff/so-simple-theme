@@ -47,7 +47,7 @@ library(raster)  # needed for plotRGB function
 plotRGB(L5TSR_1986, 3, 2, 1, scale = 1500)
 {% endhighlight %}
 
-![1986 Landsat 5 image from Volcan Barva](/../images/2014-02-17-calculating-image-textures-with-glcm/L5TSR_1986_plot.png) 
+![1986 Landsat 5 image from Volcan Barva](/../content/2014-02-17-calculating-image-textures-with-glcm/L5TSR_1986_plot.png) 
 
 
 To calculate GLCM textures from this image using the default settings, type:
@@ -83,7 +83,7 @@ default.  These can all be visualized in R:
 plot(textures$glcm_mean)
 {% endhighlight %}
 
-!["mean" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/mean.png) 
+!["mean" GLCM texture calculated by glcm R package](/../content/2014-02-17-calculating-image-textures-with-glcm/mean.png) 
 
 
 
@@ -91,7 +91,7 @@ plot(textures$glcm_mean)
 plot(textures$glcm_variance)
 {% endhighlight %}
 
-!["variance" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/variance.png) 
+!["variance" GLCM texture calculated by glcm R package](/../content/2014-02-17-calculating-image-textures-with-glcm/variance.png) 
 
 
 
@@ -99,7 +99,7 @@ plot(textures$glcm_variance)
 plot(textures$glcm_homogeneity)
 {% endhighlight %}
 
-!["homogeneity" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/homogeneity.png) 
+!["homogeneity" GLCM texture calculated by glcm R package](/../content/2014-02-17-calculating-image-textures-with-glcm/homogeneity.png) 
 
 
 
@@ -107,7 +107,7 @@ plot(textures$glcm_homogeneity)
 plot(textures$glcm_contrast)
 {% endhighlight %}
 
-!["contrast" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/contrast.png) 
+!["contrast" GLCM texture calculated by glcm R package](/../content/2014-02-17-calculating-image-textures-with-glcm/contrast.png) 
 
 
 
@@ -115,7 +115,7 @@ plot(textures$glcm_contrast)
 plot(textures$glcm_dissimilarity)
 {% endhighlight %}
 
-!["dissimilarity" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/dissimilarity.png) 
+!["dissimilarity" GLCM texture calculated by glcm R package](/../content/2014-02-17-calculating-image-textures-with-glcm/dissimilarity.png) 
 
 
 
@@ -123,7 +123,7 @@ plot(textures$glcm_dissimilarity)
 plot(textures$glcm_entropy)
 {% endhighlight %}
 
-!["entropy" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/entropy.png) 
+!["entropy" GLCM texture calculated by glcm R package](/../content/2014-02-17-calculating-image-textures-with-glcm/entropy.png) 
 
 
 
@@ -131,7 +131,7 @@ plot(textures$glcm_entropy)
 plot(textures$glcm_second_moment)
 {% endhighlight %}
 
-!["second moment" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/second_moment.png) 
+!["second moment" GLCM texture calculated by glcm R package](/../content/2014-02-17-calculating-image-textures-with-glcm/second_moment.png) 
 
 
 
@@ -139,5 +139,5 @@ plot(textures$glcm_second_moment)
 plot(textures$glcm_correlation)
 {% endhighlight %}
 
-!["correlation" GLCM texture calculated by glcm R package](/../images/2014-02-17-calculating-image-textures-with-glcm/correlation.png) 
+!["correlation" GLCM texture calculated by glcm R package](/../content/2014-02-17-calculating-image-textures-with-glcm/correlation.png) 
 

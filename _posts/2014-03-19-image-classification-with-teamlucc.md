@@ -217,7 +217,7 @@ To see the predicted classes, use `spplot`:
 spplot(classification$pred_classes)
 {% endhighlight %}
 
-![Predicted classes](/../images/2014-03-19-image-classification-with-teamlucc/predicted_classes.png) 
+![Predicted classes](/../content/2014-03-19-image-classification-with-teamlucc/predicted_classes.png) 
 
 
 We can also see the class probabilities (per pixel probabilities of membership of each class):
@@ -227,7 +227,7 @@ We can also see the class probabilities (per pixel probabilities of membership o
 spplot(classification$pred_probs)
 {% endhighlight %}
 
-![Predicted probabilities of each class](/../images/2014-03-19-image-classification-with-teamlucc/class_probabilities.png) 
+![Predicted probabilities of each class](/../content/2014-03-19-image-classification-with-teamlucc/class_probabilities.png) 
 
 
 ### Parallel processing

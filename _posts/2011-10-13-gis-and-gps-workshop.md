@@ -23,30 +23,49 @@ Headquarters in Narayangar.
 ## Instructor
 Instructor: Alex Zvoleff
 
-Email: <a href="mailto:azvoleff@mail.sdsu.edu">azvoleff@mail.sdsu.edu</a>
+Email: [azvoleff@conservation.org](mailto:azvoleff@conservation.org)
 
 ## Presentations
 
-* <a href="http://www.azvoleff.com/wp-content/uploads/2011/10/GIS_GPS_Workshop-Day_1.pdf">GIS GPS Workshop - Day 1</a>
-* <a href="http://www.azvoleff.com/wp-content/uploads/2011/10/GIS_GPS_Workshop-Day_2.pdf">GIS GPS Workshop - Day 2</a>
-* <a href="http://www.azvoleff.com/wp-content/uploads/2011/10/GIS_GPS_Workshop-Day_3.pdf">GIS GPS Workshop - Day 3</a>
+* [GIS GPS Workshop - Day 
+  1](/content/2011-10-13-gis-and-gps-workshop/GIS_GPS_Workshop-Day_1.pdf)
+* [GIS GPS Workshop - Day 
+  2](/content/2011-10-13-gis-and-gps-workshop/GIS_GPS_Workshop-Day_2.pdf)
+* [GIS GPS Workshop - Day 
+  3](/content/2011-10-13-gis-and-gps-workshop/GIS_GPS_Workshop-Day_3.pdf)
 
 ## Documents
-* <a href="http://www.azvoleff.com/wp-content/uploads/2011/10/Day_1-Workshop_Outline.pdf">Day 1 - Workshop Outline</a>
-* <a href="http://www.azvoleff.com/wp-content/uploads/2011/10/Day_1-Setting_Up_Quantum_GIS.pdf">Day 1 - Setting Up Quantum GIS</a>
-* <a href="http://www.azvoleff.com/wp-content/uploads/2011/10/Day_2-Collecting_GPS_Data_with_eTrex.pdf">Day 2 - Collecting GPS Data with eTrex</a>
-* <a href="http://www.azvoleff.com/wp-content/uploads/2011/10/Day_2-Adding_data_to_Quantum_GIS.pdf">Day 2 - Adding data to Quantum GIS</a>
-* <a href="http://www.azvoleff.com/wp-content/uploads/2011/10/Day_2-Using_Quantum_GIS_with_GPS_Data.pdf">Day 2 - Using Quantum GIS with GPS Data</a>
-* <a href="http://www.azvoleff.com/wp-content/uploads/2011/10/Day_2-Printing_or_Emailing_a_Map_from_Quantum_GIS.pdf">Day 2 - Printing or Emailing a Map from Quantum GIS</a>
-* <a href="http://www.azvoleff.com/wp-content/uploads/2011/10/Day_3-Analyzing_Census_Data.pdf">Day 3 - Analyzing Census Data</a>
-* <a href="http://www.azvoleff.com/wp-content/uploads/2011/10/Day_3-Custom_Coordinate_Systems.pdf">Day 3 - Custom Coordinate Systems</a>
+
+* [Day 1 - Workshop 
+  Outline](/content/2011-10-13-gis-and-gps-workshop/Day_1-Workshop_Outline.pdf)
+* [Day 1 - Setting Up Quantum 
+  GIS](/content/2011-10-13-gis-and-gps-workshop/Day_1-Setting_Up_Quantum_GIS.pdf)
+* [Day 2 - Collecting GPS Data with 
+  eTrex](/content/2011-10-13-gis-and-gps-workshop/Day_2-Collecting_GPS_Data_with_eTrex.pdf)
+* [Day 2 - Adding data to Quantum 
+  GIS](/content/2011-10-13-gis-and-gps-workshop/Day_2-Adding_data_to_Quantum_GIS.pdf)
+* [Day 2 - Using Quantum GIS with GPS 
+  Data](/content/2011-10-13-gis-and-gps-workshop/Day_2-Using_Quantum_GIS_with_GPS_Data.pdf)
+* [Day 2 - Printing or Emailing a Map from Quantum 
+  GIS](/content/2011-10-13-gis-and-gps-workshop/Day_2-Printing_or_Emailing_a_Map_from_Quantum_GIS.pdf)
+* [Day 3 - Analyzing Census 
+  Data](/content/2011-10-13-gis-and-gps-workshop/Day_3-Analyzing_Census_Data.pdf)
+* [Day 3 - Custom Coordinate 
+  Systems](/content/2011-10-13-gis-and-gps-workshop/Day_3-Custom_Coordinate_Systems.pdf)
 
 ## Data
-* <a href="http://www.azvoleff.com/wp-content/uploads/2011/10/Day_2_-_GPS_Data.zip">Day 2 - GPS Data</a>
-* <a href="http://www.azvoleff.com/wp-content/uploads/2011/10/Day_3_-_VDC_Census_Data.zip">Day 3 - VDC Census Data</a>
+
+* [Day 2 - GPS 
+  Data](/content/2011-10-13-gis-and-gps-workshop/Day_2_-_GPS_Data.zip)
+* [Day 3 - VDC Census 
+  Data](/content/2011-10-13-gis-and-gps-workshop/Day_3_-_VDC_Census_Data.zip)
 
 ## Links
-* <a href="http://www.qgis.org">Quantum GIS Website</a>
-* <a href="http://www.qgis.org/wiki/How_do_I_do_that_in_QGIS">Quantum GIS How-to Guides</a>
-* <a href="http://hub.qgis.org/projects/quantum-gis/wiki/Download#11-Standalone-Installer-recommended-for-new-users">Download Quantum GIS</a> (NOTE: You want the "Standalone installer")
+
+* [Quantum GIS Website](http://www.qgis.org)
+* [Quantum GIS How-to 
+  Guides](http://www.qgis.org/wiki/How_do_I_do_that_in_QGIS)
+* [Download Quantum 
+  GIS](http://hub.qgis.org/projects/quantum-gis/wiki/Download#11-Standalone-Installer-recommended-for-new-users) 
+  (NOTE: You want the "Standalone installer")
 
