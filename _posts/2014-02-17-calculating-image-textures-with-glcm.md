@@ -3,7 +3,8 @@ layout: post
 title: "Calculating image textures with GLCM"
 description: "An overview of how to use the glcm R package to calculate image texture measures"
 category: articles
-tags: [R, teamlucc, remote sensing]
+tags: [R, teamlucc, remote sensing, glcm]
+modified: 2014-03-19
 comments: true
 share: true
 ---
@@ -18,6 +19,12 @@ if (!(require(glcm))) install.packages("glcm")
 {% endhighlight %}
 
 
+
+{% highlight text %}
+## Loading required package: glcm
+{% endhighlight %}
+
+
 The below examples use an image included in the `glcm` package, a 
 red/green/blue cutout of a Landsat 5 image from 1986 from a Tropical Ecology 
 Assessment and Monitoring (TEAM) Network site in Volcan Barva, Costa Rica. The 
@@ -26,6 +33,17 @@ image is included in the glcm package as `L5TSR_1986`:
 
 {% highlight r %}
 library(raster)  # needed for plotRGB function
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Loading required package: sp
+{% endhighlight %}
+
+
+
+{% highlight r %}
 plotRGB(L5TSR_1986, 3, 2, 1, scale = 1500)
 {% endhighlight %}
 
