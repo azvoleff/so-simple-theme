@@ -65,7 +65,6 @@ Email: [azvoleff@conservation.org](mailto:azvoleff@conservation.org)
 * [Quantum GIS Website](http://www.qgis.org)
 * [Quantum GIS How-to 
   Guides](http://www.qgis.org/wiki/How_do_I_do_that_in_QGIS)
-* [Download Quantum 
-  GIS](http://hub.qgis.org/projects/quantum-gis/wiki/Download#11-Standalone-Installer-recommended-for-new-users) 
+* [Download Quantum GIS](http://qgis.org/en/site/forusers/download.html) 
   (NOTE: You want the "Standalone installer")
 
