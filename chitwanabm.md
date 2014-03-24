@@ -69,7 +69,9 @@ Mask Files:
 * <a href="https://raw.github.com/azvoleff/chitwanabm/master/README.rst">README file</a>
 
 ## Related Work
-The ChitwanABMagent-based model is built using the <a title="PyABM" href="http://www.azvoleff.com/research/pyabm/">PyABM</a> toolkit. The code of PyABM is open source (released under the GPL).
+The ChitwanABMagent-based model is built using the <a title="PyABM" 
+[PyABM]({{  site.baseurl }}/pyabm) toolkit. The code of PyABM is open source 
+(released under the GPL).
 
 ## Related Files
 
