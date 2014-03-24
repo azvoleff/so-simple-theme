@@ -13,23 +13,53 @@ share: true
 First load the `devtools` package, used for installing `teamlucc`. Install the 
 `devtools` package if it is not already installed:
 
-```{r, echo=FALSE}
-# Change to local data folder
-setwd("C:/Users/azvoleff/Code/azvoleff.github.io/content/2014-03-21-analyzing-forest-change-with-gfcanalysis")
-```
 
-```{r}
+
+
+
+{% highlight r %}
 if (!require(devtools)) install.packages('devtools')
-```
+{% endhighlight %}
+
 
 Now load the teamlucc package, using `devtools` to install it from github if it 
 is not yet installed. Also load the `rgdal` package needed for reading/writing 
 shapefiles:
 
-```{r}
+
+{% highlight r %}
 if (!require(teamlucc)) install_github('azvoleff/teamlucc')
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Loading required package: teamlucc
+## Loading required package: Rcpp
+## Loading required package: RcppArmadillo
+## Loading required package: raster
+## Loading required package: sp
+## SDMTools 1.1-13 (2012-11-08)
+{% endhighlight %}
+
+
+
+{% highlight r %}
 library(rgdal)
-```
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## rgdal: version: 0.8-16, (SVN revision 498)
+## Geospatial Data Abstraction Library extensions to R successfully loaded
+## Loaded GDAL runtime: GDAL 1.10.1, released 2013/08/26
+## Path to GDAL shared files: C:/Users/azvoleff/Documents/R/win-library/3.0/rgdal/gdal
+## GDAL does not use iconv for recoding strings.
+## Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]
+## Path to PROJ.4 shared files: C:/Users/azvoleff/Documents/R/win-library/3.0/rgdal/proj
+{% endhighlight %}
+
 
 ## Select Landsat images.
 
@@ -67,11 +97,55 @@ Download these zipfiles and use them for the next step.
 
 *add link to saved Pasoh scene lists here*
 
-```{r}
+
+{% highlight r %}
 l7 <- read.csv('PSH_L7_20140320_scenelist.csv', stringsAsFactors=FALSE)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Warning: cannot open file 'PSH_L7_20140320_scenelist.csv': No such file or
+## directory
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error: cannot open the connection
+{% endhighlight %}
+
+
+
+{% highlight r %}
 l45 <- read.csv('PSH_L4-5_20140320_scenelist.csv', stringsAsFactors=FALSE)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Warning: cannot open file 'PSH_L4-5_20140320_scenelist.csv': No such file
+## or directory
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error: cannot open the connection
+{% endhighlight %}
+
+
+
+{% highlight r %}
 l457 <- merge(l7, l45, all=TRUE)
-```
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error: error in evaluating the argument 'x' in selecting a method for function 'merge': Error: object 'l7' not found
+{% endhighlight %}
+
 
 # Make plots to assist in selecting Landsat images
 
@@ -83,31 +157,119 @@ shapefile of Zone of Interation (ZOI) of the TEAM site in [Pasoh Forest
 Reserve](http://www.teamnetwork.org/network/sites/pasoh-national-forest) in 
 Malaysia, and plots the Landsat path/rows needed to cover the ZOI:
 
-```{r}
+
+{% highlight r %}
 library(wrspathrow)
 psh_zoi <- readOGR('.', 'ZOI_PSH_2013_EEsimple')
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error: Cannot open file
+{% endhighlight %}
+
+
+
+{% highlight r %}
 psh_pathrows <- pathrow_num(psh_zoi, as_polys=TRUE)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error: error in evaluating the argument 'x' in selecting a method for function 'pathrow_num': Error: object 'psh_zoi' not found
+{% endhighlight %}
+
+
+
+{% highlight r %}
 plot(psh_pathrows)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error: error in evaluating the argument 'x' in selecting a method for function 'plot': Error: object 'psh_pathrows' not found
+{% endhighlight %}
+
+
+
+{% highlight r %}
 plot(psh_zoi, add=TRUE, lty=2, col="#00ff0050")
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error: error in evaluating the argument 'x' in selecting a method for function 'plot': Error: object 'psh_zoi' not found
+{% endhighlight %}
+
+
+
+{% highlight r %}
 text(coordinates(psh_pathrows), labels=paste(psh_pathrows$PATH, 
                                              psh_pathrows$ROW, sep=', '))
-```
+{% endhighlight %}
 
-```{r}
+
+
+{% highlight text %}
+## Error: error in evaluating the argument 'x' in selecting a method for function 'text': Error in coordinates(psh_pathrows) : 
+##   error in evaluating the argument 'obj' in selecting a method for function 'coordinates': Error: object 'psh_pathrows' not found
+{% endhighlight %}
+
+
+
+{% highlight r %}
 start_date <- as.Date('1990/1/1')
 end_date <- as.Date('1996/1/1')
 plot_ee(l457, start_date, end_date)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error: object 'l457' not found
+{% endhighlight %}
+
+
+
+{% highlight r %}
 plot_ee_norm(l457, start_date, end_date)
-```
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error: object 'l457' not found
+{% endhighlight %}
+
 
 # Based on the above, output scene lists for download from ESPA
 
-```{r}
+
+{% highlight r %}
 espa_scenelist(l457, as.Date('1986/1/1'), as.Date('1986/12/31'), 
                'PSH_ESPA_scenelist_1986.txt')
-```
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error: object 'l457' not found
+{% endhighlight %}
+
 
 # Downloading from ESPA
-```{r}
+
+{% highlight r %}
 espa_download(espa_email,'272014-114611', ".")
-```
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error: object 'espa_email' not found
+{% endhighlight %}
+

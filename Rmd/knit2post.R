@@ -4,7 +4,6 @@ knit2post <- function(input, local_base_dir='..', server_base_dir="/") {
     abs_local_base_dir <- file_path_as_absolute(local_base_dir)
     opts_knit$set(local_base_dir=local_base_dir)
     fig.path <- file.path(abs_local_base_dir, 'content', sub(".Rmd$", "", basename(input)))
-    if (!file_test('-d', fig.path)) dir.create(fig.path)
     opts_chunk$set(fig.path=paste0(fig.path, '/'))
     opts_chunk$set(fig.cap="center")
     render_jekyll()

@@ -22,6 +22,7 @@ First load the `devtools` package, used for installing `gfcanalysis`. Install th
 `devtools` package if it is not already installed:
 
 ```{r, echo=FALSE}
+# Change to local data folder
 setwd("C:/Users/azvoleff/Code/azvoleff.github.io/content/2014-03-21-analyzing-forest-change-with-gfcanalysis")
 ```
 
