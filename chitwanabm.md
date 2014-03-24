@@ -36,7 +36,8 @@ run. See the README file below for more information.
 ## Download Model
 
 ### Stable Code
-Download the latest stable version from the <a href="http://pypi.python.org/pypi/chitwanabm">Python Package Index</a> (PyPI).
+Download the latest stable version from the <a 
+href="http://pypi.python.org/pypi/chitwanabm">Python Package Index</a> (PyPI).
 
 Or download an older version:
 
@@ -48,24 +49,30 @@ Or download an older version:
 
 ### Development Code
 
-* <a href="https://github.com/azvoleff/chitwanabm/zipball/master">Current code</a> (latest features but may not run, see "Stable Code" above)
-* You can also browse the soure code and revision history at the <a href="https://github.com/azvoleff/chitwanabm">GitHub repository</a>.
+* <a href="https://github.com/azvoleff/chitwanabm/zipball/master">Current 
+  code</a> (latest features but may not run, see "Stable Code" above)
+* You can also browse the soure code and revision history at the <a 
+  href="https://github.com/azvoleff/chitwanabm">GitHub repository</a>.
 
 
 ### World Files
-Two rasters are required to define the 'world' represented in the ChitwanABM: a digital elevation model (DEM) file and a mask file. The model can be run at 30m or 90m resolution depending on which set of world files is chosen (the 30m DEM is interpolated using cubic convolution from the 90m SRTM DEM).
+Two rasters are required to define the 'world' represented in the ChitwanABM: a 
+digital elevation model (DEM) file and a mask file. The model can be run at 30m 
+or 90m resolution depending on which set of world files is chosen (the 30m DEM 
+is interpolated using cubic convolution from the 90m SRTM DEM).
 
 DEM Files:
-* <a href="http://azvoleff.com/research/ChitwanABM_files/CVFS_Study_Area_DEM_Raster_30m.zip">30m DEM</a>
-* <a href="http://azvoleff.com/research/ChitwanABM_files/CVFS_Study_Area_DEM_Raster_90m.zip">90m DEM</a>
+* <a href="{{ site.baseurl }}/chitwanabm/CVFS_Study_Area_DEM_Raster_30m.zip">30m DEM</a>
+* <a href="{{ site.baseurl }}/chitwanabm/CVFS_Study_Area_DEM_Raster_90m.zip">90m DEM</a>
 
 Mask Files:
-* <a href="http://azvoleff.com/research/ChitwanABM_files/CVFS_Study_Area_Raster_30m.zip">30m mask file</a>
-* <a href="http://azvoleff.com/research/ChitwanABM_files/CVFS_Study_Area_Raster_90m.zip">90m mask file</a>
+* <a href="{{ site.baseurl }}/chitwanabm/CVFS_Study_Area_Raster_30m.zip">30m mask file</a>
+* <a href="{{ site.baseurl }}/chitwanabm/CVFS_Study_Area_Raster_90m.zip">90m mask file</a>
 
 ## Documentation
 
-* <a href="http://azvoleff.com/ChitwanABM_doc">Online documentation</a> (work in progress as of 8/22/2012)
+* <a href="http://azvoleff.com/ChitwanABM_doc">Online documentation</a> 
+  (offline for maintenance as of 3/23/2013)
 * <a href="https://raw.github.com/azvoleff/chitwanabm/master/README.rst">README file</a>
 
 ## Related Work
@@ -75,8 +82,8 @@ The ChitwanABM agent-based model is built using the
 
 ## Related Files
 
-* <a href="http://www.azvoleff.com/wp-content/uploads/2012/11/Zvoleff_An_PIRE_2012_lowres.pdf">Presentation</a> given at 2012 NSF PIRE meeting on 8/06/2012 in Ann Arbor, Michigan.
-* <a href="http://www.azvoleff.com/wp-content/uploads/2012/11/Zvoleff_An_PIRE_2011_lowres.pdf">Presentation</a> given at 2011 NSF PIRE meeting on 8/09/2011 in Ann Arbor, Michigan.
-* <a href="http://www.azvoleff.com/wp-content/uploads/2012/11/Zvoleff_An_PIRE_2010_lowres.pdf">Presentation</a> given at 2010 NSF PIRE meeting on 8/11/2010 in Ann Arbor, Michigan.
-* <a href="http://www.azvoleff.com/wp-content/uploads/2012/11/Zvoleff_An_PIRE_2009_lowres.pdf">Presentation</a> given at 2009 NSF PIRE meeting on 8/20/2009 in East Lansing, Michigan.
+* <a href="{{ site.baseurl }}/chitwanabm/Zvoleff_An_PIRE_2012_lowres.pdf">Presentation</a> given at 2012 NSF PIRE meeting on 8/06/2012 in Ann Arbor, Michigan.
+* <a href="{{ site.baseurl }}/chitwanabm/Zvoleff_An_PIRE_2011_lowres.pdf">Presentation</a> given at 2011 NSF PIRE meeting on 8/09/2011 in Ann Arbor, Michigan.
+* <a href="{{ site.baseurl }}/chitwanabm/Zvoleff_An_PIRE_2010_lowres.pdf">Presentation</a> given at 2010 NSF PIRE meeting on 8/11/2010 in Ann Arbor, Michigan.
+* <a href="{{ site.baseurl }}/chitwanabm/Zvoleff_An_PIRE_2009_lowres.pdf">Presentation</a> given at 2009 NSF PIRE meeting on 8/20/2009 in East Lansing, Michigan.
 
