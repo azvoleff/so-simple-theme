@@ -24,16 +24,18 @@ biodiversity.
 Below are several ongoing projects related to TEAM.
 
 #### teamlucc
-[teamlucc](/teamlucc) is an R package to support the preprocessing and 
+
+[teamlucc]({{ site.baseurl }}/teamlucc) is an R package to support the preprocessing and 
 classification of satellite imagery for biodiversity monitoring and land cover 
 change modeling.
 
 #### glcm
-[glcm](/glcm) is an R package for calculating image textures measures derived 
+
+[glcm]({{ site.baseurl }}/glcm) is an R package for calculating image textures measures derived 
 from grey-level co-occurrence matrices (GLCM).
 
 #### gfcanalysis
-[gfcanalysis](/gfcanalysis) is an R package to facilitate analyses using the [Global 
+[gfcanalysis]({{ site.baseurl }}/gfcanalysis) is an R package to facilitate analyses using the [Global 
 Forest Change 
 dataset](http://earthenginepartners.appspot.com/science-2013-global-forest) 
 released devolped by [Hansen et al. 
@@ -44,15 +46,18 @@ released devolped by [Hansen et al.
 <a name='PyABM'>
 
 ### PyABM
-An [open-source agent-based model toolkit](/pyabm) written in Python.
+
+An [open-source agent-based model toolkit]({{ site.baseurl }}/pyabm) written in Python.
 
 <a name='ChitwanABM'>
 
 ### ChitwanABM
-[ChitwanABM](/chitwanabm) is an agent-based model of the western Chitwan 
+
+[ChitwanABM]({{ site.baseurl }}/chitwanabm) is an agent-based model of the western Chitwan 
 Valley, Nepal, used to explore connections between population and environment.
 
 ### Land Use and Cover Change in the Chitwan Valley, Nepal
+
 Worked with [Dr. Li An](http://geography.sdsu.edu/People/Faculty/an.html) on an 
 [NSF PIRE project](http://pire.psc.isr.umich.edu) exploring human-environment 
 interactions in the Western Chitwan Valley, Nepal. In order to better 

@@ -21,5 +21,6 @@ I am not currently teaching.
 
 * Remote Sensing with R and Python (fall 2012)
 * Introduction to R programming (spring 2012)
-* <a title="GIS and GPS Workshop (fall 2011)" href="http://www.azvoleff.com/teaching/gis-and-gps-workshop-fall-2011/">Introduction to GIS and and GPS (fall 2011, in Bharatpur, Nepal)</a>
+* [GIS and GPS Workshop (fall 2011)]({{ site.baseurl }}/2011-10-13-gis-and-gps-workshop) (fall 
+  2011, in Bharatpur, Nepal)
 
