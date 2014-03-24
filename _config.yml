@@ -3,9 +3,9 @@ description:      Postdoctoral Associate at Conservation International
 logo:             site-logo.png
 disqus_shortname: azvoleff
 search:           true
-# Change url to your domain. Leave localhost server or blank when working locally.
+# Change url to your domain. Leave localhost server or blank when working 
+# locally.
 url:              http://www.azvoleff.com
-baseurl:          
 
 # Owner/author information
 owner:
