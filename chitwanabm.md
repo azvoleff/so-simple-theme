@@ -41,10 +41,10 @@ href="http://pypi.python.org/pypi/chitwanabm">Python Package Index</a> (PyPI).
 
 Or download an older version:
 
-* <a href="https://github.com/azvoleff/chitwanabm/zipball/v1.3">Version 1.3</a> (as presented at 8/06/2012 PIRE meeting).
-* <a href="https://github.com/azvoleff/chitwanabm/zipball/v1.2">Version 1.2</a> (as presented at 8/09/2011 PIRE meeting).
-* <a href="https://github.com/azvoleff/chitwanabm/zipball/v1.1">Version 1.1</a> (as presented at 8/11/2010 PIRE meeting).
-* <a href="https://github.com/azvoleff/chitwanabm/zipball/v1.0">Version 1.0</a> (as presented at 8/20/2009 PIRE meeting).
+* <a href="https://github.com/azvoleff/content/chitwanabm/zipball/v1.3">Version 1.3</a> (as presented at 8/06/2012 PIRE meeting).
+* <a href="https://github.com/azvoleff/content/chitwanabm/zipball/v1.2">Version 1.2</a> (as presented at 8/09/2011 PIRE meeting).
+* <a href="https://github.com/azvoleff/content/chitwanabm/zipball/v1.1">Version 1.1</a> (as presented at 8/11/2010 PIRE meeting).
+* <a href="https://github.com/azvoleff/content/chitwanabm/zipball/v1.0">Version 1.0</a> (as presented at 8/20/2009 PIRE meeting).
 
 
 ### Development Code
@@ -62,12 +62,14 @@ or 90m resolution depending on which set of world files is chosen (the 30m DEM
 is interpolated using cubic convolution from the 90m SRTM DEM).
 
 DEM Files:
-* <a href="{{ site.baseurl }}/chitwanabm/CVFS_Study_Area_DEM_Raster_30m.zip">30m DEM</a>
-* <a href="{{ site.baseurl }}/chitwanabm/CVFS_Study_Area_DEM_Raster_90m.zip">90m DEM</a>
+
+* [30m DEM]({{ site.baseurl }}/content/chitwanabm/CVFS_Study_Area_DEM_Raster_30m.zip)
+* [90m DEM]({{ site.baseurl }}/content/chitwanabm/CVFS_Study_Area_DEM_Raster_90m.zip)
 
 Mask Files:
-* <a href="{{ site.baseurl }}/chitwanabm/CVFS_Study_Area_Raster_30m.zip">30m mask file</a>
-* <a href="{{ site.baseurl }}/chitwanabm/CVFS_Study_Area_Raster_90m.zip">90m mask file</a>
+
+* [30m mask file]({{ site.baseurl }}/content/chitwanabm/CVFS_Study_Area_Raster_30m.zip)
+* [90m mask file]({{ site.baseurl }}/content/chitwanabm/CVFS_Study_Area_Raster_90m.zip)
 
 ## Documentation
 
@@ -82,8 +84,8 @@ The ChitwanABM agent-based model is built using the
 
 ## Related Files
 
-* <a href="{{ site.baseurl }}/chitwanabm/Zvoleff_An_PIRE_2012_lowres.pdf">Presentation</a> given at 2012 NSF PIRE meeting on 8/06/2012 in Ann Arbor, Michigan.
-* <a href="{{ site.baseurl }}/chitwanabm/Zvoleff_An_PIRE_2011_lowres.pdf">Presentation</a> given at 2011 NSF PIRE meeting on 8/09/2011 in Ann Arbor, Michigan.
-* <a href="{{ site.baseurl }}/chitwanabm/Zvoleff_An_PIRE_2010_lowres.pdf">Presentation</a> given at 2010 NSF PIRE meeting on 8/11/2010 in Ann Arbor, Michigan.
-* <a href="{{ site.baseurl }}/chitwanabm/Zvoleff_An_PIRE_2009_lowres.pdf">Presentation</a> given at 2009 NSF PIRE meeting on 8/20/2009 in East Lansing, Michigan.
+* <a href="{{ site.baseurl }}/content/chitwanabm/Zvoleff_An_PIRE_2012_lowres.pdf">Presentation</a> given at 2012 NSF PIRE meeting on 8/06/2012 in Ann Arbor, Michigan.
+* <a href="{{ site.baseurl }}/content/chitwanabm/Zvoleff_An_PIRE_2011_lowres.pdf">Presentation</a> given at 2011 NSF PIRE meeting on 8/09/2011 in Ann Arbor, Michigan.
+* <a href="{{ site.baseurl }}/content/chitwanabm/Zvoleff_An_PIRE_2010_lowres.pdf">Presentation</a> given at 2010 NSF PIRE meeting on 8/11/2010 in Ann Arbor, Michigan.
+* <a href="{{ site.baseurl }}/content/chitwanabm/Zvoleff_An_PIRE_2009_lowres.pdf">Presentation</a> given at 2009 NSF PIRE meeting on 8/20/2009 in East Lansing, Michigan.
 
