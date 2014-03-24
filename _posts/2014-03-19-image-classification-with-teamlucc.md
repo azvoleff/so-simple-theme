@@ -16,7 +16,7 @@ First load the `devtools` package, used for installing `teamlucc`. Install the
 
 
 {% highlight r %}
-if (!require(devtools)) install.packages("devtools")
+if (!require(devtools)) install.packages('devtools')
 {% endhighlight %}
 
 
@@ -25,7 +25,7 @@ is not yet installed.
 
 
 {% highlight r %}
-if (!require(teamlucc)) install_github("azvoleff/teamlucc")
+if (!require(teamlucc)) install_github('azvoleff/teamlucc')
 {% endhighlight %}
 
 
@@ -81,8 +81,8 @@ Add an empty field named "class_1986" to the object, and delete the extent polyg
 
 
 {% highlight r %}
-train_polys$class_1986 <- ""  # Add an empty column named 'class_1986'
-train_polys <- train_polys[-1, ]  # Delete extent polygon
+train_polys$class_1986 <- '' # Add an empty column named "class_1986"
+train_polys <- train_polys[-1, ] # Delete extent polygon
 {% endhighlight %}
 
 
@@ -131,9 +131,9 @@ the `training` parameter. It can be useful though in testing.
 
 
 {% highlight r %}
-set.seed(0)  # Set a random seed so results can be reproduced
-train_data <- extract_training_data(L5TSR_1986, train_polys, class_col = "class_1986", 
-    training = 0.6)
+set.seed(0) # Set a random seed so results can be reproduced
+train_data <- extract_training_data(L5TSR_1986, train_polys, 
+                                    class_col="class_1986", training=.6)
 {% endhighlight %}
 
 
@@ -190,7 +190,6 @@ classification <- classify_image(L5TSR_1986, train_data)
 ## 
 ##     buffer, rotated
 ## 
-## Loading required package: class
 ## 
 ## Attaching package: 'e1071'
 ## 
@@ -217,7 +216,7 @@ To see the predicted classes, use `spplot`:
 spplot(classification$pred_classes)
 {% endhighlight %}
 
-![Predicted classes](/../content/2014-03-19-image-classification-with-teamlucc/predicted_classes.png) 
+![Predicted classes](/content/2014-03-19-image-classification-with-teamlucc/predicted_classes.png) 
 
 
 We can also see the class probabilities (per pixel probabilities of membership of each class):
@@ -227,7 +226,7 @@ We can also see the class probabilities (per pixel probabilities of membership o
 spplot(classification$pred_probs)
 {% endhighlight %}
 
-![Predicted probabilities of each class](/../content/2014-03-19-image-classification-with-teamlucc/class_probabilities.png) 
+![Predicted probabilities of each class](/content/2014-03-19-image-classification-with-teamlucc/class_probabilities.png) 
 
 
 ### Parallel processing
@@ -241,7 +240,7 @@ of the `raster` package). To enable this functionality, first install the
 
 
 {% highlight r %}
-if (!require(devtools)) install.packages("snow")
+if (!require(devtools)) install.packages('snow')
 {% endhighlight %}
 
 
@@ -272,8 +271,8 @@ beginCluster()
 
 
 {% highlight r %}
-train_data_par <- extract_training_data(L5TSR_1986, train_polys, class_col = "class_1986", 
-    training = 0.6)
+train_data_par <- extract_training_data(L5TSR_1986, train_polys, 
+                                    class_col="class_1986", training=.6)
 {% endhighlight %}
 
 
@@ -344,7 +343,7 @@ the observed classes can be estimated from the classification output, run the
 
 
 {% highlight r %}
-acc <- accuracy(classification$model, pop = classification$pred_classes)
+acc <- accuracy(classification$model, pop=classification$pred_classes)
 {% endhighlight %}
 
 
