@@ -73,3 +73,6 @@ exclude: ["lib", "config.rb", "Gemfile", "Capfile", "Gemfile.lock", "config", "l
 piwik:
   base_url: stats.azvoleff.com/piwik
   site_id: 1
+
+gems:
+  - jekyll-redirect-from
