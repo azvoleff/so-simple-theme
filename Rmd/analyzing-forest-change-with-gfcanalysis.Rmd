@@ -23,7 +23,7 @@ First load the `devtools` package, used for installing `gfcanalysis`. Install th
 
 ```{r, echo=FALSE}
 # Change to local data folder
-setwd("C:/Users/azvoleff/Code/azvoleff.github.io/content/2014-03-21-analyzing-forest-change-with-gfcanalysis")
+setwd("C:/Users/azvoleff/Code/azvoleff.github.io/content/analyzing-forest-change-with-gfcanalysis")
 ```
 
 ```{r}
@@ -76,7 +76,7 @@ Interaction of the TEAM Network site in Nam Kading. Notice that first we
 specify the folder the shapefile is in (here it is a "." indicating the current 
 working directory), and then the name of the shapefile without the ".shp". To 
 follow along with this example, [download this 
-shapefile](content\2014-03-21-analyzing-forest-change-with-gfcanalysis\ZOI_NAK_2012_EEsimple.zip).
+shapefile](/content/analyzing-forest-change-with-gfcanalysis/ZOI_NAK_2012_EEsimple.zip).
 
 ```{r}
 aoi <- readOGR('.', 'ZOI_NAK_2012_EEsimple')

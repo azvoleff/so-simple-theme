@@ -15,10 +15,10 @@ First load the `devtools` package, used for installing `teamlucc`. Install the
 
 ```{r, echo=FALSE}
 # Change to local data folder
-setwd("C:/Users/azvoleff/Code/azvoleff.github.io/content/2014-03-21-analyzing-forest-change-with-gfcanalysis")
+setwd("C:/Users/azvoleff/Code/azvoleff.github.io/content/analyzing-forest-change-with-gfcanalysis")
 ```
 
-```{r}
+```{r, cache=TRUE}
 if (!require(devtools)) install.packages('devtools')
 ```
 
@@ -26,7 +26,7 @@ Now load the teamlucc package, using `devtools` to install it from github if it
 is not yet installed. Also load the `rgdal` package needed for reading/writing 
 shapefiles:
 
-```{r}
+```{r, cache=TRUE}
 if (!require(teamlucc)) install_github('azvoleff/teamlucc')
 library(rgdal)
 ```
@@ -67,7 +67,7 @@ Download these zipfiles and use them for the next step.
 
 *add link to saved Pasoh scene lists here*
 
-```{r}
+```{r, cache=TRUE}
 l7 <- read.csv('PSH_L7_20140320_scenelist.csv', stringsAsFactors=FALSE)
 l45 <- read.csv('PSH_L4-5_20140320_scenelist.csv', stringsAsFactors=FALSE)
 l457 <- merge(l7, l45, all=TRUE)
@@ -83,7 +83,7 @@ shapefile of Zone of Interation (ZOI) of the TEAM site in [Pasoh Forest
 Reserve](http://www.teamnetwork.org/network/sites/pasoh-national-forest) in 
 Malaysia, and plots the Landsat path/rows needed to cover the ZOI:
 
-```{r}
+```{r, cache=TRUE}
 library(wrspathrow)
 psh_zoi <- readOGR('.', 'ZOI_PSH_2013_EEsimple')
 psh_pathrows <- pathrow_num(psh_zoi, as_polys=TRUE)
@@ -93,7 +93,7 @@ text(coordinates(psh_pathrows), labels=paste(psh_pathrows$PATH,
                                              psh_pathrows$ROW, sep=', '))
 ```
 
-```{r}
+```{r, cache=TRUE}
 start_date <- as.Date('1990/1/1')
 end_date <- as.Date('1996/1/1')
 plot_ee(l457, start_date, end_date)

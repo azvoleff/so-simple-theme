@@ -44,18 +44,32 @@ if (!require(gfcanalysis)) install_github('azvoleff/gfcanalysis')
 
 {% highlight text %}
 ## Loading required package: gfcanalysis
-## 
-## Attaching package: 'gfcanalysis'
-## 
-## The following object is masked from 'package:teamlucc':
-## 
-##     utm_zone
+## Loading required package: raster
+## Loading required package: sp
 {% endhighlight %}
 
 
 
 {% highlight r %}
 if (!require(rgdal)) install.packages('rgdal')
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Loading required package: rgdal
+## rgdal: version: 0.8-16, (SVN revision 498)
+## Geospatial Data Abstraction Library extensions to R successfully loaded
+## Loaded GDAL runtime: GDAL 1.10.1, released 2013/08/26
+## Path to GDAL shared files: C:/Users/azvoleff/Documents/R/win-library/3.0/rgdal/gdal
+## GDAL does not use iconv for recoding strings.
+## Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]
+## Path to PROJ.4 shared files: C:/Users/azvoleff/Documents/R/win-library/3.0/rgdal/proj
+{% endhighlight %}
+
+
+
+{% highlight r %}
 if (!require(spatial.tools)) install.packages('spatial.tools')
 {% endhighlight %}
 
