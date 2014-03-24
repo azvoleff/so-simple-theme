@@ -14,20 +14,20 @@ share: true
 First load the `devtools` package, used for installing `teamlucc`. Install the 
 `devtools` package if it is not already installed:
 
-```{r}
+```{r, cache=TRUE}
 if (!require(devtools)) install.packages('devtools')
 ```
 
 Now load the teamlucc package, using `devtools` to install it from github if it 
 is not yet installed.
 
-```{r}
+```{r, cache=TRUE}
 if (!require(teamlucc)) install_github('azvoleff/teamlucc')
 ```
 
 Also load the `rgdal` package needed for reading/writing shapefiles:
 
-```{r}
+```{r, cache=TRUE}
 library(rgdal)
 ```
 
@@ -36,28 +36,28 @@ library(rgdal)
 The first step in the classification is putting together a training dataset. 
 `teamlucc` includes a function to output a shapefile that can be used for 
 collecting training data. Here we are collecting training data for the 
-L5TSR_1986 raster (a portion of a 1986 Landsat 5 surface reflectance image) 
+`L5TSR_1986` raster (a portion of a 1986 Landsat 5 surface reflectance image) 
 that is included with the `teamlucc` package. Use the `get_extent_polys` 
 function to quickly construct a shapefile in the same coordinate system as the 
 image:
 
-```{r}
+```{r, cache=TRUE}
 train_polys <- get_extent_polys(L5TSR_1986)
 ```
 
 Add an empty field named "class_1986" to the object, and delete the extent polygon 
 (because we don't need it, and just want an empty shapefile):
 
-```{r}
+```{r, cache=TRUE}
 train_polys$class_1986 <- '' # Add an empty column named "class_1986"
 train_polys <- train_polys[-1, ] # Delete extent polygon
 ```
 
-Now save the `train_polys` object to a shapefile using `writeOGR` from the `rgdal` 
-package. The "." below just means "save the shapefile in the current 
+Now save the `train_polys` object to a shapefile using `writeOGR` from the 
+`rgdal` package. The `"."` below just means "save the shapefile in the current 
 directory".
 
-```{r echo=1}
+```{r echo=1, cache=TRUE}
 writeOGR(train_polys, ".", "training_data", "ESRI Shapefile")
 # Delete the training_data shapefile not used by this code.
 unlink('training_data.*')
@@ -94,7 +94,7 @@ data anyways, to ensure the image is randomly sampled (training data collection
 is almost never random), so in most cases I don't recommend making heavy use of 
 the `training` parameter. It can be useful though in testing.
 
-```{r}
+```{r, cache=TRUE}
 set.seed(0) # Set a random seed so results can be reproduced
 train_data <- extract_training_data(L5TSR_1986, train_polys, 
                                     class_col="class_1986", training=.6)
@@ -112,19 +112,19 @@ function. This function automates image classification using a support vector
 machine (SVM) classifier. There are many options that can be provided to 
 `classify_image` - for this example we will just use the defaults.
 
-```{r}
+```{r, cache=TRUE}
 classification <- classify_image(L5TSR_1986, train_data)
 ```
 
 To see the predicted classes, use `spplot`:
 
-```{r, predicted_classes, fig.cap="Predicted classes"}
+```{r, predicted_classes, fig.cap="Predicted classes", cache=TRUE}
 spplot(classification$pred_classes)
 ```
 
 We can also see the class probabilities (per pixel probabilities of membership of each class):
 
-```{r, class_probabilities, fig.cap="Predicted probabilities of each class"}
+```{r, class_probabilities, fig.cap="Predicted probabilities of each class", cache=TRUE}
 spplot(classification$pred_probs)
 ```
 
@@ -137,7 +137,7 @@ calculations. `teamlucc` supports parallel computations (using the capabilities
 of the `raster` package). To enable this functionality, first install the
 `snow` package if it is not already installed:
 
-```{r}
+```{r, cache=TRUE}
 if (!require(devtools)) install.packages('snow')
 ```
 
@@ -148,7 +148,7 @@ running computations, always call `endCluster()` to stop the cluster. Both the
 parallel computations. Below is the code for the same classification problem we 
 just ran, but this time run in parallel:
 
-```{r}
+```{r, cache=TRUE}
 beginCluster()
 train_data_par <- extract_training_data(L5TSR_1986, train_polys, 
                                     class_col="class_1986", training=.6)

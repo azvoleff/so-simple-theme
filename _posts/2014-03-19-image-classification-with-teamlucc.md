@@ -65,7 +65,7 @@ library(rgdal)
 The first step in the classification is putting together a training dataset. 
 `teamlucc` includes a function to output a shapefile that can be used for 
 collecting training data. Here we are collecting training data for the 
-L5TSR_1986 raster (a portion of a 1986 Landsat 5 surface reflectance image) 
+`L5TSR_1986` raster (a portion of a 1986 Landsat 5 surface reflectance image) 
 that is included with the `teamlucc` package. Use the `get_extent_polys` 
 function to quickly construct a shapefile in the same coordinate system as the 
 image:
@@ -86,8 +86,8 @@ train_polys <- train_polys[-1, ] # Delete extent polygon
 {% endhighlight %}
 
 
-Now save the `train_polys` object to a shapefile using `writeOGR` from the `rgdal` 
-package. The "." below just means "save the shapefile in the current 
+Now save the `train_polys` object to a shapefile using `writeOGR` from the 
+`rgdal` package. The `"."` below just means "save the shapefile in the current 
 directory".
 
 
