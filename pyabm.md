@@ -47,6 +47,7 @@ Index](http://pypi.python.org/pypi/pyabm) (PyPI).
 * [README file](https://raw.github.com/azvoleff/pyabm/master/README.rst)
 
 ## Related Work
-The [ChitwanABM](/chitwanabm) agent-based model is built using the PyABM 
-toolkit. The code of the ChitwanABM is open source (released under the GPL).
+The [ChitwanABM]({{  site.baseurl }}/chitwanabm) agent-based model is built 
+using the PyABM toolkit. The code of the ChitwanABM is open source (released 
+under the GPL).
 
