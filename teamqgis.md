@@ -4,6 +4,7 @@ layout: page
 title: teamqgis
 description: "teamqgis - azvoleff.com"
 tags: [remote sensing, QGIS, GIS]
+redirect_from: "/research/teamqgis"
 
 ---
 
