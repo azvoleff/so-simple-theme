@@ -63,13 +63,13 @@ is interpolated using cubic convolution from the 90m SRTM DEM).
 
 DEM Files:
 
-* [30m DEM]({{ site.baseurl }}/content/chitwanabm/CVFS_Study_Area_DEM_Raster_30m.zip)
-* [90m DEM]({{ site.baseurl }}/content/chitwanabm/CVFS_Study_Area_DEM_Raster_90m.zip)
+* [30m DEM](/content/chitwanabm/CVFS_Study_Area_DEM_Raster_30m.zip)
+* [90m DEM](/content/chitwanabm/CVFS_Study_Area_DEM_Raster_90m.zip)
 
 Mask Files:
 
-* [30m mask file]({{ site.baseurl }}/content/chitwanabm/CVFS_Study_Area_Raster_30m.zip)
-* [90m mask file]({{ site.baseurl }}/content/chitwanabm/CVFS_Study_Area_Raster_90m.zip)
+* [30m mask file](/content/chitwanabm/CVFS_Study_Area_Raster_30m.zip)
+* [90m mask file](/content/chitwanabm/CVFS_Study_Area_Raster_90m.zip)
 
 ## Documentation
 
@@ -79,13 +79,13 @@ Mask Files:
 
 ## Related Work
 The ChitwanABM agent-based model is built using the
-[PyABM]({{ site.baseurl }}/pyabm) toolkit. The code of PyABM is open source 
+[PyABM](/pyabm) toolkit. The code of PyABM is open source 
 (released under the GPL).
 
 ## Related Files
 
-* <a href="{{ site.baseurl }}/content/chitwanabm/Zvoleff_An_PIRE_2012_lowres.pdf">Presentation</a> given at 2012 NSF PIRE meeting on 8/06/2012 in Ann Arbor, Michigan.
-* <a href="{{ site.baseurl }}/content/chitwanabm/Zvoleff_An_PIRE_2011_lowres.pdf">Presentation</a> given at 2011 NSF PIRE meeting on 8/09/2011 in Ann Arbor, Michigan.
-* <a href="{{ site.baseurl }}/content/chitwanabm/Zvoleff_An_PIRE_2010_lowres.pdf">Presentation</a> given at 2010 NSF PIRE meeting on 8/11/2010 in Ann Arbor, Michigan.
-* <a href="{{ site.baseurl }}/content/chitwanabm/Zvoleff_An_PIRE_2009_lowres.pdf">Presentation</a> given at 2009 NSF PIRE meeting on 8/20/2009 in East Lansing, Michigan.
+* <a href="/content/chitwanabm/Zvoleff_An_PIRE_2012_lowres.pdf">Presentation</a> given at 2012 NSF PIRE meeting on 8/06/2012 in Ann Arbor, Michigan.
+* <a href="/content/chitwanabm/Zvoleff_An_PIRE_2011_lowres.pdf">Presentation</a> given at 2011 NSF PIRE meeting on 8/09/2011 in Ann Arbor, Michigan.
+* <a href="/content/chitwanabm/Zvoleff_An_PIRE_2010_lowres.pdf">Presentation</a> given at 2010 NSF PIRE meeting on 8/11/2010 in Ann Arbor, Michigan.
+* <a href="/content/chitwanabm/Zvoleff_An_PIRE_2009_lowres.pdf">Presentation</a> given at 2009 NSF PIRE meeting on 8/20/2009 in East Lansing, Michigan.
 

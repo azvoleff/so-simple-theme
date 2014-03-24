@@ -21,6 +21,6 @@ I am not currently teaching.
 
 * Remote Sensing with R and Python (fall 2012)
 * Introduction to R programming (spring 2012)
-* [GIS and GPS Workshop (fall 2011)]({{ site.baseurl }}/2011-10-13-gis-and-gps-workshop) (fall 
+* [GIS and GPS Workshop (fall 2011)](/2011-10-13-gis-and-gps-workshop) (fall 
   2011, in Bharatpur, Nepal)
 
