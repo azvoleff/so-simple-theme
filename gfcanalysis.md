@@ -4,7 +4,7 @@ layout: page
 title: gfcanalysis
 description: "gfcanalysis - azvoleff.com"
 tags: [remote sensing, Landsat, R]
-redirect_from: "/research/gfcanalysis.html"
+redirect_from: "/research/gfcanalysis/index.html"
 
 ---
 
