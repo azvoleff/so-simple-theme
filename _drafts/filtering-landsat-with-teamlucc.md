@@ -14,11 +14,14 @@ First load the `devtools` package, used for installing `teamlucc`. Install the
 `devtools` package if it is not already installed:
 
 
+{% highlight text %}
+## Error: cannot change working directory
+{% endhighlight %}
 
 
 
 {% highlight r %}
-if (!require(devtools)) install.packages('devtools')
+if (!require(devtools)) install.packages("devtools")
 {% endhighlight %}
 
 
@@ -28,36 +31,8 @@ shapefiles:
 
 
 {% highlight r %}
-if (!require(teamlucc)) install_github('azvoleff/teamlucc')
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Loading required package: teamlucc
-## Loading required package: Rcpp
-## Loading required package: RcppArmadillo
-## Loading required package: raster
-## Loading required package: sp
-## SDMTools 1.1-13 (2012-11-08)
-{% endhighlight %}
-
-
-
-{% highlight r %}
+if (!require(teamlucc)) install_github("azvoleff/teamlucc")
 library(rgdal)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## rgdal: version: 0.8-16, (SVN revision 498)
-## Geospatial Data Abstraction Library extensions to R successfully loaded
-## Loaded GDAL runtime: GDAL 1.10.1, released 2013/08/26
-## Path to GDAL shared files: C:/Users/azvoleff/Documents/R/win-library/3.0/rgdal/gdal
-## GDAL does not use iconv for recoding strings.
-## Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]
-## Path to PROJ.4 shared files: C:/Users/azvoleff/Documents/R/win-library/3.0/rgdal/proj
 {% endhighlight %}
 
 
@@ -99,7 +74,7 @@ Download these zipfiles and use them for the next step.
 
 
 {% highlight r %}
-l7 <- read.csv('PSH_L7_20140320_scenelist.csv', stringsAsFactors=FALSE)
+l7 <- read.csv("PSH_L7_20140320_scenelist.csv", stringsAsFactors = FALSE)
 {% endhighlight %}
 
 
@@ -118,7 +93,7 @@ l7 <- read.csv('PSH_L7_20140320_scenelist.csv', stringsAsFactors=FALSE)
 
 
 {% highlight r %}
-l45 <- read.csv('PSH_L4-5_20140320_scenelist.csv', stringsAsFactors=FALSE)
+l45 <- read.csv("PSH_L4-5_20140320_scenelist.csv", stringsAsFactors = FALSE)
 {% endhighlight %}
 
 
@@ -137,7 +112,7 @@ l45 <- read.csv('PSH_L4-5_20140320_scenelist.csv', stringsAsFactors=FALSE)
 
 
 {% highlight r %}
-l457 <- merge(l7, l45, all=TRUE)
+l457 <- merge(l7, l45, all = TRUE)
 {% endhighlight %}
 
 
@@ -160,7 +135,7 @@ Malaysia, and plots the Landsat path/rows needed to cover the ZOI:
 
 {% highlight r %}
 library(wrspathrow)
-psh_zoi <- readOGR('.', 'ZOI_PSH_2013_EEsimple')
+psh_zoi <- readOGR(".", "ZOI_PSH_2013_EEsimple")
 {% endhighlight %}
 
 
@@ -172,7 +147,7 @@ psh_zoi <- readOGR('.', 'ZOI_PSH_2013_EEsimple')
 
 
 {% highlight r %}
-psh_pathrows <- pathrow_num(psh_zoi, as_polys=TRUE)
+psh_pathrows <- pathrow_num(psh_zoi, as_polys = TRUE)
 {% endhighlight %}
 
 
@@ -196,7 +171,7 @@ plot(psh_pathrows)
 
 
 {% highlight r %}
-plot(psh_zoi, add=TRUE, lty=2, col="#00ff0050")
+plot(psh_zoi, add = TRUE, lty = 2, col = "#00ff0050")
 {% endhighlight %}
 
 
@@ -208,8 +183,8 @@ plot(psh_zoi, add=TRUE, lty=2, col="#00ff0050")
 
 
 {% highlight r %}
-text(coordinates(psh_pathrows), labels=paste(psh_pathrows$PATH, 
-                                             psh_pathrows$ROW, sep=', '))
+text(coordinates(psh_pathrows), labels = paste(psh_pathrows$PATH, psh_pathrows$ROW, 
+    sep = ", "))
 {% endhighlight %}
 
 
@@ -222,8 +197,8 @@ text(coordinates(psh_pathrows), labels=paste(psh_pathrows$PATH,
 
 
 {% highlight r %}
-start_date <- as.Date('1990/1/1')
-end_date <- as.Date('1996/1/1')
+start_date <- as.Date("1990/1/1")
+end_date <- as.Date("1996/1/1")
 plot_ee(l457, start_date, end_date)
 {% endhighlight %}
 
@@ -250,8 +225,7 @@ plot_ee_norm(l457, start_date, end_date)
 
 
 {% highlight r %}
-espa_scenelist(l457, as.Date('1986/1/1'), as.Date('1986/12/31'), 
-               'PSH_ESPA_scenelist_1986.txt')
+espa_scenelist(l457, as.Date("1986/1/1"), as.Date("1986/12/31"), "PSH_ESPA_scenelist_1986.txt")
 {% endhighlight %}
 
 
@@ -264,7 +238,7 @@ espa_scenelist(l457, as.Date('1986/1/1'), as.Date('1986/12/31'),
 # Downloading from ESPA
 
 {% highlight r %}
-espa_download(espa_email,'272014-114611', ".")
+espa_download(espa_email, "272014-114611", ".")
 {% endhighlight %}
 
 

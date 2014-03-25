@@ -21,14 +21,7 @@ file for the `download_tiles` function.
 First load the `devtools` package, used for installing `gfcanalysis`. Install the 
 `devtools` package if it is not already installed:
 
-```{r, echo=FALSE}
-script_name <- "analyzing-forest-change-with-gfcanalysis"
-base_path <- "C:/Users/azvoleff/Code/azvoleff.github.io"
-# Change to local data folder
-setwd(file.path(base_path, 'content', script_name))
-```
-
-```{r, cache=TRUE}
+```{r}
 if (!require(devtools)) install.packages('devtools')
 ```
 
@@ -37,7 +30,7 @@ is not yet installed. Also load the `rgdal` package needed for reading/writing
 shapefiles, and the `spatial.tools` package use for processing raster data in 
 parallel:
 
-```{r, cache=TRUE}
+```{r}
 if (!require(gfcanalysis)) install_github('azvoleff/gfcanalysis')
 if (!require(rgdal)) install.packages('rgdal')
 if (!require(spatial.tools)) install.packages('spatial.tools')
@@ -50,7 +43,7 @@ to use all of the available computing power on your machine (for example if you
 need to use the computer for email, etc. while it is processing GFC data)
 
 ```{r}
-sfQuickInit()
+#sfQuickInit()
 ```
 -->
 
@@ -80,7 +73,8 @@ working directory), and then the name of the shapefile without the ".shp". To
 follow along with this example, [download this 
 shapefile](/content/analyzing-forest-change-with-gfcanalysis/ZOI_NAK_2012_EEsimple.zip).
 
-```{r, cache=TRUE}
+```{r}
+getwd()
 aoi <- readOGR('.', 'ZOI_NAK_2012_EEsimple')
 ```
 
