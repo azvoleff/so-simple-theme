@@ -83,7 +83,7 @@ shapefile of Zone of Interation (ZOI) of the TEAM site in [Pasoh Forest
 Reserve](http://www.teamnetwork.org/network/sites/pasoh-national-forest) in 
 Malaysia, and plots the Landsat path/rows needed to cover the ZOI:
 
-```{r, cache=TRUE}
+```{r, pathrow_versus_zoi, cache=TRUE}
 library(wrspathrow)
 psh_zoi <- readOGR('.', 'ZOI_PSH_2013_EEsimple')
 psh_pathrows <- pathrow_num(psh_zoi, as_polys=TRUE)
