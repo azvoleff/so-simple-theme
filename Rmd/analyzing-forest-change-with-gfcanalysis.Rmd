@@ -196,6 +196,6 @@ could be used to automate this.
 To make an annual animation (in WGS84) type:
 
 ```{r, cache=TRUE}
-animate_annual(aoi, gfc_annual_stack)
+animate_annual(aoi, gfc_annual_stack, out_dir='.', site_name='Pasoh')
 ```
 
