@@ -4,7 +4,7 @@ layout: page
 title: ChitwanABM
 description: "ChitwanABM - azvoleff.com"
 tags: [Alex Zvoleff, ABM, chitwanabm, nepal, pyabm, python]
-redirect_from: "/research/pyabm.html"
+redirect_from: "/research/chitwanabm.html"
 
 ---
 
