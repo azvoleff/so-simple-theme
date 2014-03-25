@@ -134,7 +134,7 @@ getwd()
 
 
 {% highlight text %}
-## [1] "/Rmd/analyzing-forest-change-with-gfcanalysis"
+## [1] "/Rmd/2014-03-25-analyzing-forest-change-with-gfcanalysis"
 {% endhighlight %}
 
 
@@ -177,7 +177,7 @@ plot(tiles)
 plot(aoi, add=TRUE, lty=2, col="#00ff0050")
 {% endhighlight %}
 
-![center](content/analyzing-forest-change-with-gfcanalysis/tiles_verus_aoi.png) 
+![center](content/2014-03-25-analyzing-forest-change-with-gfcanalysis/tiles_verus_aoi.png) 
 
 
 Check to see if these tiles are already present locally, and download them if 
@@ -230,7 +230,7 @@ gfc_extract
 ## resolution  : 0.0002778, 0.0002778  (x, y)
 ## extent      : 103.5, 104.8, 17.83, 19.04  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-## data source : C:\Users\azvoleff\Code\Misc\azvoleff.github.io\Rmd\analyzing-forest-change-with-gfcanalysis\NAK_GFC_extract.envi 
+## data source : C:\Users\azvoleff\Code\Misc\azvoleff.github.io\Rmd\2014-03-25-analyzing-forest-change-with-gfcanalysis\NAK_GFC_extract.envi 
 ## names       : treecover2000, loss, gain, lossyear, datamask 
 ## min values  :             0,    0,    0,        0,        1 
 ## max values  :           100,    1,    1,       12,        2
@@ -272,7 +272,7 @@ gfc_thresholded
 ## resolution  : 0.0002778, 0.0002778  (x, y)
 ## extent      : 103.5, 104.8, 17.83, 19.04  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-## data source : C:\Users\azvoleff\Code\Misc\azvoleff.github.io\Rmd\analyzing-forest-change-with-gfcanalysis\NAK_GFC_extract_thresholded.grd 
+## data source : C:\Users\azvoleff\Code\Misc\azvoleff.github.io\Rmd\2014-03-25-analyzing-forest-change-with-gfcanalysis\NAK_GFC_extract_thresholded.grd 
 ## names       : forest2000, lossyear, gain, lossgain, datamask 
 ## min values  :          0,        0,    0,        0,        1 
 ## max values  :          1,       12,    1,        1,        2
@@ -341,35 +341,14 @@ Calculate and save a thresholded annual layer stack from the GFC product
 
 {% highlight r %}
 gfc_annual_stack <- annual_stack(gfc_thresholded)
+writeRaster(gfc_annual_stack, filename='test_gfc_extract_thresholded_annual.tif')
 {% endhighlight %}
 
 
 
 {% highlight text %}
-## Loading required package: ncdf
+## Error: filename exists; use overwrite=TRUE
 {% endhighlight %}
-
-
-
-{% highlight text %}
-## Error: Cannot create a RasterLayer object from this file. (file does not
-## exist)
-{% endhighlight %}
-
-
-
-{% highlight r %}
-writeRaster(gfc_thresholded_annual, filename='test_gfc_extract_thresholded_annual.tif')
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error: error in evaluating the argument 'x' in selecting a method for function 'writeRaster': Error: object 'gfc_thresholded_annual' not found
-{% endhighlight %}
-
-
-
 
 
 The annual stack has one layer for each year:
@@ -382,7 +361,16 @@ gfc_annual_stack
 
 
 {% highlight text %}
-## Error: object 'gfc_annual_stack' not found
+## class       : RasterBrick 
+## dimensions  : 4358, 4761, 20748438, 13  (nrow, ncol, ncell, nlayers)
+## resolution  : 0.0002778, 0.0002778  (x, y)
+## extent      : 103.5, 104.8, 17.83, 19.04  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
+## data source : C:\Users\azvoleff\AppData\Local\Temp\R_raster_azvoleff\raster_tmp_2014-03-25_165707_11668_11604.grd 
+## names       : y2000, y2001, y2002, y2003, y2004, y2005, y2006, y2007, y2008, y2009, y2010, y2011, y2012 
+## min values  :     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1 
+## max values  :     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6 
+## time        : 2000-01-01, 2001-01-01, 2002-01-01, 2003-01-01, 2004-01-01, 2005-01-01, 2006-01-01, 2007-01-01, 2008-01-01, 2009-01-01, 2010-01-01, 2011-01-01, 2012-01-01
 {% endhighlight %}
 
 
@@ -398,13 +386,29 @@ To make an annual animation (in WGS84) type:
 
 
 {% highlight r %}
+aoi$label <- "ZOI" # Label the polygon on the plot
 animate_annual(aoi, gfc_annual_stack, out_dir='.', site_name='Pasoh')
 {% endhighlight %}
 
 
 
 {% highlight text %}
-## Error: error in evaluating the argument 'x' in selecting a method for function 'nlayers': Error: object 'gfc_annual_stack' not found
+## Loading required package: rgeos
+## rgeos version: 0.3-3, (SVN revision 437)
+##  GEOS runtime version: 3.4.2-CAPI-1.8.2 r3921 
+##  Polygon checking: TRUE 
+## 
+## Loading required package: ggplot2
+## HTML file created at: C:\Users\azvoleff\Code\Misc\azvoleff.github.io\Rmd\2014-03-25-analyzing-forest-change-with-gfcanalysis/gfc_animation.html
+## You may use ani.options(outdir = getwd()) or saveHTML(..., outdir = getwd()) to generate files under the current working directory.
 {% endhighlight %}
+
+
+The animation will be saved in the directory specified by `out_dir` (in this 
+example the current working directory). To view the animation, double-click the 
+new ".html" file in that directory. The animation will look [something like 
+this](/content/2014-03-25-analyzing-forest-change-with-gfcanalysis/gfc_animation.html).
+
+
 
 
