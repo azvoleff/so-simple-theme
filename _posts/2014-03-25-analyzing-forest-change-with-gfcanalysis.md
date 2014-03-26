@@ -44,8 +44,51 @@ parallel:
 
 {% highlight r %}
 if (!require(gfcanalysis)) install_github('azvoleff/gfcanalysis')
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Loading required package: gfcanalysis
+## Loading required package: raster
+## Loading required package: sp
+{% endhighlight %}
+
+
+
+{% highlight r %}
 if (!require(rgdal)) install.packages('rgdal')
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Loading required package: rgdal
+## rgdal: version: 0.8-16, (SVN revision 498)
+## Geospatial Data Abstraction Library extensions to R successfully loaded
+## Loaded GDAL runtime: GDAL 1.10.1, released 2013/08/26
+## Path to GDAL shared files: C:/Users/azvoleff/R/win-library/3.0/rgdal/gdal
+## GDAL does not use iconv for recoding strings.
+## Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]
+## Path to PROJ.4 shared files: C:/Users/azvoleff/R/win-library/3.0/rgdal/proj
+{% endhighlight %}
+
+
+
+{% highlight r %}
 if (!require(spatial.tools)) install.packages('spatial.tools')
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Loading required package: spatial.tools
+## Loading required package: parallel
+## Loading required package: iterators
+## Loading required package: foreach
+## foreach: simple, scalable parallel programming from Revolution Analytics
+## Use Revolution R for scalability, fault tolerance and more.
+## http://www.revolutionanalytics.com
 {% endhighlight %}
 
 
@@ -134,13 +177,9 @@ plot(aoi, add=TRUE, lty=2, col="#00ff0050")
 ![center](/content/2014-03-25-analyzing-forest-change-with-gfcanalysis/tiles_versus_aoi.png) 
 
 
-Check to see if these tiles are already present locally, and download them if 
-they are not. By default the "first" and "last" composite surface reflectance 
-images are not downloaded. To also download these images specify 
-
-Check to see if these tiles are already present locally, and download them if 
-they are not. By default the "first" and "last" composite surface reflectance 
-images are not downloaded. To also download these images specify 
+Now, check to see if these tiles are already present locally, and download them 
+if they are not. By default the "first" and "last" composite surface 
+reflectance images are not downloaded. To also download these images specify
 `first_and_last=TRUE`.
 
 
@@ -222,7 +261,7 @@ gfc_thresholded
 ## resolution  : 0.0002778, 0.0002778  (x, y)
 ## extent      : 103.5, 104.8, 17.83, 19.04  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-## data source : C:\Users\azvoleff\Code\Misc\azvoleff.github.io\Rmd\2014-03-25-analyzing-forest-change-with-gfcanalysis\NAK_GFC_extract_thresholded.grd 
+## data source : C:\Users\azvoleff\Code\Misc\azvoleff.github.io\Rmd\2014-03-25-analyzing-forest-change-with-gfcanalysis\NAK_GFC_extract_thresholded.envi 
 ## names       : forest2000, lossyear, gain, lossgain, datamask 
 ## min values  :          0,        0,    0,        0,        1 
 ## max values  :          1,       12,    1,        1,        2
@@ -335,7 +374,7 @@ gfc_stats
 ## 
 ## $gain_table
 ##      period  gain lossgain   aoi
-## 1 2000-2012 16194    12287 AOI 1
+## 1 2000-2012 16194     4047 AOI 1
 {% endhighlight %}
 
 
@@ -399,7 +438,7 @@ gfc_annual_stack
 ## resolution  : 0.0002778, 0.0002778  (x, y)
 ## extent      : 103.5, 104.8, 17.83, 19.04  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-## data source : C:\Users\azvoleff\AppData\Local\Temp\R_raster_azvoleff\raster_tmp_2014-03-26_130225_7796_11604.grd 
+## data source : C:\Users\azvoleff\AppData\Local\Temp\R_raster_azvoleff\raster_tmp_2014-03-26_142210_12652_82001.grd 
 ## names       : y2000, y2001, y2002, y2003, y2004, y2005, y2006, y2007, y2008, y2009, y2010, y2011, y2012 
 ## min values  :     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1 
 ## max values  :     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6 

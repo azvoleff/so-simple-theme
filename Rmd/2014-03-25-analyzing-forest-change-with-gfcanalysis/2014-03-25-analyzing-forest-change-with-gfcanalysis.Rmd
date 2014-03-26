@@ -101,13 +101,9 @@ plot(tiles)
 plot(aoi, add=TRUE, lty=2, col="#00ff0050")
 ```
 
-Check to see if these tiles are already present locally, and download them if 
-they are not. By default the "first" and "last" composite surface reflectance 
-images are not downloaded. To also download these images specify 
-
-Check to see if these tiles are already present locally, and download them if 
-they are not. By default the "first" and "last" composite surface reflectance 
-images are not downloaded. To also download these images specify 
+Now, check to see if these tiles are already present locally, and download them 
+if they are not. By default the "first" and "last" composite surface 
+reflectance images are not downloaded. To also download these images specify
 `first_and_last=TRUE`.
 
 ```{r, cache=TRUE}
