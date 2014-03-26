@@ -90,7 +90,7 @@ Interaction of the TEAM Network site in Nam Kading. Notice that first we
 specify the folder the shapefile is in (here it is a "." indicating the current 
 working directory), and then the name of the shapefile without the ".shp". To 
 follow along with this example, [download this 
-shapefile](/content/analyzing-forest-change-with-gfcanalysis/ZOI_NAK_2012_EEsimple.zip).
+shapefile](/content/2014-03-25-analyzing-forest-change-with-gfcanalysis/ZOI_NAK_2012_EEsimple.zip).
 
 
 {% highlight r %}
@@ -131,7 +131,7 @@ plot(tiles)
 plot(aoi, add=TRUE, lty=2, col="#00ff0050")
 {% endhighlight %}
 
-![center](content/2014-03-25-analyzing-forest-change-with-gfcanalysis/tiles_verus_aoi.png) 
+![center](/content/2014-03-25-analyzing-forest-change-with-gfcanalysis/tiles_versus_aoi.png) 
 
 
 Check to see if these tiles are already present locally, and download them if 

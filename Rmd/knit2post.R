@@ -6,7 +6,7 @@ knit2post <- function(input, local_base_dir='../../.', server_base_dir="/") {
         stop(paste(abs_local_base_dir, "does not appear to be Jekyll root"))
     }
     opts_knit$set(base.dir=abs_local_base_dir)
-    fig.path <- paste0(file.path('content', sub(".Rmd$", "", basename(input))), '/')
+    fig.path <- paste0(file.path(abs_local_base_dir, 'content', sub(".Rmd$", "", basename(input))), '/')
     opts_chunk$set(fig.path=fig.path)
     opts_chunk$set(fig.cap="center")
     render_jekyll()

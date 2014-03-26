@@ -80,7 +80,7 @@ Interaction of the TEAM Network site in Nam Kading. Notice that first we
 specify the folder the shapefile is in (here it is a "." indicating the current 
 working directory), and then the name of the shapefile without the ".shp". To 
 follow along with this example, [download this 
-shapefile](/content/analyzing-forest-change-with-gfcanalysis/ZOI_NAK_2012_EEsimple.zip).
+shapefile](/content/2014-03-25-analyzing-forest-change-with-gfcanalysis/ZOI_NAK_2012_EEsimple.zip).
 
 ```{r, cache=TRUE}
 aoi <- readOGR('.', 'ZOI_NAK_2012_EEsimple')
@@ -96,7 +96,7 @@ print(length(tiles)) # Number of tiles needed to cover AOI
 To check the overlap between the tiles and the aoi, you can make a plot of the 
 needed tiles and the AOI using R's plotting functions:
 
-```{r, tiles_verus_aoi, cache=TRUE}
+```{r, tiles_versus_aoi, cache=TRUE}
 plot(tiles)
 plot(aoi, add=TRUE, lty=2, col="#00ff0050")
 ```
