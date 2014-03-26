@@ -11,7 +11,10 @@ share: true
 ## Overview
 This `gfcanalysis` R package facilitates simple analyses using the Hansen et 
 al. 2013[^1] [Global Forest Change 
-dataset](http://earthenginepartners.appspot.com/science-2013-global-forest).
+dataset](http://earthenginepartners.appspot.com/science-2013-global-forest). 
+The package was written to analyze forest change in within the Zone of 
+Interaction surrounding each of the forest monitoring sites of the [Tropical 
+Ecology Assessment and Monitoring (TEAM) Network](http://www.teamnetwork.org).
 
 [^1]:
     Hansen, M. C., P. V. Potapov, R. Moore, M. Hancher, S. A. Turubanova, A. 
@@ -27,8 +30,15 @@ file for the `download_tiles` function.
 
 ## Getting started
 
-First load the `devtools` package, used for installing `gfcanalysis`. Install the 
-`devtools` package if it is not already installed:
+This post will outline an analysis using the `gfcanalysis` package. Note that 
+as the computations are intensive, some parts of this analysis may take some 
+time to run (about 30 minutes total to run all of the code outlined here). If 
+you do not already have the GFC product data downloaded on your computer, 
+downloading the dataset will also take some time (though this process is 
+automated by `gfcanalysis`.
+
+To get started, first load the `devtools` package, used for installing 
+`gfcanalysis`.  Install the `devtools` package if it is not already installed:
 
 
 {% highlight r %}
@@ -129,11 +139,13 @@ forest_threshold <- 90
 ## Downloading data from Google server for a given AOI
 
 Load an area of interest. For this example we use a shapefile of the Zone of 
-Interaction of the TEAM Network site in Nam Kading. Notice that first we 
-specify the folder the shapefile is in (here it is a "." indicating the current 
-working directory), and then the name of the shapefile without the ".shp". To 
-follow along with this example, [download this 
-shapefile](/content/2014-03-25-analyzing-forest-change-with-gfcanalysis/ZOI_NAK_2012_EEsimple.zip).
+Interaction (ZOI) of the [TEAM Network](http://www.teamnetwork.org) site in 
+[Nam Kading National Protected Area, 
+Laos](http://www.teamnetwork.org/network/sites/nam-kading-0). Notice that first 
+we specify the folder the shapefile is in (here it is a "." indicating the 
+current working directory), and then the name of the shapefile without the 
+".shp". To follow along with this example, [download this shapefile of the 
+ZOI](/content/2014-03-25-analyzing-forest-change-with-gfcanalysis/ZOI_NAK_2012_EEsimple.zip).
 
 
 {% highlight r %}
@@ -394,7 +406,7 @@ To view the output format of the CSV files output by `gfcanalysis`, see the
 table](/content/2014-03-25-analyzing-forest-change-with-gfcanalysis/NAK_GFC_extract_thresholded_gaintable.csv)
 and [gain 
 table](/content/2014-03-25-analyzing-forest-change-with-gfcanalysis/NAK_GFC_extract_thresholded_gaintable.csv) 
-for Pasoh.
+for Nam Kading.
 
 ## Making simple visualizations
 
@@ -438,7 +450,7 @@ gfc_annual_stack
 ## resolution  : 0.0002778, 0.0002778  (x, y)
 ## extent      : 103.5, 104.8, 17.83, 19.04  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-## data source : C:\Users\azvoleff\AppData\Local\Temp\R_raster_azvoleff\raster_tmp_2014-03-26_142210_12652_82001.grd 
+## data source : C:\Users\azvoleff\AppData\Local\Temp\R_raster_azvoleff\raster_tmp_2014-03-26_145925_13136_82001.grd 
 ## names       : y2000, y2001, y2002, y2003, y2004, y2005, y2006, y2007, y2008, y2009, y2010, y2011, y2012 
 ## min values  :     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1 
 ## max values  :     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6 
@@ -473,7 +485,7 @@ To make an annual animation (in WGS84) type:
 
 {% highlight r %}
 aoi$label <- "ZOI" # Label the polygon on the plot
-animate_annual(aoi, gfc_annual_stack, out_dir='.', site_name='Pasoh')
+animate_annual(aoi, gfc_annual_stack, out_dir='.', site_name='Nam Kading')
 {% endhighlight %}
 
 
