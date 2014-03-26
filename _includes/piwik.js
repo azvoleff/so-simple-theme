@@ -1,6 +1,7 @@
 <!-- Piwik -->
 <script type="text/javascript">
   var _paq = _paq || [];
+  _paq.push(['setRequestMethod', 'POST']);
   _paq.push(["setDomains", ["*.azvoleff.com","*.azvoleff.github.io"]]);
   _paq.push(["trackPageView"]);
   _paq.push(["enableLinkTracking"]);
