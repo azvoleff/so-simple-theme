@@ -54,21 +54,22 @@
   })();
 </script>
 {% endif %}
-{% if site.piwik %}
+
 <!-- Piwik -->
 <script type="text/javascript">
   var _paq = _paq || [];
+  _paq.push(["setDomains", ["*.azvoleff.com","*.azvoleff.github.io"]]);
   _paq.push(["trackPageView"]);
   _paq.push(["enableLinkTracking"]);
 
   (function() {
-    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://{{ site.piwik.base_url }}/";
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://stats.azvoleff.com/";
     _paq.push(["setTrackerUrl", u+"piwik.php"]);
-    _paq.push(["setSiteId", "{{ site.piwik.site_id }}"]);
+    _paq.push(["setSiteId", "1"]);
     var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
     g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
   })();
 </script>
 <!-- End Piwik Code -->
-{% endif %}
+
 {% if page.comments %}{% include disqus_comments.html %}{% endif %}
