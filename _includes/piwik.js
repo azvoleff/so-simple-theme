@@ -6,7 +6,7 @@
   _paq.push(["enableLinkTracking"]);
 
   (function() {
-    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://stats.azvoleff.com/";
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://stats.azvoleff.com/piwik/";
     _paq.push(["setTrackerUrl", u+"piwik.php"]);
     _paq.push(["setSiteId", "1"]);
     var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
