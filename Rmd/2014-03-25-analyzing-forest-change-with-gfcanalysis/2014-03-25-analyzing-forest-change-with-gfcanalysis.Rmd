@@ -82,8 +82,7 @@ working directory), and then the name of the shapefile without the ".shp". To
 follow along with this example, [download this 
 shapefile](/content/analyzing-forest-change-with-gfcanalysis/ZOI_NAK_2012_EEsimple.zip).
 
-```{r}
-getwd()
+```{r, cache=TRUE}
 aoi <- readOGR('.', 'ZOI_NAK_2012_EEsimple')
 ```
 
@@ -138,7 +137,7 @@ and save the thresholded layers to an ENVI format raster:
 
 ```{r, cache=TRUE, cache.lazy=FALSE}
 gfc_thresholded <- threshold_gfc(gfc_extract, forest_threshold=forest_threshold, 
-                                 filename="NAK_GFC_extract_thresholded")
+                                 filename="NAK_GFC_extract_thresholded.envi")
 ```
 
 ```{r, echo=FALSE}
@@ -161,6 +160,8 @@ The output is coded using the following coding scheme:
 Based on the provided `forest_threshold`. Pixels wiwth percent canopy cover 
 greater than `forest_threshold` are coded as forest.
 
+| Cover in 2000         | Code |
+|:----------------------|:----:|
 | Non-forest            | 0 |
 | Forest                | 1 |
 
@@ -168,6 +169,8 @@ greater than `forest_threshold` are coded as forest.
 
 Note that lossyear is zero for pixels that were not forested in 2000.
 
+| Year of loss  | Code |
+|:--------------|:----:|
 | No loss       |  0 |
 | Loss in 2001  |  1 |
 | Loss in 2002  |  2 |
@@ -186,8 +189,10 @@ Note that lossyear is zero for pixels that were not forested in 2000.
 
 Note that gain is zero for pixels that were forested in 2000
 
-| No loss  | 0 |
-| Loss     | 1 |
+| Change    | Code |
+|:----------|:----:|
+| No gain  | 0 |
+| Gain     | 1 |
 
 ### Band 4 (lossgain)
 
@@ -199,11 +204,15 @@ loss (for gain then loss) or after loss (for loss then gain pixels). The layer
 is calculated here as: \code{lossgain <- gain & (lossyear != 0)}, where loss 
 year and gain are the original GFC gain and lossyear layers, respectively.
 
+| Change            | Code |
+|:------------------|:----:|
 | No loss and gain  | 0 |
 | Loss and gain     | 1 |
 
 ### Band 5 (datamask)
 
+| Class    | Code |
+|:----------|:----:|
 | No data  | 0 |
 | Land     | 1 |
 | Water    | 2 |
@@ -235,27 +244,42 @@ for Pasoh.
 
 ## Making simple visualizations
 
-Calculate and save a thresholded annual layer stack from the GFC product 
-(useful for simple visualizations, etc.)
+There is also a function in `gfcanalysis` to calculate and save a thresholded 
+annual layer stack from the GFC product (useful for simple visualizations, 
+etc.):
 
 ```{r, cache=TRUE, cache.lazy=FALSE}
 gfc_annual_stack <- annual_stack(gfc_thresholded)
-writeRaster(gfc_annual_stack, filename='test_gfc_extract_thresholded_annual.tif')
+writeRaster(gfc_annual_stack, filename="NAK_GFC_extract_thresholded_annual.envi")
 ```
 
-The annual stack has one layer for each year:
+The annual stack output by `annual_stack` has one layer for each year:
 
 ```{r, cache=TRUE, cache.lazy=FALSE}
 gfc_annual_stack
 ```
 
-Save a simple visualization of the thresholded annual layer stack.
+Forest change in each year is coded as:
+
+| Cover/Change          | Code |
+|:-----------------------|:----:|
+| No data               |    0 |
+| Forest                |    1 |
+| Non-forest            |    2 |
+| Forest loss           |    3 |
+| Forest gain           |    4 |
+| Forest loss and gain  |    5 |
+| Water                 |    6 |
+
+The `animate_annual` function can be used to save a simple visualization of the 
+thresholded annual layer stack.
 
 Note: For this example, we are using the data in the WGS84 coordinate system. 
 For a real analysis or presentation, the data should be projected into UTM or 
 another projection system for this.  The `utm_zone` function in the 
 `gfcanalysis` package and the `projectRaster` function in the `raster` package 
-could be used to automate this.
+could be used to automate this. Also see the `to_utm` option for the 
+`extract_gfc` function (type `?extract_gfc` in R).
 
 To make an annual animation (in WGS84) type:
 

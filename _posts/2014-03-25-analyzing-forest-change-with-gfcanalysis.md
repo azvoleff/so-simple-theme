@@ -10,7 +10,16 @@ share: true
 
 ## Overview
 This `gfcanalysis` R package facilitates simple analyses using the Hansen et 
-al.  2013 Global Forest Change dataset. 
+al. 2013[^1] [Global Forest Change 
+dataset](http://earthenginepartners.appspot.com/science-2013-global-forest).
+
+[^1]:
+    Hansen, M. C., P. V. Potapov, R. Moore, M. Hancher, S. A. Turubanova, A. 
+    Tyukavina, D. Thau, S. V. Stehman, S. J. Goetz, T. R. Loveland, A. Kommareddy, 
+    A. Egorov, L. Chini, C. O. Justice, and J. R. G. Townshend. 2013. 
+    High-Resolution Global Maps of 21st-Century Forest Cover Change. Science 342, 
+    (15 November): 850--853. Data available on-line from: 
+    http://earthenginepartners.appspot.com/science-2013-global-forest.
 
 If you need help with any of the functions in the package, see the help files 
 for more information. For example, type `?download_tiles` in R to see the help 
@@ -35,51 +44,8 @@ parallel:
 
 {% highlight r %}
 if (!require(gfcanalysis)) install_github('azvoleff/gfcanalysis')
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Loading required package: gfcanalysis
-## Loading required package: raster
-## Loading required package: sp
-{% endhighlight %}
-
-
-
-{% highlight r %}
 if (!require(rgdal)) install.packages('rgdal')
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Loading required package: rgdal
-## rgdal: version: 0.8-16, (SVN revision 498)
-## Geospatial Data Abstraction Library extensions to R successfully loaded
-## Loaded GDAL runtime: GDAL 1.10.1, released 2013/08/26
-## Path to GDAL shared files: C:/Users/azvoleff/R/win-library/3.0/rgdal/gdal
-## GDAL does not use iconv for recoding strings.
-## Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]
-## Path to PROJ.4 shared files: C:/Users/azvoleff/R/win-library/3.0/rgdal/proj
-{% endhighlight %}
-
-
-
-{% highlight r %}
 if (!require(spatial.tools)) install.packages('spatial.tools')
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Loading required package: spatial.tools
-## Loading required package: parallel
-## Loading required package: iterators
-## Loading required package: foreach
-## foreach: simple, scalable parallel programming from Revolution Analytics
-## Use Revolution R for scalability, fault tolerance and more.
-## http://www.revolutionanalytics.com
 {% endhighlight %}
 
 
@@ -125,18 +91,6 @@ specify the folder the shapefile is in (here it is a "." indicating the current
 working directory), and then the name of the shapefile without the ".shp". To 
 follow along with this example, [download this 
 shapefile](/content/analyzing-forest-change-with-gfcanalysis/ZOI_NAK_2012_EEsimple.zip).
-
-
-{% highlight r %}
-getwd()
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## [1] "/Rmd/2014-03-25-analyzing-forest-change-with-gfcanalysis"
-{% endhighlight %}
-
 
 
 {% highlight r %}
@@ -244,18 +198,14 @@ and save the thresholded layers to an ENVI format raster:
 
 {% highlight r %}
 gfc_thresholded <- threshold_gfc(gfc_extract, forest_threshold=forest_threshold, 
-                                 filename="NAK_GFC_extract_thresholded")
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Warning: min value not known, use setMinMax
+                                 filename="NAK_GFC_extract_thresholded.envi")
 {% endhighlight %}
 
 
 
 
+
+## Coding of the thresholded output
 
 The thresholded dataset has 5 layers:
 
@@ -278,6 +228,73 @@ gfc_thresholded
 ## max values  :          1,       12,    1,        1,        2
 {% endhighlight %}
 
+
+The output is coded using the following coding scheme:
+
+### Band 1 (forest2000)
+
+Based on the provided `forest_threshold`. Pixels wiwth percent canopy cover 
+greater than `forest_threshold` are coded as forest.
+
+| Cover in 2000         | Code |
+|:----------------------|:----:|
+| Non-forest            | 0 |
+| Forest                | 1 |
+
+### Band 2 (lossyear)
+
+Note that lossyear is zero for pixels that were not forested in 2000.
+
+| Year of loss  | Code |
+|:--------------|:----:|
+| No loss       |  0 |
+| Loss in 2001  |  1 |
+| Loss in 2002  |  2 |
+| Loss in 2003  |  3 |
+| Loss in 2004  |  4 |
+| Loss in 2005  |  5 |
+| Loss in 2006  |  6 |
+| Loss in 2007  |  7 |
+| Loss in 2008  |  8 |
+| Loss in 2009  |  9 |
+| Loss in 2010  | 10 |
+| Loss in 2011  | 11 |
+| Loss in 2012  | 12 |
+
+### Band 3 (gain)
+
+Note that gain is zero for pixels that were forested in 2000
+
+| Change    | Code |
+|:----------|:----:|
+| No gain  | 0 |
+| Gain     | 1 |
+
+### Band 4 (lossgain)
+
+Note that loss and gain is difficult to interpret from the thresholded 
+product, as the original GFC product does not provide information on the 
+sequence of loss and gain (loss then gain, or gain then loss). The product also 
+does not provide information on the levels of canopy cover reached prior to 
+loss (for gain then loss) or after loss (for loss then gain pixels). The layer 
+is calculated here as: \code{lossgain <- gain & (lossyear != 0)}, where loss 
+year and gain are the original GFC gain and lossyear layers, respectively.
+
+| Change            | Code |
+|:------------------|:----:|
+| No loss and gain  | 0 |
+| Loss and gain     | 1 |
+
+### Band 5 (datamask)
+
+| Class    | Code |
+|:----------|:----:|
+| No data  | 0 |
+| Land     | 1 |
+| Water    | 2 |
+
+
+## Calculating statistics on forest loss and forest gain
 
 Calculate annual statistics on forest loss/gain:
 
@@ -333,25 +350,41 @@ write.csv(gfc_stats$gain_table,
 {% endhighlight %}
 
 
+To view the output format of the CSV files output by `gfcanalysis`, see the
+[loss 
+table](/content/2014-03-25-analyzing-forest-change-with-gfcanalysis/NAK_GFC_extract_thresholded_gaintable.csv)
+and [gain 
+table](/content/2014-03-25-analyzing-forest-change-with-gfcanalysis/NAK_GFC_extract_thresholded_gaintable.csv) 
+for Pasoh.
+
 ## Making simple visualizations
 
-Calculate and save a thresholded annual layer stack from the GFC product 
-(useful for simple visualizations, etc.)
+There is also a function in `gfcanalysis` to calculate and save a thresholded 
+annual layer stack from the GFC product (useful for simple visualizations, 
+etc.):
 
 
 {% highlight r %}
 gfc_annual_stack <- annual_stack(gfc_thresholded)
-writeRaster(gfc_annual_stack, filename='test_gfc_extract_thresholded_annual.tif')
+writeRaster(gfc_annual_stack, filename="NAK_GFC_extract_thresholded_annual.envi")
 {% endhighlight %}
 
 
 
 {% highlight text %}
-## Error: filename exists; use overwrite=TRUE
+## class       : RasterBrick 
+## dimensions  : 4358, 4761, 20748438, 13  (nrow, ncol, ncell, nlayers)
+## resolution  : 0.0002778, 0.0002778  (x, y)
+## extent      : 103.5, 104.8, 17.83, 19.04  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
+## data source : C:\Users\azvoleff\Code\Misc\azvoleff.github.io\Rmd\2014-03-25-analyzing-forest-change-with-gfcanalysis\NAK_GFC_extract_thresholded_annual.envi 
+## names       : NAK_GFC_e//d_annual.1, NAK_GFC_e//d_annual.2, NAK_GFC_e//d_annual.3, NAK_GFC_e//d_annual.4, NAK_GFC_e//d_annual.5, NAK_GFC_e//d_annual.6, NAK_GFC_e//d_annual.7, NAK_GFC_e//d_annual.8, NAK_GFC_e//d_annual.9, NAK_GFC_e//_annual.10, NAK_GFC_e//_annual.11, NAK_GFC_e//_annual.12, NAK_GFC_e//_annual.13 
+## min values  :                     1,                     1,                     1,                     1,                     1,                     1,                     1,                     1,                     1,                     1,                     1,                     1,                     1 
+## max values  :                     6,                     6,                     6,                     6,                     6,                     6,                     6,                     6,                     6,                     6,                     6,                     6,                     6
 {% endhighlight %}
 
 
-The annual stack has one layer for each year:
+The annual stack output by `annual_stack` has one layer for each year:
 
 
 {% highlight r %}
@@ -366,7 +399,7 @@ gfc_annual_stack
 ## resolution  : 0.0002778, 0.0002778  (x, y)
 ## extent      : 103.5, 104.8, 17.83, 19.04  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-## data source : C:\Users\azvoleff\AppData\Local\Temp\R_raster_azvoleff\raster_tmp_2014-03-25_165707_11668_11604.grd 
+## data source : C:\Users\azvoleff\AppData\Local\Temp\R_raster_azvoleff\raster_tmp_2014-03-26_130225_7796_11604.grd 
 ## names       : y2000, y2001, y2002, y2003, y2004, y2005, y2006, y2007, y2008, y2009, y2010, y2011, y2012 
 ## min values  :     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1 
 ## max values  :     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6 
@@ -374,13 +407,27 @@ gfc_annual_stack
 {% endhighlight %}
 
 
-Save a simple visualization of the thresholded annual layer stack.
+Forest change in each year is coded as:
+
+| Cover/Change          | Code |
+|:-----------------------|:----:|
+| No data               |    0 |
+| Forest                |    1 |
+| Non-forest            |    2 |
+| Forest loss           |    3 |
+| Forest gain           |    4 |
+| Forest loss and gain  |    5 |
+| Water                 |    6 |
+
+The `animate_annual` function can be used to save a simple visualization of the 
+thresholded annual layer stack.
 
 Note: For this example, we are using the data in the WGS84 coordinate system. 
 For a real analysis or presentation, the data should be projected into UTM or 
 another projection system for this.  The `utm_zone` function in the 
 `gfcanalysis` package and the `projectRaster` function in the `raster` package 
-could be used to automate this.
+could be used to automate this. Also see the `to_utm` option for the 
+`extract_gfc` function (type `?extract_gfc` in R).
 
 To make an annual animation (in WGS84) type:
 
@@ -393,12 +440,6 @@ animate_annual(aoi, gfc_annual_stack, out_dir='.', site_name='Pasoh')
 
 
 {% highlight text %}
-## Loading required package: rgeos
-## rgeos version: 0.3-3, (SVN revision 437)
-##  GEOS runtime version: 3.4.2-CAPI-1.8.2 r3921 
-##  Polygon checking: TRUE 
-## 
-## Loading required package: ggplot2
 ## HTML file created at: C:\Users\azvoleff\Code\Misc\azvoleff.github.io\Rmd\2014-03-25-analyzing-forest-change-with-gfcanalysis/gfc_animation.html
 ## You may use ani.options(outdir = getwd()) or saveHTML(..., outdir = getwd()) to generate files under the current working directory.
 {% endhighlight %}
