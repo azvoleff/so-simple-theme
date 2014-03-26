@@ -8,4 +8,3 @@ Gemfile.lock
 *.swp
 cache/
 Rmd/
-!*.Rmd

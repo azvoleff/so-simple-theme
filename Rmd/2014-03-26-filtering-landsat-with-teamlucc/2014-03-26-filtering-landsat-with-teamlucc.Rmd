@@ -8,6 +8,16 @@ comments: true
 share: true
 ---
 
+## Overview
+
+This post outlines how to use the `teamlucc` package to filter the Landsat 
+imagery available for a particular study site. `teamlucc` includes several 
+functions to make plots to assist with selecting anniversary dates (or near 
+anniversary dates...) when multiple Landsat scens are needed to cover a single 
+site. The `teamlucc` package also has functions to output an order text file in 
+the proper format for the USGS ESPA system and to automatically download and 
+verify the completed portions of a USGS ESPA order.
+
 ## Getting started
 
 First load the `devtools` package, used for installing `teamlucc`. Install the 
@@ -36,6 +46,8 @@ left of the screen. For this example, we will be using Landsat CDR Surface
 Reflectance imagery. Click the "+" next to "Landsat CDR", and then click the 
 checkboxes for both "Land Surface Reflectance - L7 ETM+" and also "Land Surface 
 Reflectance - L4-5 TM". Now click the "Results >>" button.
+
+*insert screenshot of CDR checkboxes here*
 
 You will now see results for one of the two (Landsat 4-5 and Landsat 7) 
 datasets you selected. Look under "Data Set" on the left side of the screen, 
