@@ -35,7 +35,7 @@ as the computations are intensive, some parts of this analysis may take some
 time to run (about 30 minutes total to run all of the code outlined here). If 
 you do not already have the GFC product data downloaded on your computer, 
 downloading the dataset will also take some time (though this process is 
-automated by `gfcanalysis`.
+automated by `gfcanalysis`).
 
 To get started, first load the `devtools` package, used for installing 
 `gfcanalysis`.  Install the `devtools` package if it is not already installed:
@@ -184,7 +184,7 @@ Note that lossyear is zero for pixels that were not forested in 2000.
 
 ### Band 3 (gain)
 
-Note that gain is zero for pixels that were forested in 2000
+Note that gain is zero for pixels that were forested in 2000.
 
 | Change    | Code |
 |:----------|:----:|
