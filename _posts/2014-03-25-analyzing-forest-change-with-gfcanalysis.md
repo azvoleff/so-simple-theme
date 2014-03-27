@@ -315,8 +315,8 @@ product, as the original GFC product does not provide information on the
 sequence of loss and gain (loss then gain, or gain then loss). The product also 
 does not provide information on the levels of canopy cover reached prior to 
 loss (for gain then loss) or after loss (for loss then gain pixels). The layer 
-is calculated here as: \code{lossgain <- gain & (lossyear != 0)}, where loss 
-year and gain are the original GFC gain and lossyear layers, respectively.
+is calculated here as: `lossgain <- gain & (lossyear != 0)`, where `lossyear` 
+and `gain` are the original GFC gain and lossyear layers, respectively.
 
 | Change            | Code |
 |:------------------|:----:|
