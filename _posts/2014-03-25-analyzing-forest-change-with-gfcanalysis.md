@@ -102,19 +102,6 @@ if (!require(spatial.tools)) install.packages('spatial.tools')
 {% endhighlight %}
 
 
-<!---
-Start the parallel processing engine - comment out this line, and the 
-sfQuickStop() line at the end of this script if you do NOT want `gfcanalysis` 
-to use all of the available computing power on your machine (for example if you 
-need to use the computer for email, etc. while it is processing GFC data)
-
-
-{% highlight r %}
-#sfQuickInit()
-{% endhighlight %}
-
--->
-
 Indicate where we want to save GFC tiles downloaded from Google. For any given 
 AOI, the script will first check to see if these tiles are available locally 
 (in the below folder) before downloading them from the server - so I recommend 
@@ -369,24 +356,24 @@ gfc_stats
 
 {% highlight text %}
 ## $loss_table
-##    year  cover   loss   aoi
-## 1  2000 433656     NA AOI 1
-## 2  2001 433125  530.6 AOI 1
-## 3  2002 432108 1017.4 AOI 1
-## 4  2003 430451 1656.4 AOI 1
-## 5  2004 429590  861.6 AOI 1
-## 6  2005 427738 1851.3 AOI 1
-## 7  2006 425938 1800.2 AOI 1
-## 8  2007 421196 4742.1 AOI 1
-## 9  2008 420032 1164.0 AOI 1
-## 10 2009 415982 4049.5 AOI 1
-## 11 2010 412196 3786.5 AOI 1
-## 12 2011 407462 4734.3 AOI 1
-## 13 2012 403578 3884.1 AOI 1
+##    year   aoi  cover   loss
+## 1  2000 AOI 1 433656     NA
+## 2  2001 AOI 1 433125  530.6
+## 3  2002 AOI 1 432108 1017.4
+## 4  2003 AOI 1 430451 1656.4
+## 5  2004 AOI 1 429590  861.6
+## 6  2005 AOI 1 427738 1851.3
+## 7  2006 AOI 1 425938 1800.2
+## 8  2007 AOI 1 421196 4742.1
+## 9  2008 AOI 1 420032 1164.0
+## 10 2009 AOI 1 415982 4049.5
+## 11 2010 AOI 1 412196 3786.5
+## 12 2011 AOI 1 407462 4734.3
+## 13 2012 AOI 1 403578 3884.1
 ## 
 ## $gain_table
-##      period  gain lossgain   aoi
-## 1 2000-2012 16194     4047 AOI 1
+##      period   aoi  gain lossgain
+## 1 2000-2012 AOI 1 16194     4047
 {% endhighlight %}
 
 
@@ -450,7 +437,7 @@ gfc_annual_stack
 ## resolution  : 0.0002778, 0.0002778  (x, y)
 ## extent      : 103.5, 104.8, 17.83, 19.04  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-## data source : C:\Users\azvoleff\AppData\Local\Temp\R_raster_azvoleff\raster_tmp_2014-03-26_145925_13136_82001.grd 
+## data source : C:\Users\azvoleff\AppData\Local\Temp\R_raster_azvoleff\raster_tmp_2014-03-27_140036_10076_42754.grd 
 ## names       : y2000, y2001, y2002, y2003, y2004, y2005, y2006, y2007, y2008, y2009, y2010, y2011, y2012 
 ## min values  :     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1 
 ## max values  :     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6 

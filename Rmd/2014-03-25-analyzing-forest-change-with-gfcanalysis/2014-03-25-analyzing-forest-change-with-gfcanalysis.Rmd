@@ -55,17 +55,6 @@ if (!require(rgdal)) install.packages('rgdal')
 if (!require(spatial.tools)) install.packages('spatial.tools')
 ```
 
-<!---
-Start the parallel processing engine - comment out this line, and the 
-sfQuickStop() line at the end of this script if you do NOT want `gfcanalysis` 
-to use all of the available computing power on your machine (for example if you 
-need to use the computer for email, etc. while it is processing GFC data)
-
-```{r}
-#sfQuickInit()
-```
--->
-
 Indicate where we want to save GFC tiles downloaded from Google. For any given 
 AOI, the script will first check to see if these tiles are available locally 
 (in the below folder) before downloading them from the server - so I recommend 
