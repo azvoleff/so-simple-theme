@@ -29,7 +29,15 @@ land cover and land use, and population.
 [itembrowser](http://3nids.github.io/itembrowser) plugin created by Denis 
 Rouzaud.
 
-The latest version of the plugin is available on 
-[github](https://github.com/azvoleff/teamqgis). Follow the [TEAM 
-website](http://www.teamnetwork.org) for the latest project news.
+The latest version of the plugin is available on [the QGIS Python Plugins Repository](http://plugins.qgis.org/plugins/teamqgis).
+
+The development version of the plugin is available on 
+[github](https://github.com/azvoleff/teamqgis).
+
+### Past releases
+
+* [0.4](/content/teamqgis/teamqgis_0.4.zip) (March 28, 2014)
+* [0.3](/content/teamqgis/teamqgis_0.3.zip) (March 25, 2014)
+* [0.2](/content/teamqgis/teamqgis_0.2.zip) (March 24, 2014)
+* [0.1](/content/teamqgis/teamqgis_0.1.zip) (December 30, 2013)
 
