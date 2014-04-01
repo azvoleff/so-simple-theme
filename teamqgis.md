@@ -35,8 +35,8 @@ The development version of the plugin is available on
 [github](https://github.com/azvoleff/teamqgis).
 
 For more information, also see the [README 
-file](https://raw.github.com/azvoleff/teamqgis/master/README.rst) and 
-[changelog](https://raw.github.com/azvoleff/teamqgis/master/CHANGELOG.rst).
+file](https://raw.github.com/azvoleff/teamqgis/master/README.md) and 
+[changelog](https://raw.github.com/azvoleff/teamqgis/master/CHANGELOG.md).
 
 ### Past releases
 
