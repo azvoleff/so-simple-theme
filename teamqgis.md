@@ -34,8 +34,13 @@ The latest version of the plugin is available on [the QGIS Python Plugins Reposi
 The development version of the plugin is available on 
 [github](https://github.com/azvoleff/teamqgis).
 
+For more information, also see the [README 
+file](https://raw.github.com/azvoleff/teamqgis/master/README.rst) and 
+[changelog](https://raw.github.com/azvoleff/teamqgis/master/CHANGELOG.rst).
+
 ### Past releases
 
+* [0.4.1 (development)](/content/teamqgis/teamqgis_0.4.1.zip) (April 1, 2014)
 * [0.4](/content/teamqgis/teamqgis_0.4.zip) (March 28, 2014)
 * [0.3](/content/teamqgis/teamqgis_0.3.zip) (March 25, 2014)
 * [0.2](/content/teamqgis/teamqgis_0.2.zip) (March 24, 2014)
