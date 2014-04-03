@@ -37,23 +37,13 @@ you do not already have the GFC product data downloaded on your computer,
 downloading the dataset will also take some time (though this process is 
 automated by `gfcanalysis`).
 
-To get started, first load the `devtools` package, used for installing 
-`gfcanalysis`.  Install the `devtools` package if it is not already installed:
+To get started, first install the `gfcanalysis` package from CRAN. Also install
+the `rgdal` package needed for reading/writing shapefiles if you do not already 
+have it.
 
 
 {% highlight r %}
-if (!require(devtools)) install.packages('devtools')
-{% endhighlight %}
-
-
-Now load the gfcanalysis package, using `devtools` to install it from github if it 
-is not yet installed. Also load the `rgdal` package needed for reading/writing 
-shapefiles, and the `spatial.tools` package use for processing raster data in 
-parallel:
-
-
-{% highlight r %}
-if (!require(gfcanalysis)) install_github('azvoleff/gfcanalysis')
+if (!require(gfcanalysis)) install.packages("gfcanalysis")
 {% endhighlight %}
 
 
@@ -67,7 +57,7 @@ if (!require(gfcanalysis)) install_github('azvoleff/gfcanalysis')
 
 
 {% highlight r %}
-if (!require(rgdal)) install.packages('rgdal')
+if (!require(rgdal)) install.packages("rgdal")
 {% endhighlight %}
 
 
@@ -77,28 +67,10 @@ if (!require(rgdal)) install.packages('rgdal')
 ## rgdal: version: 0.8-16, (SVN revision 498)
 ## Geospatial Data Abstraction Library extensions to R successfully loaded
 ## Loaded GDAL runtime: GDAL 1.10.1, released 2013/08/26
-## Path to GDAL shared files: C:/Users/azvoleff/R/win-library/3.0/rgdal/gdal
+## Path to GDAL shared files: C:/Users/azvoleff/R/win-library/3.2/rgdal/gdal
 ## GDAL does not use iconv for recoding strings.
 ## Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]
-## Path to PROJ.4 shared files: C:/Users/azvoleff/R/win-library/3.0/rgdal/proj
-{% endhighlight %}
-
-
-
-{% highlight r %}
-if (!require(spatial.tools)) install.packages('spatial.tools')
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Loading required package: spatial.tools
-## Loading required package: parallel
-## Loading required package: iterators
-## Loading required package: foreach
-## foreach: simple, scalable parallel programming from Revolution Analytics
-## Use Revolution R for scalability, fault tolerance and more.
-## http://www.revolutionanalytics.com
+## Path to PROJ.4 shared files: C:/Users/azvoleff/R/win-library/3.2/rgdal/proj
 {% endhighlight %}
 
 
@@ -136,7 +108,7 @@ ZOI](/content/2014-03-25-analyzing-forest-change-with-gfcanalysis/ZOI_NAK_2012_E
 
 
 {% highlight r %}
-aoi <- readOGR('.', 'ZOI_NAK_2012_EEsimple')
+aoi <- readOGR(".", "ZOI_NAK_2012_EEsimple")
 {% endhighlight %}
 
 
@@ -154,7 +126,7 @@ Calculate the tiles needed to cover the AOI:
 
 {% highlight r %}
 tiles <- calc_gfc_tiles(aoi)
-print(length(tiles)) # Number of tiles needed to cover AOI
+print(length(tiles))  # Number of tiles needed to cover AOI
 {% endhighlight %}
 
 
@@ -170,7 +142,7 @@ needed tiles and the AOI using R's plotting functions:
 
 {% highlight r %}
 plot(tiles)
-plot(aoi, add=TRUE, lty=2, col="#00ff0050")
+plot(aoi, add = TRUE, lty = 2, col = "#00ff0050")
 {% endhighlight %}
 
 ![center](/content/2014-03-25-analyzing-forest-change-with-gfcanalysis/tiles_versus_aoi.png) 
@@ -183,7 +155,7 @@ reflectance images are not downloaded. To also download these images specify
 
 
 {% highlight r %}
-download_tiles(tiles, output_folder, first_and_last=FALSE)
+download_tiles(tiles, output_folder, first_and_last = FALSE)
 {% endhighlight %}
 
 
@@ -203,7 +175,7 @@ format, etc.)
 
 
 {% highlight r %}
-gfc_extract <- extract_gfc(aoi, output_folder, filename="NAK_GFC_extract.envi")
+gfc_extract <- extract_gfc(aoi, output_folder, filename = "NAK_GFC_extract.envi")
 {% endhighlight %}
 
 
@@ -235,8 +207,8 @@ and save the thresholded layers to an ENVI format raster:
 
 
 {% highlight r %}
-gfc_thresholded <- threshold_gfc(gfc_extract, forest_threshold=forest_threshold, 
-                                 filename="NAK_GFC_extract_thresholded.envi")
+gfc_thresholded <- threshold_gfc(gfc_extract, forest_threshold = forest_threshold, 
+    filename = "NAK_GFC_extract_thresholded.envi")
 {% endhighlight %}
 
 
@@ -373,7 +345,7 @@ gfc_stats
 ## 
 ## $gain_table
 ##      period   aoi  gain lossgain
-## 1 2000-2012 AOI 1 16194     4047
+## 1 2000-2012 AOI 1 16194    12287
 {% endhighlight %}
 
 
@@ -381,10 +353,10 @@ Save these statistics to CSV files for use in Excel, or other software:
 
 
 {% highlight r %}
-write.csv(gfc_stats$loss_table, 
-          file='NAK_GFC_extract_thresholded_losstable.csv', row.names=FALSE)
-write.csv(gfc_stats$gain_table, 
-          file='NAK_GFC_extract_thresholded_gaintable.csv', row.names=FALSE)
+write.csv(gfc_stats$loss_table, file = "NAK_GFC_extract_thresholded_losstable.csv", 
+    row.names = FALSE)
+write.csv(gfc_stats$gain_table, file = "NAK_GFC_extract_thresholded_gaintable.csv", 
+    row.names = FALSE)
 {% endhighlight %}
 
 
@@ -404,7 +376,7 @@ etc.):
 
 {% highlight r %}
 gfc_annual_stack <- annual_stack(gfc_thresholded)
-writeRaster(gfc_annual_stack, filename="NAK_GFC_extract_thresholded_annual.envi")
+writeRaster(gfc_annual_stack, filename = "NAK_GFC_extract_thresholded_annual.envi")
 {% endhighlight %}
 
 
@@ -437,7 +409,7 @@ gfc_annual_stack
 ## resolution  : 0.0002778, 0.0002778  (x, y)
 ## extent      : 103.5, 104.8, 17.83, 19.04  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-## data source : C:\Users\azvoleff\AppData\Local\Temp\R_raster_azvoleff\raster_tmp_2014-03-27_140036_10076_42754.grd 
+## data source : C:\Users\azvoleff\AppData\Local\Temp\R_raster_azvoleff\raster_tmp_2014-04-03_095236_10532_92326.grd 
 ## names       : y2000, y2001, y2002, y2003, y2004, y2005, y2006, y2007, y2008, y2009, y2010, y2011, y2012 
 ## min values  :     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1 
 ## max values  :     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6 
@@ -471,8 +443,8 @@ To make an annual animation (in WGS84) type:
 
 
 {% highlight r %}
-aoi$label <- "ZOI" # Label the polygon on the plot
-animate_annual(aoi, gfc_annual_stack, out_dir='.', site_name='Nam Kading')
+aoi$label <- "ZOI"  # Label the polygon on the plot
+animate_annual(aoi, gfc_annual_stack, out_dir = ".", site_name = "Nam Kading")
 {% endhighlight %}
 
 

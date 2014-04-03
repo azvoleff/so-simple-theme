@@ -37,22 +37,13 @@ you do not already have the GFC product data downloaded on your computer,
 downloading the dataset will also take some time (though this process is 
 automated by `gfcanalysis`).
 
-To get started, first load the `devtools` package, used for installing 
-`gfcanalysis`.  Install the `devtools` package if it is not already installed:
+To get started, first install the `gfcanalysis` package from CRAN. Also install
+the `rgdal` package needed for reading/writing shapefiles if you do not already 
+have it.
 
 ```{r}
-if (!require(devtools)) install.packages('devtools')
-```
-
-Now load the gfcanalysis package, using `devtools` to install it from github if it 
-is not yet installed. Also load the `rgdal` package needed for reading/writing 
-shapefiles, and the `spatial.tools` package use for processing raster data in 
-parallel:
-
-```{r}
-if (!require(gfcanalysis)) install_github('azvoleff/gfcanalysis')
+if (!require(gfcanalysis)) install.packages('gfcanalysis')
 if (!require(rgdal)) install.packages('rgdal')
-if (!require(spatial.tools)) install.packages('spatial.tools')
 ```
 
 Indicate where we want to save GFC tiles downloaded from Google. For any given 
