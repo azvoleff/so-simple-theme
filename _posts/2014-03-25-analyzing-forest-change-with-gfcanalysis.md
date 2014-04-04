@@ -43,7 +43,7 @@ have it.
 
 
 {% highlight r %}
-if (!require(gfcanalysis)) install.packages("gfcanalysis")
+if (!require(gfcanalysis)) install.packages('gfcanalysis')
 {% endhighlight %}
 
 
@@ -57,7 +57,7 @@ if (!require(gfcanalysis)) install.packages("gfcanalysis")
 
 
 {% highlight r %}
-if (!require(rgdal)) install.packages("rgdal")
+if (!require(rgdal)) install.packages('rgdal')
 {% endhighlight %}
 
 
@@ -108,7 +108,7 @@ ZOI](/content/2014-03-25-analyzing-forest-change-with-gfcanalysis/ZOI_NAK_2012_E
 
 
 {% highlight r %}
-aoi <- readOGR(".", "ZOI_NAK_2012_EEsimple")
+aoi <- readOGR('.', 'ZOI_NAK_2012_EEsimple')
 {% endhighlight %}
 
 
@@ -126,7 +126,7 @@ Calculate the tiles needed to cover the AOI:
 
 {% highlight r %}
 tiles <- calc_gfc_tiles(aoi)
-print(length(tiles))  # Number of tiles needed to cover AOI
+print(length(tiles)) # Number of tiles needed to cover AOI
 {% endhighlight %}
 
 
@@ -142,7 +142,7 @@ needed tiles and the AOI using R's plotting functions:
 
 {% highlight r %}
 plot(tiles)
-plot(aoi, add = TRUE, lty = 2, col = "#00ff0050")
+plot(aoi, add=TRUE, lty=2, col="#00ff0050")
 {% endhighlight %}
 
 ![center](/content/2014-03-25-analyzing-forest-change-with-gfcanalysis/tiles_versus_aoi.png) 
@@ -155,7 +155,7 @@ reflectance images are not downloaded. To also download these images specify
 
 
 {% highlight r %}
-download_tiles(tiles, output_folder, first_and_last = FALSE)
+download_tiles(tiles, output_folder, first_and_last=FALSE)
 {% endhighlight %}
 
 
@@ -170,12 +170,12 @@ download_tiles(tiles, output_folder, first_and_last = FALSE)
 
 Extract the GFC data for this AOI from the downloaded GFC tiles, mosaicing 
 multiple tiles as necessary (if needed to cover the AOI). Save this extract in 
-ENVI format in the current working directory (can also save as GeoTIFF, Erdas 
-format, etc.)
+GeoTiff format in the current working directory (can also save as ENVI format, 
+Erdas format, etc.)
 
 
 {% highlight r %}
-gfc_extract <- extract_gfc(aoi, output_folder, filename = "NAK_GFC_extract.envi")
+gfc_extract <- extract_gfc(aoi, output_folder, filename="NAK_GFC_extract.tif")
 {% endhighlight %}
 
 
@@ -194,7 +194,7 @@ gfc_extract
 ## resolution  : 0.0002778, 0.0002778  (x, y)
 ## extent      : 103.5, 104.8, 17.83, 19.04  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-## data source : C:\Users\azvoleff\Code\Misc\azvoleff.github.io\Rmd\2014-03-25-analyzing-forest-change-with-gfcanalysis\NAK_GFC_extract.envi 
+## data source : C:\Users\azvoleff\Code\Misc\azvoleff.github.io\Rmd\2014-03-25-analyzing-forest-change-with-gfcanalysis\NAK_GFC_extract.tif 
 ## names       : treecover2000, loss, gain, lossyear, datamask 
 ## min values  :             0,    0,    0,        0,        1 
 ## max values  :           100,    1,    1,       12,        2
@@ -203,12 +203,12 @@ gfc_extract
 
 
 Threshold the GFC data based on a specified percent cover threshold (0-100), 
-and save the thresholded layers to an ENVI format raster:
+and save the thresholded layers to a GeoTiff:
 
 
 {% highlight r %}
-gfc_thresholded <- threshold_gfc(gfc_extract, forest_threshold = forest_threshold, 
-    filename = "NAK_GFC_extract_thresholded.envi")
+gfc_thresholded <- threshold_gfc(gfc_extract, forest_threshold=forest_threshold, 
+                                 filename="NAK_GFC_extract_thresholded.tif")
 {% endhighlight %}
 
 
@@ -232,7 +232,7 @@ gfc_thresholded
 ## resolution  : 0.0002778, 0.0002778  (x, y)
 ## extent      : 103.5, 104.8, 17.83, 19.04  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-## data source : C:\Users\azvoleff\Code\Misc\azvoleff.github.io\Rmd\2014-03-25-analyzing-forest-change-with-gfcanalysis\NAK_GFC_extract_thresholded.envi 
+## data source : C:\Users\azvoleff\Code\Misc\azvoleff.github.io\Rmd\2014-03-25-analyzing-forest-change-with-gfcanalysis\NAK_GFC_extract_thresholded.tif 
 ## names       : forest2000, lossyear, gain, lossgain, datamask 
 ## min values  :          0,        0,    0,        0,        1 
 ## max values  :          1,       12,    1,        1,        2
@@ -353,10 +353,10 @@ Save these statistics to CSV files for use in Excel, or other software:
 
 
 {% highlight r %}
-write.csv(gfc_stats$loss_table, file = "NAK_GFC_extract_thresholded_losstable.csv", 
-    row.names = FALSE)
-write.csv(gfc_stats$gain_table, file = "NAK_GFC_extract_thresholded_gaintable.csv", 
-    row.names = FALSE)
+write.csv(gfc_stats$loss_table, 
+          file='NAK_GFC_extract_thresholded_losstable.csv', row.names=FALSE)
+write.csv(gfc_stats$gain_table, 
+          file='NAK_GFC_extract_thresholded_gaintable.csv', row.names=FALSE)
 {% endhighlight %}
 
 
@@ -376,7 +376,7 @@ etc.):
 
 {% highlight r %}
 gfc_annual_stack <- annual_stack(gfc_thresholded)
-writeRaster(gfc_annual_stack, filename = "NAK_GFC_extract_thresholded_annual.envi")
+writeRaster(gfc_annual_stack, filename="NAK_GFC_extract_thresholded_annual.tif")
 {% endhighlight %}
 
 
@@ -387,7 +387,7 @@ writeRaster(gfc_annual_stack, filename = "NAK_GFC_extract_thresholded_annual.env
 ## resolution  : 0.0002778, 0.0002778  (x, y)
 ## extent      : 103.5, 104.8, 17.83, 19.04  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-## data source : C:\Users\azvoleff\Code\Misc\azvoleff.github.io\Rmd\2014-03-25-analyzing-forest-change-with-gfcanalysis\NAK_GFC_extract_thresholded_annual.envi 
+## data source : C:\Users\azvoleff\Code\Misc\azvoleff.github.io\Rmd\2014-03-25-analyzing-forest-change-with-gfcanalysis\NAK_GFC_extract_thresholded_annual.tif 
 ## names       : NAK_GFC_e//d_annual.1, NAK_GFC_e//d_annual.2, NAK_GFC_e//d_annual.3, NAK_GFC_e//d_annual.4, NAK_GFC_e//d_annual.5, NAK_GFC_e//d_annual.6, NAK_GFC_e//d_annual.7, NAK_GFC_e//d_annual.8, NAK_GFC_e//d_annual.9, NAK_GFC_e//_annual.10, NAK_GFC_e//_annual.11, NAK_GFC_e//_annual.12, NAK_GFC_e//_annual.13 
 ## min values  :                     1,                     1,                     1,                     1,                     1,                     1,                     1,                     1,                     1,                     1,                     1,                     1,                     1 
 ## max values  :                     6,                     6,                     6,                     6,                     6,                     6,                     6,                     6,                     6,                     6,                     6,                     6,                     6
@@ -409,7 +409,7 @@ gfc_annual_stack
 ## resolution  : 0.0002778, 0.0002778  (x, y)
 ## extent      : 103.5, 104.8, 17.83, 19.04  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-## data source : C:\Users\azvoleff\AppData\Local\Temp\R_raster_azvoleff\raster_tmp_2014-04-03_095236_10532_92326.grd 
+## data source : C:\Users\azvoleff\AppData\Local\Temp\R_raster_azvoleff\raster_tmp_2014-04-04_141034_13628_76953.grd 
 ## names       : y2000, y2001, y2002, y2003, y2004, y2005, y2006, y2007, y2008, y2009, y2010, y2011, y2012 
 ## min values  :     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,     1 
 ## max values  :     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6,     6 
@@ -443,8 +443,8 @@ To make an annual animation (in WGS84) type:
 
 
 {% highlight r %}
-aoi$label <- "ZOI"  # Label the polygon on the plot
-animate_annual(aoi, gfc_annual_stack, out_dir = ".", site_name = "Nam Kading")
+aoi$label <- "ZOI" # Label the polygon on the plot
+animate_annual(aoi, gfc_annual_stack, out_dir='.', site_name='Nam Kading')
 {% endhighlight %}
 
 
