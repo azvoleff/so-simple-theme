@@ -117,7 +117,7 @@ train_polys <- L5TSR_1986_2001_training
 
 First we need to extract the training data from our training image, 
 for each pixel within the polygons in our `train_polys` dataset. 
-`extract_observed` will use the `training` parameter that we pass to 
+`get_pixels` will use the `training` parameter that we pass to 
 determine the fraction of the training data to use in training the classifier. 
 If set to 1, ALL of the training data will be used to train the classifier, 
 leaving no independent data for validation. If set to a fraction (for example 
@@ -132,7 +132,7 @@ the `training` parameter. It can be useful though in testing.
 
 {% highlight r %}
 set.seed(0) # Set a random seed so results can be reproduced
-train_data <- extract_observed(L5TSR_1986, train_polys, 
+train_data <- get_pixels(L5TSR_1986, train_polys, 
                                     class_col="class_1986", training=.6)
 {% endhighlight %}
 
@@ -247,7 +247,7 @@ if (!require(devtools)) install.packages('snow')
 Now, just call `beginCluster()`, and by default any calculations that are coded 
 to run in parallel will use all the available CPUs on your machine. After 
 running computations, always call `endCluster()` to stop the cluster. Both the 
-`extract_observed` and `image_classify` functions in `teamlucc` support 
+`get_pixels` and `image_classify` functions in `teamlucc` support 
 parallel computations. Below is the code for the same classification problem we 
 just ran, but this time run in parallel:
 
@@ -271,7 +271,7 @@ beginCluster()
 
 
 {% highlight r %}
-train_data_par <- extract_observed(L5TSR_1986, train_polys, 
+train_data_par <- get_pixels(L5TSR_1986, train_polys, 
                                     class_col="class_1986", training=.6)
 {% endhighlight %}
 
