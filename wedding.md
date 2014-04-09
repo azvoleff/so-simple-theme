@@ -8,10 +8,8 @@ sitemap_exclude: True
 {:toc}
 
 ## Our contact information
-<ul>
-	<li>Rebecca – <a href="mailto:rebeccaj983@gmail.com">rebeccaj983@gmail.com</a>, cell: 562-652-0484</li>
-	<li>Alex – <a href="mailto:azvoleff@gmail.com">azvoleff@gmail.com</a>, cell: 562-277-8178</li>
-</ul>
+* Rebecca – [rebeccaj983@gmail.com](mailto:rebeccaj983@gmail.com), cell: 562-652-0484
+* Alex – [azvoleff@gmail.com](mailto:azvoleff@gmail.com), cell: 562-277-8178
 
 ## Schedule
 
@@ -19,15 +17,26 @@ sitemap_exclude: True
 
 | 2PM    | Ceremony at San Francisco City Hall, Fourth Floor North Gallery |
 | 4PM    | Reception at Zvoleff home |
-| 6:30PM | Dinner at <a href="http://sfsociale.com/">Sociale</a>
+| 6:30PM | Dinner at [Sociale](http://sfsociale.com) |
 
-### Saturday &amp; Sunday (April 19 &amp; 20th)
-For those in town over the weekend, we are planning to have brunch Saturday in 
-San Francisco, followed by a short hike north of San Francisco. On Sunday, we 
-are planning to go wine tasting in Napa for the day.
+### Saturday, April 19, 2014
 
-We would love to have you attend. We will post additional details soon, and 
-will be in touch as the date approaches.
+On Saturday morning at 10AM we will be having brunch (dim sum) at [Yank 
+Sing](http://www.yanksing.com). There are two Yank Sing restaurants - the 
+brunch is at the Yank Sing at [49 Stevenson 
+St](https://www.google.com/maps/place/Yank+Sing/@37.789806,-122.399398,18z).
+
+After brunch we will be going on a hike in Pt. Reyes.
+
+### Sunday, April 20, 2014
+
+On Sunday, we will be going wine tasting north of San Francisco. At 9:30 AM,
+we will meet at the Zvoleff house, and head to the [Gloria Ferrer 
+Winery](www.gloriaferrer.com) in Sonoma. After lunch at [Gott's 
+Roadside](http://gotts.com), we will next go to the [Merryvale 
+Winery](http://www.merryvale.com). We will finish the day at the [Ridge 
+Vineyards](http://www.ridgewine.com) in Healdsburg, arriving back in San Francisco by 
+6:30PM.
 
 ## Addresses
 
@@ -113,4 +122,5 @@ hotels, and there is a garage at City Hall.
 
 <h4 style="padding-left: 30px;"><a href="http://sfrecpark.org/destination/twin-peaks/">Twin Peaks or Mount Sutro</a></h4>
 <p style="padding-left: 30px;">Great view of downtown and East Bay when it isn't foggy. Good hike from Stanyan area.</p>
+
 
