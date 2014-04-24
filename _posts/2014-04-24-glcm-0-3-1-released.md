@@ -18,7 +18,7 @@ install.packages("glcm")
 
 at your R command prompt to download the latest CRAN release.
 
-This version fixes a bug in handling windows sizes other than the default 3x3 
+This version fixes a bug in handling window sizes other than the default 3x3 
 window size, adds additional test cases, and performs more validation on user 
 input to the `glcm` function. See the 
 [NEWS](http://cran.r-project.org/web/packages/glcm/NEWS) file for more details.
