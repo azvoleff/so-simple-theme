@@ -3,7 +3,7 @@ layout: post
 title: "glcm 0.2 released"
 description: "New version of R GLCM package for calculating image textures from grey-level co-occurrence matrices (GLCM)"
 category: articles
-tags: [remote sensing, glcm]
+tags: [remote sensing, R, glcm]
 comments: true
 share: true
 ---
