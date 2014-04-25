@@ -14,10 +14,11 @@ This post outlines how to use the `teamlucc` package to remove thick clouds from
 imagery using the Neighborhood Similar Pixel Interpolator (NSPI) algorithm by 
 [Zhu et al.](ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6095313)[^1]. 
 `teamlucc` includes the original 
-[IDL](http://www.exelisvis.com/ProductsServices/IDL.aspx) code by Xiaolin Zhu 
-(modified slightly to be called from R) as well as a native R/C++ 
-implementation of the original NSPI algorithm. Thanks to Xiaolin for permission 
-to redistribute this code along with the `teamlucc` package.
+[IDL](http://www.exelisvis.com/ProductsServices/IDL.aspx) code by [Xiaolin 
+Zhu](http://geography.osu.edu/grads/xzhu/). For R to be able to run (modified 
+slightly to be called from R) as well as a native R/C++ implementation of the 
+original NSPI algorithm. Thanks to Xiaolin for permission to redistribute this 
+code along with the `teamlucc` package.
 
 [^1]:
     Zhu, X., Gao, F., Liu, D., Chen, J., 2012. A modified neighborhood similar 
