@@ -34,16 +34,16 @@ library(rgdal)
 
 Before CDR surface reflectance images can be topographically corrected with 
 `teamlucc`, a digital elevation model (DEM) needs to be obtained that is in the 
-same resolution and coordinate system as the CDR imagery. The `team_setup_dem` 
+same resolution and coordinate system as the CDR imagery. The `auto_setup_dem` 
 function in the `teamlucc` package facilitates this task. There are many 
-options you can supply to `team_setup_dem` - see `?team_setup_dem` for more 
+options you can supply to `auto_setup_dem` - see `?auto_setup_dem` for more 
 information on these options. If you do not want to topographically correct 
 your imagery, you can skip this step - in this case move ahead to the next 
 section.
 
-`team_setup_dem` assembles a DEM to cover a given area of interest (AOI), and 
+`auto_setup_dem` assembles a DEM to cover a given area of interest (AOI), and 
 can mosaic multiple DEM files as necessary to cover an AOI. To use 
-`team_setup_dem`, the user must first define the area of interest with an AOI 
+`auto_setup_dem`, the user must first define the area of interest with an AOI 
 polygon. If you have a shapefile of an area of interest, load it into R using 
 the readOGR command:
 
@@ -71,20 +71,20 @@ number.
 Now that the AOI is defined, the second step is to define the `output_path` - 
 this can be any folder on disk.
 
-Finally, `team_setup_dem` needs a list of DEM files you have available on your 
+Finally, `auto_setup_dem` needs a list of DEM files you have available on your 
 machine, together with polygons defining the area that each DEM file covers. 
 This list can be assembled automatically using the `get_extent_polys` function 
 in `teamlucc`.  See `?get_extent_polys`.
 
-Now that all of the essential inputs are defined, `team_setup_dem` can be 
+Now that all of the essential inputs are defined, `auto_setup_dem` can be 
 called:
 
 {% highlight r %}
-team_setup_dem(aoi, output_path, dem_extents)
+auto_setup_dem(aoi, output_path, dem_extents)
 {% endhighlight %}
 
 The result will be a mosaiced DEM, in `output_path`, usuable for 
-topographically corrrecting imagery using the `team_preprocess_landsat` 
+topographically corrrecting imagery using the `auto_preprocess_landsat` 
 function.
 
 ## Preprocessing
@@ -129,10 +129,10 @@ for (n in 1:length(image_files)) {
 {% endhighlight %}
 
 Now that the CDR format image files are converted to ENVI format, you are ready 
-to run `team_preprocess_landsat`. As with `team_setup_dem`, there are many 
-options you can supply to `team_preprocess_landsat` - see 
-`?team_preprocess_landsat`.  The below is a simple example of how to call 
-`team_preprocess_landsat`. The `image_dirs` line below is just a fancy way of 
+to run `auto_preprocess_landsat`. As with `auto_setup_dem`, there are many 
+options you can supply to `auto_preprocess_landsat` - see 
+`?auto_preprocess_landsat`.  The below is a simple example of how to call 
+`auto_preprocess_landsat`. The `image_dirs` line below is just a fancy way of 
 finding all the folders located under `extract_folder` that containg ENVI 
 format CDR imagery. You could just as easily specify these folders invidually 
 as a series of strings, like: `image_dirs <- c('C:\folder1', 'C:\folder2')` if 
@@ -140,19 +140,19 @@ you had two CDR Landsat scenes located in `C:\folder1` and `C:\folder2`,
 respectively.
 
 The `prefix` parameter specifies a string that will be used in naming files 
-output by `team_preprocess_landsat`. For `prefix` I suggest you use a short (2 
+output by `auto_preprocess_landsat`. For `prefix` I suggest you use a short (2 
 or 3 character) site name or site code that is meaningful to you.
 
-There are two other options we provide below to `team_preprocess_landsat`.  
-`tc=TRUE` tells `team_preprocess_landsat` to perform topographic correction.  
+There are two other options we provide below to `auto_preprocess_landsat`.  
+`tc=TRUE` tells `auto_preprocess_landsat` to perform topographic correction.  
 Because of this, we also need to specify `dem_path` (with DEM files 
-preprocessed by `team_setup_dem`, so that the DEM files for this scene can be 
+preprocessed by `auto_setup_dem`, so that the DEM files for this scene can be 
 found.  `verbose=TRUE` indicates that we want detailed progress messages to 
 print while the script is running.
 
 {% highlight r %}
 image_dirs <- dir(extract_folder 
                   pattern='^[0-9]{3}-[0-9]{3}_[0-9]{4}-[0-9]{3}_((LT[45])|(LE7))$')
-team_preprocess_landsat(image_dirs, prefix='my_aoi', tc=TRUE,  
+auto_preprocess_landsat(image_dirs, prefix='my_aoi', tc=TRUE,  
                         dem_path='C:\path\to\dems', verbose=verbose)
 {% endhighlight %}

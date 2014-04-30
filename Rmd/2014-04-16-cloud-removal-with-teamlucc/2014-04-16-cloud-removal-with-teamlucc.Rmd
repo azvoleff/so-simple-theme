@@ -300,41 +300,41 @@ is running (this option is not available with the IDL scripts shown above):
 
 The `teamlucc` package also includes functions for automated cloud filling from 
 an image time series. Automatic cloud filling is performed using the 
-`team_cloud_fill` function. This function automates the majority of the cloud 
+`auto_cloud_fill` function. This function automates the majority of the cloud 
 filling process. As multiple images are required to demonstrate this process, 
 the images required for this portion of the example are not available for 
 download from this site. I suggest you download the appropriate imagery for a 
-particular study site and preprocess the imagery using the `team_setup_dem` and 
-`team_preprocess_landsat` functions in the `teamlucc` package so that you can 
-follow along with this example. The `team_preprocess_landsat` function will 
+particular study site and preprocess the imagery using the `auto_setup_dem` and 
+`auto_preprocess_landsat` functions in the `teamlucc` package so that you can 
+follow along with this example. The `auto_preprocess_landsat` function will 
 also perform topographic correction, which is necessary prior to cloud filling 
 images in mountainous areas.
 
-The `team_cloud_fill` function allows an analyst to automatically construct a 
+The `auto_cloud_fill` function allows an analyst to automatically construct a 
 cloud-filled image after specifying: `data_dir` (a folder of Landsat 
 images), `wrspath` and `wrsrow` (the WRS-2 path/row to use), and `start_date` 
 and `end_date` (a start and end date limiting the images to use in the 
 algorithm). The analyst can also optionally specify a `base_date`, and the 
-`team_cloud_fill` function will automatically pick the image closest to that 
+`auto_cloud_fill` function will automatically pick the image closest to that 
 date to use as the base image.
 
-As the `team_cloud_fill` function automatically chooses images for inclusion in 
+As the `auto_cloud_fill` function automatically chooses images for inclusion in 
 the cloud fill process, it relies on having images stored on disk in a 
 particular way, and currently only supports cloud fill for Landsat CDR surface 
 reflectance images. To ensure that images are correctly stored on your hard 
-disk, use the `team_preprocess_landsat` function to extract the original 
-Landsat CDR hdf files from the USGS archive. The `team_preprocess_landsat` 
+disk, use the `auto_preprocess_landsat` function to extract the original 
+Landsat CDR hdf files from the USGS archive. The `auto_preprocess_landsat` 
 function will ensure that images are extracted and renamed properly so that 
-they can be used with the `team_cloud_fill` script.
+they can be used with the `auto_cloud_fill` script.
 
 
-```{r team_cloud_fill, cache=TRUE}
+```{r auto_cloud_fill, cache=TRUE}
 # start_time <- Sys.time()
-# team_cloud_fill()
+# auto_cloud_fill()
 # Sys.time() - start_time
 # start_date <- as.Date('1986-01-01')
 # end_date <- as.Date('1987-01-01')
-# filled_image <- team_cloud_fill("C:/Data/LEDAPS_imagery", wrspath=230, 
+# filled_image <- auto_cloud_fill("C:/Data/LEDAPS_imagery", wrspath=230, 
 #                                 wrsrow=62, start_date=start_date,
 #                                 end_date=end_date)
 ```
