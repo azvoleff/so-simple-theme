@@ -77,7 +77,9 @@ algorithm](https://code.google.com/p/fmask)[^2].
 To follow along with this analysis, [download these 
 files](/content/2014-04-16-cloud-removal-with-teamlucc/2014-04-16-cloud-removal-with-teamlucc.zip).  
 Note that the original CDR reflectance images have been rescaled to range 
-between 0 and 255 in the files supplied here.
+between 0 and 255 in the files supplied here (this rescaling is not required 
+prior to performing cloud fill - I just did it here to make the files sizes 
+smaller so they could be more easily hosted on this site).
 
 [^2]:
     Zhu, Z. and Woodcock, C. E., Object-based cloud and cloud shadow detection 
