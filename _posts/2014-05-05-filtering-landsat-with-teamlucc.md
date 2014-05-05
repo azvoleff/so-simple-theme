@@ -117,9 +117,8 @@ National Protected Area](http://www.teamnetwork.org/network/sites/nam-kading-0)
 in Lao PDR. The zipfile also includes scene lists from EarthExplorer of all 
 available Landsat scenes (as of April 23, 2014) for this site.
 
-First, read in the Landsat image scene lists downloaded from USGS 
-EarthExplorer, using the `ee_read` function in `teamlucc`:
-
+First, read in the Landsat scene lists downloaded from USGS EarthExplorer, 
+using the `ee_read` function in `teamlucc`:
 
 
 {% highlight r %}
