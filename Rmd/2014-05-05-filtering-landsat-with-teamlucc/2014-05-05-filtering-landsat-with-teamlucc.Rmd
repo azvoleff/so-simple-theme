@@ -101,7 +101,7 @@ scenes, can be difficult. The `wrspathrow` package (available on CRAN) is
 helpful for producing a quick visualization of the number of Landsat scenes 
 (path/row(s)) needed to cover an area. For example, the below code reads in the 
 ZOI shapefile for Nam Kading, and plots the Landsat path/rows needed to cover 
-the ZOI, using the path/row polygons included in the wrspathrow package, 
+the ZOI using the path/row polygons included in the wrspathrow package, and 
 including text labels for each path and row:
 
 ```{r, pathrow_versus_zoi, cache=TRUE}
@@ -117,7 +117,7 @@ text(coordinates(NAK_pathrows), labels=paste(NAK_pathrows$PATH,
 From the above plots, we can see that it takes scenes from three Landsat 
 path/rows to cover the entire Nam Kading ZOI. Suppose we need images from 
 within a particular period, covering the entire area of that ZOI. The 
-the `ee_plot` functionin the `teamlucc` package can make a plot of the 
+the `ee_plot` function in the `teamlucc` package can make a plot of the 
 available imagery within a given time period, color coded by sensor and percent 
 cloud cover. To use this function, first specify a start and end date:
 
@@ -134,7 +134,7 @@ ee_plot(l457, start_date, end_date)
 
 Each box in this plot represents a single Landsat scene from the Landsat 
 archive. The color of each box indicates the path and row of that scene, while 
-the outline color of each box indicates the sensor (Landsat 5 versus Landsat S
+the outline color of each box indicates the sensor (Landsat 5 versus Landsat
 7 for example). The shading of a particular box (light or dark) box indicates 
 the cloud cover of that scene (lighter colors correspond to scenes with greater 
 cloud cover).
