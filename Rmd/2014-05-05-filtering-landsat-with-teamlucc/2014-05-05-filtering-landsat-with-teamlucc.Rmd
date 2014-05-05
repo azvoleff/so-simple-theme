@@ -36,7 +36,7 @@ if (!require(teamlucc)) install_github('azvoleff/teamlucc')
 library(rgdal)
 ```
 
-## Select Landsat images.
+## Select Landsat images
 
 Start by setting up an account on [USGS Earth 
 Explorer](http://earthexplorer.usgs.gov). After setting up an account, login to 
