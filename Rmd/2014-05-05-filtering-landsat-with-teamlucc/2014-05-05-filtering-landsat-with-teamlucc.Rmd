@@ -13,8 +13,8 @@ share: true
 This post outlines how to use the `teamlucc` package to filter the Landsat 
 imagery available in the archives for a particular study site. `teamlucc` 
 includes several functions to make plots to assist with selecting anniversary 
-dates (or near anniversary dates...) when multiple Landsat scenes are needed to 
-cover a single site. The `teamlucc` package also has functions to output an 
+dates (or near anniversary dates...) when multiple Landsat path/rows are needed 
+to cover a single site. The `teamlucc` package also has functions to output an 
 order text file in the proper format for the USGS ESPA system and to 
 automatically download and verify the completed portions of a USGS ESPA order.
 
