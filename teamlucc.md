@@ -31,12 +31,12 @@ introductory posts, listed in order of how you might use them to conduct an
 analysis:
 
 * [Filtering and downloading Landsat 
-  scenes](/_posts/2014-05-05-filtering-landsat-with-teamlucc.md)
+  scenes](/articles/filtering-landsat-with-teamlucc)
 
 * [Preprocessing imagery and 
-  DEMS](/_posts/2014-04-16-preprocessing-imagery-with-teamlucc.md)
+  DEMS](/articles/preprocessing-imagery-with-teamlucc)
 
-* [Cloud removal](/_posts/2014-04-16-cloud-removal-with-teamlucc.md)
+* [Cloud removal](/articles/cloud-removal-with-teamlucc)
 
 * [Image 
-  classification](/_posts/2014-03-19-image-classification-with-teamlucc.md)
+  classification](/articles/image-classification-with-teamlucc)
