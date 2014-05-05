@@ -101,8 +101,8 @@ scenes, can be difficult. The `wrspathrow` package (available on CRAN) is
 helpful for producing a quick visualization of the number of Landsat scenes 
 (path/row(s)) needed to cover an area. For example, the below code reads in the 
 ZOI shapefile for Nam Kading, and plots the Landsat path/rows needed to cover 
-the ZOI using the path/row polygons included in the wrspathrow package, and 
-including text labels for each path and row:
+the ZOI. This plot uses the path/row polygons included in the wrspathrow 
+package, and includes text labels for each path and row:
 
 ```{r, pathrow_versus_zoi, cache=TRUE}
 library(wrspathrow)
