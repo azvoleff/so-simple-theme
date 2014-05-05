@@ -24,3 +24,19 @@ href="http://www.teamnetwork.org">Tropical Ecology Assessment and Monitoring
 Development of `teamlucc` is ongoing. See the [`teamlucc` github project 
 page](https://github.com/azvoleff/teamlucc) for the latest development release.
 
+## Using `teamlucc`
+
+There are a number of posts on using `teamlucc`. Below are the most relevant 
+introductory posts, listed in order of how you might use them to conduct an 
+analysis:
+
+* [Filtering and downloading Landsat 
+  scenes](/_posts/2014-05-05-filtering-landsat-with-teamlucc.md)
+
+* [Preprocessing imagery and 
+  DEMS](/_posts/2014-04-16-preprocessing-imagery-with-teamlucc.md)
+
+* [Cloud removal](/_posts/2014-04-16-cloud-removal-with-teamlucc.md)
+
+* [Image 
+  classification](/_posts/2014-03-19-image-classification-with-teamlucc.md)
