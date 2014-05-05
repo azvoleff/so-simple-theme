@@ -36,7 +36,7 @@ if (!require(teamlucc)) install_github('azvoleff/teamlucc')
 library(rgdal)
 ```
 
-## Select Landsat images
+## Downloading list of available Landsat scenes
 
 Start by setting up an account on [USGS Earth 
 Explorer](http://earthexplorer.usgs.gov). After setting up an account, login to 
@@ -80,7 +80,7 @@ address each with a link to one a zipfile containing one of the scene lists.
 Download these zipfiles and use them for the next step (or use the below 
 example data instead)
 
-# Make plots to assist in selecting Landsat images
+# Selecting Landsat scenes to download
 
 To follow along with this analysis, [download this 
 zipfile](/content/2014-05-05-filtering-landsat-with-teamlucc/NAK_data.zip) 
@@ -162,7 +162,7 @@ This type of plot is helpful in visualizing the periods in which the greatest
 proportion of a site can be covered by cloud-free (or nearly cloud-free) 
 imagery.
 
-# Download from ESPA
+# Downloading Landsat scenes using ESPA
 
 `teamlucc` also facilitates placing orders for imagery using the [USGS ESPA 
 system](https://espa.cr.usgs.gov). The ESPA system accepts scenes lists as a 
