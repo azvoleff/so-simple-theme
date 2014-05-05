@@ -8,7 +8,7 @@ redirect_from: "/research/teamlucc/index.html"
 
 ---
 
-## Recent News
+## Recent Posts
 <ul class="post-list">
 {% for post in site.tags.teamlucc limit:5 %} 
   <li><article><a href="{{ site.url }}{{ post.url }}">{{ post.title }} <span class="entry-date"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time></span></a></article></li>
