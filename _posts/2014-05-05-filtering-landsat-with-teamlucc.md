@@ -35,7 +35,33 @@ shapefiles:
 
 {% highlight r %}
 if (!require(teamlucc)) install_github('azvoleff/teamlucc')
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Loading required package: teamlucc
+## Loading required package: Rcpp
+## Loading required package: raster
+## Loading required package: sp
+{% endhighlight %}
+
+
+
+{% highlight r %}
 library(rgdal)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## rgdal: version: 0.8-16, (SVN revision 498)
+## Geospatial Data Abstraction Library extensions to R successfully loaded
+## Loaded GDAL runtime: GDAL 1.10.1, released 2013/08/26
+## Path to GDAL shared files: C:/Users/azvoleff/R/win-library/3.1/rgdal/gdal
+## GDAL does not use iconv for recoding strings.
+## Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]
+## Path to PROJ.4 shared files: C:/Users/azvoleff/R/win-library/3.1/rgdal/proj
 {% endhighlight %}
 
 ## Downloading list of available Landsat scenes
@@ -91,11 +117,21 @@ National Protected Area](http://www.teamnetwork.org/network/sites/nam-kading-0)
 in Lao PDR. The zipfile also includes scene lists from EarthExplorer of all 
 available Landsat scenes (as of April 23, 2014) for this site.
 
+First, read in the Landsat image scene lists downloaded from USGS 
+EarthExplorer, using the `ee_read` function in `teamlucc`:
+
 
 
 {% highlight r %}
 l7 <- ee_read('NAK_L7_20140423_scenelist.csv')
 l45 <- ee_read('NAK_L4-5_20140423_scenelist.csv')
+{% endhighlight %}
+
+Now, merge the Landsats 4-5 and Landsat 7 scene lists so they can be analyzed 
+together:
+
+
+{% highlight r %}
 l457 <- merge(l7, l45, all=TRUE)
 {% endhighlight %}
 
