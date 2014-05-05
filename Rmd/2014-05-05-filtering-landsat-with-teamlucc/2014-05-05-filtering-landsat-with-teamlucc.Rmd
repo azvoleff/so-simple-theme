@@ -105,7 +105,7 @@ l457 <- merge(l7, l45, all=TRUE)
 ```
 
 Selecting Landsat images, particularly for an area covered by multiple Landsat 
-scenes, can be difficult. The `wrspathrow` package (available on CRAN) is 
+path/rows, can be difficult. The `wrspathrow` package (available on CRAN) is 
 helpful for producing a quick visualization of the number of Landsat scenes 
 (path/row(s)) needed to cover an area. For example, the below code reads in the 
 ZOI shapefile for Nam Kading, and plots the Landsat path/rows needed to cover 
