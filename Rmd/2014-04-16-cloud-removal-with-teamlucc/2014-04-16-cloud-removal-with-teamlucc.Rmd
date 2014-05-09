@@ -183,9 +183,8 @@ fill_cloud_mask <- (fill_fmask == 2) | (fill_fmask == 4)
 # Set mask to NA in background areas
 base_cloud_mask[base_fmask == 255] <- NA
 fill_cloud_mask[fill_fmask == 255] <- NA
-# Set mask to NA in NA areas in topographically corrected images (NAs can 
-# result from topographic correction, generally in very dark areas or areas of 
-# very high slope)
+# Set mask to NA in other NA areas in imagery (NAs can result from topographic 
+# correction, generally in very dark areas or areas of very high slope)
 base_cloud_mask[is.na(base_tc[[1]])] <- NA
 fill_cloud_mask[is.na(fill_tc[[1]])] <- NA
 ```
@@ -305,14 +304,14 @@ appropriate parameters. Note that this computation may take some time (it takes
 around 1.5 hours on a 2.9Ghz Core-i7 3520M laptop).
 
 ```{r, cloud_remove_IDL, cache=TRUE}
-# # Takes 2-3 hours on a 2.9Ghz Core-i7 3520M laptop
-# start_time <- Sys.time()
-# # Ensure dataType is properly set prior to handing off to IDL
-# dataType(base_cloud_mask) <- 'INT2S'
-# base_filled <- cloud_remove(base_tc, fill_tc, base_cloud_mask, DN_min=0, 
-#                             DN_max=255,
-#                             idl=idl_path)
-# Sys.time() - start_time
+# Takes 2-3 hours on a 2.9Ghz Core-i7 3520M laptop
+start_time <- Sys.time()
+# Ensure dataType is properly set prior to handing off to IDL
+dataType(base_cloud_mask) <- 'INT2S'
+base_filled <- cloud_remove(base_tc, fill_tc, base_cloud_mask, DN_min=0, 
+                            DN_max=255,
+                            idl=idl_path)
+Sys.time() - start_time
 ```
 
 Use `plotRGB` to check the output. Note that IDL does not properly code missing 
@@ -320,8 +319,8 @@ values in the output - prior to plotting or working with the data be sure to
 set any pixels with values less than `DN_min` (here `DN_min` is zero) to `NA`:
 
 ```{r, cloud_remove_IDL_plot, cache=TRUE}
-# base_filled[base_filled < 0] <- NA
-# plotRGB(base_filled, stretch="lin")
+base_filled[base_filled < 0] <- NA
+plotRGB(base_filled, stretch="lin")
 ```
 
 The default cloud fill approach can take a considerable amount of time to run. 
@@ -413,8 +412,7 @@ band from all three images, and then plot:
 
 ```{r, cloud_remove_compare_algorithms, cache=TRUE}
 par(mfrow=c(1,3))
-#plotRGB(base_filled, stretch='lin')
-plotRGB(base_filled_fast, stretch='lin')
+plotRGB(base_filled, stretch='lin')
 plotRGB(base_filled_fast, stretch='lin')
 plotRGB(base_filled_R, stretch='lin')
 ```
