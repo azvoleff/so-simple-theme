@@ -71,7 +71,10 @@ image is from January 21, 1986.  The images are surface reflectance images from
 the [Landsat Surface Reflectance Climate Data Record 
 (CDR)](http://landsat.usgs.gov/CDR_LSR.php), that also include cloud masks 
 constructed with the [Function of Mask (fmask) 
-algorithm](https://code.google.com/p/fmask)[^2].
+algorithm](https://code.google.com/p/fmask)[^2]. Both of these images have 
+significant cloud cover, and some areas are cloudy in both images. This 
+example will show the ability of the cloud fill algorithms to function even in 
+difficult circumstances.
 
 To follow along with this analysis, [download these 
 files](/content/2014-04-16-cloud-removal-with-teamlucc/2014-04-16-cloud-removal-with-teamlucc.zip).  
@@ -365,23 +368,22 @@ NSPI cloud fill algorithm that will run directly in R. To run this version of
 the algorithm, call the `cloud_remove` function with the same parameters as 
 above, but specify `use_IDL=FALSE`. This function also has a `verbose=TRUE` 
 option to tell `cloud_remove` to print progress statements as it is running 
-(this option is not available with the IDL scripts shown above):
-This version is nearly identical to the IDL algorithm called with the 
-`use_IDL=TRUE`, `fast=FALSE`, options set, but it takes much less time to run 
-(only 3-4 minutes on my machine). This version of the cloud removal code is 
-also able to properly handle imagery where there are missing pixels due to 
-cloud cover in both the fill and clouded images. To use this routine, call 
-`cloud_remove` with `use_IDL=FALSE`. Note that when `cloud_remove` is run with 
-`use_IDL=FALSE` and `verbose=TRUE`, as in the below example, there will be a 
-large number of status messages printed to the screeen. For the purposes of 
-this demo, I have removed these output messages from this webpage - but don't 
-be surprised if you see these messages when you try this command yourself.
+(this option is not available with the IDL scripts shown above). This version 
+is nearly identical to the IDL algorithm called with the `use_IDL=TRUE` and
+`fast=FALSE` options set, but it takes much less time to run (only 3-4 minutes 
+on my machine).  To use this routine, call `cloud_remove` with `use_IDL=FALSE`.
 
-```{r, cloud_remove_R, cache=TRUE, results='hide'}
+Note that when `cloud_remove` is run with `use_IDL=FALSE` and `verbose=TRUE`, 
+there will be a large number of status messages printed to the screen. For the 
+purposes of this demo (so that the webpage is not unnecessarily long), I have 
+not used the `verbose=TRUE` argument, but I recommend using it if you try this 
+command yourself.
+
+```{r, cloud_remove_R, cache=TRUE}
 # Takes 3-4 minutes on a 2.9Ghz Core-i7 3520M laptop
 start_time <- Sys.time()
 base_filled_R <- cloud_remove(base_tc, fill_tc, base_cloud_mask, DN_min=0, 
-                              DN_max=255, use_IDL=FALSE, verbose=TRUE)
+                              DN_max=255, use_IDL=FALSE)
 Sys.time() - start_time
 ```
 
@@ -411,7 +413,8 @@ images), `wrspath` and `wrsrow` (the WRS-2 path/row to use), and `start_date`
 and `end_date` (a start and end date limiting the images to use in the 
 algorithm). The analyst can also optionally specify a `base_date`, and the 
 `auto_cloud_fill` function will automatically pick the image closest to that 
-date to use as the base image.
+date to use as the base image (otherwise `auto_cloud_fill` will automatically 
+pick the image with the least cloud cover as the base image).
 
 As the `auto_cloud_fill` function automatically chooses images for inclusion in 
 the cloud fill process, it relies on having images stored on disk in a 
