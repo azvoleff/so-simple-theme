@@ -11,15 +11,15 @@ share: true
 
 ## Overview
 
-This post outlines how to use the `teamlucc` package to remove thick clouds from Landsat 
-imagery using the Neighborhood Similar Pixel Interpolator (NSPI) algorithm by 
-[Zhu et al.](ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6095313)[^1]. 
-`teamlucc` includes the original 
+This post outlines how to use the `teamlucc` package to remove thick clouds 
+from Landsat imagery using the Neighborhood Similar Pixel Interpolator (NSPI) 
+algorithm by [Zhu et 
+al.](ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6095313)[^1]. `teamlucc` 
+includes the original (modified slightly to be called from R) 
 [IDL](http://www.exelisvis.com/ProductsServices/IDL.aspx) code by [Xiaolin 
-Zhu](http://geography.osu.edu/grads/xzhu/). For R to be able to run (modified 
-slightly to be called from R) as well as a native R/C++ implementation of the 
-original NSPI algorithm. Thanks to Xiaolin for permission to redistribute this 
-code along with the `teamlucc` package.
+Zhu](http://geography.osu.edu/grads/xzhu/), as well as a native R/C++ 
+implementation of the NSPI algorithm. Thanks to Xiaolin for permission to 
+redistribute his code along with the `teamlucc` package.
 
 [^1]:
     Zhu, X., Gao, F., Liu, D., Chen, J., 2012. A modified neighborhood similar 
@@ -263,19 +263,19 @@ working with.
 
 There are three different cloud fill algorithms that can be used from 
 `teamlucc`. Two require an IDL installation, while the third uses a cloud fill 
-algorithm that is native to R (though it is coded in C++ for speed reasons). 
-The R-based algorithm is a bit more flexible than the IDL algorithms, and can 
-handle images in which both the base and fill image have clouds. Based on the 
-options supplied to `cloud_remove`, `teamlucc` wills select one of the three 
-algorithms to run. The `use_IDL` and `fast` parameters to `cloud_remove` 
-determine which cloud fill algorithm is used:
+algorithm that is native to R (though it is coded in C++ for speed reasons).  
+The R-based algorithm is a bit more flexible than the IDL algorithms, and is 
+designed to handle images in which both the base and fill image have clouds. 
+Based on the options supplied to `cloud_remove`, `teamlucc` wills select one of 
+the three algorithms to run. The `use_IDL` and `fast` parameters to 
+`cloud_remove` determine which cloud fill algorithm is used:
 
-| `use_IDL` value | `fast` value | Algorithm used by `cloud_remove`               |
-| :-------------: | :----------: | :--------------------------------------------: |
-| `TRUE`          | `FALSE`      | CLOUD_REMOVE[^1]                               |
-| `TRUE`          | `TRUE`       | CLOUD_REMOVE_FAST[^1]                          |
-| `FALSE`         | `FALSE`      | `teamlucc` fill algorithm, based on Zhu et al. |
-| `FALSE`         | `TRUE`       | Not yet supported                              |
+| `use_IDL` | `fast`  | Algorithm used by `cloud_remove`  |
+| :-------: | :-----: | :-------------------------------: |
+| `TRUE`    | `FALSE` | CLOUD_REMOVE[^1]                  |
+| `TRUE`    | `TRUE`  | CLOUD_REMOVE_FAST[^1]             |
+| `FALSE`   | `FALSE` | `teamlucc` fill algorithm         |
+| `FALSE`   | `TRUE`  | Not supported                     |
 
 First I will review the two IDL-based algorithms, then I will discuss the 
 R-based version.
@@ -390,41 +390,6 @@ View the results with `plotRGB`:
 ```{r, cloud_remove_R_plot, cache=TRUE}
 plotRGB(base_filled_R, stretch='lin')
 ```
-
-Because of the clouds in the fill image, not all of the clouds in the base 
-image could be filled. To visualize which clouds were filled, and which were 
-missed, you can use raster algebra:
-
-```{r, cloud_remove_R_plot_filled_notfilled, cache=TRUE}
-# Plot filled clouds
-filled_clouds <- (base_filled_R > 0) & (base_cloud_mask > 0)
-# Plot unfilled clouds
-missed_clouds <- (base_filled_R <= 0) & (base_cloud_mask > 0)
-evaluation <- stack(filled_clouds[[1]], missed_clouds[[1]])
-names(evaluation) <- c("filled clouds", "missed clouds")
-plot(evaluation)
-```
-
-#### Comparison of output from all three algorithms
-
-To qualitatively compare the three algorithms, make a layer stack of the NIR 
-band from all three images, and then plot:
-
-```{r, cloud_remove_compare_algorithms, cache=TRUE}
-par(mfrow=c(1,3))
-plotRGB(base_filled, stretch='lin')
-plotRGB(base_filled_fast, stretch='lin')
-plotRGB(base_filled_R, stretch='lin')
-```
- 
-The left image was producted with `use_ID=TRUE`, the middle image with 
-`use_ID=TRUE, fast=TRUE`, and the right image with `use_IDL=FALSE`.
-
-Notice the fringing around the clouds in the northwest of the image, in the two 
-images on the left that were filled with the `CLOUD_REMOVE` algorithm - this 
-algorithm was not designed to handle images in which the fill image is also 
-cloudy. I recommend using the R version of the algorithm (`use_IDL=FALSE`) in 
-these cases.
 
 ## Advanced approach: automated cloud fill from an image time series
 

@@ -5,20 +5,21 @@ description: "How to use the teamlucc R package to remove thick clouds in Landsa
 category: articles
 tags: [R, teamlucc, remote sensing, Landsat]
 comments: true
+modified: 2014-05-09
 share: true
 ---
 
 ## Overview
 
-This post outlines how to use the `teamlucc` package to remove thick clouds from Landsat 
-imagery using the Neighborhood Similar Pixel Interpolator (NSPI) algorithm by 
-[Zhu et al.](ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6095313)[^1]. 
-`teamlucc` includes the original 
+This post outlines how to use the `teamlucc` package to remove thick clouds 
+from Landsat imagery using the Neighborhood Similar Pixel Interpolator (NSPI) 
+algorithm by [Zhu et 
+al.](ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6095313)[^1]. `teamlucc` 
+includes the original (modified slightly to be called from R) 
 [IDL](http://www.exelisvis.com/ProductsServices/IDL.aspx) code by [Xiaolin 
-Zhu](http://geography.osu.edu/grads/xzhu/). For R to be able to run (modified 
-slightly to be called from R) as well as a native R/C++ implementation of the 
-original NSPI algorithm. Thanks to Xiaolin for permission to redistribute this 
-code along with the `teamlucc` package.
+Zhu](http://geography.osu.edu/grads/xzhu/), as well as a native R/C++ 
+implementation of the NSPI algorithm. Thanks to Xiaolin for permission to 
+redistribute his code along with the `teamlucc` package.
 
 [^1]:
     Zhu, X., Gao, F., Liu, D., Chen, J., 2012. A modified neighborhood similar 
@@ -110,9 +111,7 @@ base <- brick('vb_1986_005_b234.tif')
 
 
 {% highlight r %}
-base_mask <- raster('vb_1986_005_fmask.tif')
 fill <- brick('vb_1986_021_b234.tif')
-fill_mask <- raster('vb_1986_021_fmask.tif')
 {% endhighlight %}
 
 Notice the cloud cover in the base image:
@@ -177,6 +176,13 @@ fill_tc <- topographic_corr(fill, slp_asp, sunelev=90-46.80, sunazimuth=129.88,
 plotRGB(base_tc, stretch='lin')
 {% endhighlight %}
 
+
+
+{% highlight text %}
+## Warning: closing unused connection 5
+## (C:\Users\azvoleff\AppData\Local\Temp\RtmpKaAxSl\file46b444682ea7.gri)
+{% endhighlight %}
+
 ![Base image after topographic correction](/content/2014-04-16-cloud-removal-with-teamlucc/base_tc.png) 
 
 
@@ -202,12 +208,28 @@ The fmask band from the CDR imagery uses the following codes:
 We need to construct a mask of areas where all pixels that are cloud (code 4) 
 or cloud shadow (code 2) are equal to 1, and where pixels in all other areas 
 are equal to zero.  This is easy using raster algebra from the R `raster` 
-package:
+package. First load the masks:
 
 
 {% highlight r %}
-base_mask <- (base_mask == 2) | (base_mask == 4)
-fill_mask <- (fill_mask == 2) | (fill_mask == 4)
+base_fmask <- raster('vb_1986_005_fmask.tif')
+fill_fmask <- raster('vb_1986_021_fmask.tif')
+{% endhighlight %}
+Now do the raster algebra, masking out clouds and cloud shadows, and setting 
+missing values in both images to NAs in the masks:
+
+
+{% highlight r %}
+# Set mask to 1 in clouds and shadow areas
+base_cloud_mask <- (base_fmask == 2) | (base_fmask == 4)
+fill_cloud_mask <- (fill_fmask == 2) | (fill_fmask == 4)
+# Set mask to NA in background areas
+base_cloud_mask[base_fmask == 255] <- NA
+fill_cloud_mask[fill_fmask == 255] <- NA
+# Set mask to NA in other NA areas in imagery (NAs can result from topographic 
+# correction, generally in very dark areas or areas of very high slope)
+base_cloud_mask[is.na(base_tc[[1]])] <- NA
+fill_cloud_mask[is.na(fill_tc[[1]])] <- NA
 {% endhighlight %}
 
 Plot these masks to double-check they align with the clouds in the images we 
@@ -215,55 +237,60 @@ viewed earlier:
 
 
 {% highlight r %}
-plot(base_mask)
+plot(base_cloud_mask)
 {% endhighlight %}
 
-![Base image cloud mask](/content/2014-04-16-cloud-removal-with-teamlucc/base_mask.png) 
+![Base image cloud mask](/content/2014-04-16-cloud-removal-with-teamlucc/base_cloud_mask.png) 
 
 
 {% highlight r %}
-plot(fill_mask)
+plot(fill_cloud_mask)
 {% endhighlight %}
 
-![Fill image cloud mask](/content/2014-04-16-cloud-removal-with-teamlucc/fill_mask.png) 
+![Fill image cloud mask](/content/2014-04-16-cloud-removal-with-teamlucc/fill_cloud_mask.png) 
 
-### Fill clouds
+Now use these two masks to mask out the clouds in the fill and base images, by 
+setting clouded areas to zero (as the `cloud_remove` code treats pixels with 
+zero values as "background":
 
-For this simple example, we will directly use the `cloud_remove` function in 
-`teamlucc`. This function has a number of input parameters that can be supplied 
-(see `?cloud_remove`). Two important ones to note are `DN_min` and `DN_max`. 
-These are the minimum and maximum valid values, respectively, that a pixel in 
-the image can take on. These limits are used to ignore unrealistic predictions 
-that may arise in the cloud fill routine. For the base and fill images we are 
-working with here, these values are 0 and 255, for max and min, respectively. 
-Set these parameters to appropriate values as necessary for the images you are 
-working with.
+
+{% highlight r %}
+base_tc[base_cloud_mask] <- 0
+fill_tc[fill_cloud_mask] <- 0
+{% endhighlight %}
 
 The cloud mask for the base image must be constructed so that each cloud has 
 its own unique integer code, with codes starting from 1. This process can be 
-automated using the `ConnCompLabel` function from the `SDMTools` package:
+automated using the `ConnCompLabel` function from the `SDMTools` package.  
+However, because there are clouds in our fill image as well as in our base 
+image, we need to modify the `base_cloud_mask` slightly to account for this. 
+First, code all pixels in `base_cloud_mask` that are clouded in 
+`fill_cloud_mask` with `NA`s. This will tell the `ConnCompLabel` function not 
+to label these pixels as clouds (because they are also clouded in the fill 
+image, we cannot perform cloud fill on these pixels).
 
 
 {% highlight r %}
-base_mask <- ConnCompLabel(base_mask)
+# Set clouds in fill image to NA in base mask:
+base_cloud_mask[fill_cloud_mask] <- NA
+# Set missing values in fill image to NA in base mask:
+base_cloud_mask[is.na(fill_cloud_mask)] <- NA
 {% endhighlight %}
 
-Finally, because there are clouds in our fill image as well as in our base 
-image, we need to modify the `base_mask` slightly to account for this, and to 
-tell the `cloud_remove` function in `teamlucc` not to attempt cloud filling for 
-pixels in the base image that are also clouded in the fill image. Do this by 
-setting all pixels in the `base_mask` that are clouded in the `fill_mask` to 
-`-1`.
+Now run `ConnCompLabel`, and set the output datatype to `INT2S` (meaning the 
+data in `base_cloud_mask` can range from -32768 - 32767). That said, please 
+don't try to run cloud fill with 32,767 clouds in your image :).
 
 
 {% highlight r %}
-base_mask[fill_mask] <- -1
+base_cloud_mask <- ConnCompLabel(base_cloud_mask)
 {% endhighlight %}
 
-The final `base_mask` is now coded as:
+The final `base_cloud_mask` is now coded as:
 
 | Pixel type                       | Code    |
 | -------------------------------- | :-----: |
+| Background in `fill` or `base`   |   NA    |
 | Clouded in `fill`                |   -1    |
 | Clear in `base`, clear in `fill` |    0    |
 | Clouded in `base`                | 1 ... n |
@@ -272,40 +299,100 @@ where n is the number of clouds in the image:
 
 
 {% highlight r %}
-plot(base_mask)
+plot(base_cloud_mask)
 {% endhighlight %}
 
-![Base mask with areas clouded in fill image masked out](/content/2014-04-16-cloud-removal-with-teamlucc/base_mask_recoded.png) 
+![Final base image cloud mask](/content/2014-04-16-cloud-removal-with-teamlucc/base_cloud_mask_recoded.png) 
 
-The default version of the `cloud_remove` runs an IDL script provided by 
+### Fill clouds
+
+For this simple example, we will directly use the `cloud_remove` function in 
+`teamlucc`. This function has a number of input parameters that can be supplied 
+(see `?cloud_remove`). Two important ones to note are `DN_min` and `DN_max`.  
+These are the minimum and maximum valid values, respectively, that a pixel in 
+the image can take on. These limits are used to ignore unrealistic predictions 
+that may arise in the cloud fill routine. For the base and fill images we are 
+working with here, these values are 0 and 255, for max and min, respectively.  
+Set these parameters to appropriate values as necessary for the images you are 
+working with.
+
+There are three different cloud fill algorithms that can be used from 
+`teamlucc`. Two require an IDL installation, while the third uses a cloud fill 
+algorithm that is native to R (though it is coded in C++ for speed reasons).  
+The R-based algorithm is a bit more flexible than the IDL algorithms, and is 
+designed to handle images in which both the base and fill image have clouds. 
+Based on the options supplied to `cloud_remove`, `teamlucc` wills select one of 
+the three algorithms to run. The `use_IDL` and `fast` parameters to 
+`cloud_remove` determine which cloud fill algorithm is used:
+
+| `use_IDL` | `fast`  | Algorithm used by `cloud_remove`  |
+| :-------: | :-----: | :-------------------------------: |
+| `TRUE`    | `FALSE` | CLOUD_REMOVE[^1]                  |
+| `TRUE`    | `TRUE`  | CLOUD_REMOVE_FAST[^1]             |
+| `FALSE`   | `FALSE` | `teamlucc` fill algorithm         |
+| `FALSE`   | `TRUE`  | Not supported                     |
+
+First I will review the two IDL-based algorithms, then I will discuss the 
+R-based version.
+
+#### Cloud removal using IDL code
+
+If run with `use_IDL=TRUE`, `cloud_remove` runs an IDL script provided by 
 [Xiaolin Zhu](http://geography.osu.edu/grads/xzhu/). For R to be able to run 
 this script it must know the path to IDL on your machine. For Windows users, 
 this means the path to "idl.exe". To specify this path you will need to provide 
-the `idl` parameter to the `cloud_remove` script. The default value (C:/Program 
-Files/Exelis/IDL83/bin/bin.x86_64/idl.exe) may or may not work on your machine.
+the `idl` parameter to the `cloud_remove` script. The default value 
+(`C:/Program Files/Exelis/IDL83/bin/bin.x86_64/idl.exe`) may or may not work on 
+your machine. I recommend you set the IDL path at the beginning of your 
+scripts:
+
+
+{% highlight r %}
+idl_path <- "C:/Program Files/Exelis/IDL83/bin/bin.x86_64/idl.exe"
+{% endhighlight %}
 
 An optional `out_name` parameter can be supplied to `cloud_remove` to specify 
 the filename for the output file. If not supplied, R will save the filled image 
 as an R object pointing to a temporary file.
 
 To run the cloud removal routine, call the `cloud_remove` function with the 
-appropriate parameters. Note that this computation may take some time (10-15 
-minutes).
+appropriate parameters. Note that this computation may take some time (it takes 
+around 1.5 hours on a 2.9Ghz Core-i7 3520M laptop).
 
 
 {% highlight r %}
-# start_time <- Sys.time()
-# base_filled <- cloud_remove(base_tc, fill_tc, base_mask, 
-#                             out_name='vb_1986_005_b234_filled.envi',
-#                             idl="C:/Program Files/Exelis/IDL83/bin/bin.x86_64/idl.exe")
-# Sys.time() - start_time
+# Takes 2-3 hours on a 2.9Ghz Core-i7 3520M laptop
+start_time <- Sys.time()
+# Ensure dataType is properly set prior to handing off to IDL
+dataType(base_cloud_mask) <- 'INT2S'
+base_filled <- cloud_remove(base_tc, fill_tc, base_cloud_mask, DN_min=0, 
+                            DN_max=255,
+                            idl=idl_path)
+Sys.time() - start_time
 {% endhighlight %}
 
-The default cloud fill approach can take a long time to run (this above 
-calculation takes about 30-40 minutes on my 2.9Ghz Core-i7 3520M laptop). There 
-is an alternative approach that can take considerably less time to run, with 
-similar results. This option can be enabled by supplying the `fast=TRUE` 
-parameter to `cloud_remove`:
+
+
+{% highlight text %}
+## Time difference of 1.667 hours
+{% endhighlight %}
+
+Use `plotRGB` to check the output. Note that IDL does not properly code missing 
+values in the output - prior to plotting or working with the data be sure to 
+set any pixels with values less than `DN_min` (here `DN_min` is zero) to `NA`:
+
+
+{% highlight r %}
+base_filled[base_filled < 0] <- NA
+plotRGB(base_filled, stretch="lin")
+{% endhighlight %}
+
+![center](/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_IDL_plot.png) 
+
+The default cloud fill approach can take a considerable amount of time to run. 
+There is an alternative approach that can take considerably less time to run, 
+with similar results. This option can be enabled by supplying the `fast=TRUE` 
+parameter to `cloud_remove`.
 
 The "fast" version of the algorithm makes some simplifications to improve 
 running time. Specifically, rather than follow the precise algorithm as 
@@ -317,33 +404,94 @@ reflectance for each class within the neighborhood of a given cloud. This
 the change in reflectance in a small neighborhood around each clouded pixel. 
 For each clouded pixel, a weighted combination of the predicted fill values 
 from the spatial and temporal models determines the final predicted value for 
-that pixel.
+that pixel. This version of the algorithm takes only 2.5 minutes to run on the 
+same machine as used above:
 
 
 {% highlight r %}
-# start_time <- Sys.time()
-# base_filled_fast  <- cloud_remove(base_tc, fill_tc, base_mask, 
-#                                   out_name='vb_1986_005_b234_filled_fast.envi',
-#                                   DN_min=0, DN_max=255,
-#                                   idl="C:/Program Files/Exelis/IDL83/bin/bin.x86_64/idl.exe",
-#                                   fast=TRUE, num_class=3)
-# Sys.time() - start_time
+# Takes 2-3 minutes on a 2.9Ghz Core-i7 3520M laptop
+start_time <- Sys.time()
+# Ensure dataType is properly set prior to handing off to IDL
+dataType(base_cloud_mask) <- 'INT2S'
+base_filled_fast  <- cloud_remove(base_tc, fill_tc, base_cloud_mask, DN_min=0, 
+                                  DN_max=255, idl=idl_path, fast=TRUE)
+Sys.time() - start_time
 {% endhighlight %}
 
-If you do not have IDL on your machine, there is a (experimental) C++ 
-implementation of the NSPI cloud fill algorithm that will run directly in R. To 
-run this version of the algorithm, call the `cloud_remove` function with the 
-same parameters as above, but specify `use_IDL=FALSE`. This function also has a 
-`verbose=TRUE` option to tell `cloud_remove` to print progress statements as it 
-is running (this option is not available with the IDL scripts shown above):
+
+
+{% highlight text %}
+## Time difference of 38.5 secs
+{% endhighlight %}
+
+Use `plotRGB` to check the output:
 
 
 {% highlight r %}
-# start_time <- Sys.time()
-# base_filled_R <- cloud_remove(base_tc, fill_tc, base_mask, DN_min=0, DN_max=255, 
-#                               use_IDL=FALSE, verbose=TRUE)
-# Sys.time() - start_time
+base_filled_fast[base_filled_fast < 0] <- NA
+plotRGB(base_filled_fast, stretch='lin')
 {% endhighlight %}
+
+![center](/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_IDL_fast_plot.png) 
+
+#### Cloud removal using native R code
+
+If you do not have IDL on your machine, there is a C++ implementation of the 
+NSPI cloud fill algorithm that will run directly in R. To run this version of 
+the algorithm, call the `cloud_remove` function with the same parameters as 
+above, but specify `use_IDL=FALSE`. This function also has a `verbose=TRUE` 
+option to tell `cloud_remove` to print progress statements as it is running 
+(this option is not available with the IDL scripts shown above):
+This version is nearly identical to the IDL algorithm called with the 
+`use_IDL=TRUE`, `fast=FALSE`, options set, but it takes much less time to run 
+(only 3-4 minutes on my machine). This version of the cloud removal code is 
+also able to properly handle imagery where there are missing pixels due to 
+cloud cover in both the fill and clouded images. To use this routine, call 
+`cloud_remove` with `use_IDL=FALSE`. Note that when `cloud_remove` is run with 
+`use_IDL=FALSE` and `verbose=TRUE`, as in the below example, there will be a 
+large number of status messages printed to the screeen. For the purposes of 
+this demo, I have removed these output messages from this webpage - but don't 
+be surprised if you see these messages when you try this command yourself.
+
+
+{% highlight r %}
+# Takes 3-4 minutes on a 2.9Ghz Core-i7 3520M laptop
+start_time <- Sys.time()
+base_filled_R <- cloud_remove(base_tc, fill_tc, base_cloud_mask, DN_min=0, 
+                              DN_max=255, use_IDL=FALSE, verbose=TRUE)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Loading required package: parallel
+## Loading required package: iterators
+## Loading required package: foreach
+## foreach: simple, scalable parallel programming from Revolution Analytics
+## Use Revolution R for scalability, fault tolerance and more.
+## http://www.revolutionanalytics.com
+## 
+## Attaching package: 'mmap'
+## 
+## The following object is masked from 'package:Rcpp':
+## 
+##     sizeof
+{% endhighlight %}
+
+
+
+{% highlight r %}
+Sys.time() - start_time
+{% endhighlight %}
+
+View the results with `plotRGB`:
+
+
+{% highlight r %}
+plotRGB(base_filled_R, stretch='lin')
+{% endhighlight %}
+
+![center](/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_R_plot.png) 
 
 ## Advanced approach: automated cloud fill from an image time series
 
@@ -380,11 +528,10 @@ they can be used with the `auto_cloud_fill` script.
 
 {% highlight r %}
 # start_time <- Sys.time()
-# auto_cloud_fill()
-# Sys.time() - start_time
 # start_date <- as.Date('1986-01-01')
 # end_date <- as.Date('1987-01-01')
 # filled_image <- auto_cloud_fill("C:/Data/LEDAPS_imagery", wrspath=230, 
 #                                 wrsrow=62, start_date=start_date,
-#                                 end_date=end_date)
+#                                 end_date=end_date, use_IDL=FALSE)
+# Sys.time() - start_time
 {% endhighlight %}
