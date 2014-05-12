@@ -3,7 +3,7 @@ layout: post
 title: "Where to get GDAL binaries"
 description: "Where to get GDAL/OGR binaries"
 category: articles
-tags: [python, pyabm, chitwanabm, GDAL, OGR, GIS]
+tags: [python, pyabm, chitwanabm]
 comments: true
 share: true
 ---
