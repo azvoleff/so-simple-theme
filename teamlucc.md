@@ -38,5 +38,4 @@ analysis:
 
 * [Cloud removal](/articles/cloud-removal-with-teamlucc)
 
-* [Image 
-  classification](/articles/image-classification-with-teamlucc)
+* [Image classification](/articles/image-classification-with-teamlucc)
