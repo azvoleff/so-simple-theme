@@ -27,7 +27,6 @@ redistribute his code along with the `teamlucc` package.
     Geoscience and Remote Sensing Letters, IEEE 9, 521–525. 
     doi:10.1109/LGRS.2011.2173290
 
-
 ## Getting started
 
 First load the `teamlucc` package, and the `SDMTools` package we will use 
@@ -46,7 +45,11 @@ If `teamlucc` is not installed, install it using `devtools`"
 if (!require(teamlucc)) install_github('azvoleff/teamlucc')
 {% endhighlight %}
 
-## Simplest approach: cloud fill a single clouded image with a single clear image
+First I will cover how to cloud fill a single clouded image using a single 
+clear (or partially clouded) image. Skip to the end to see how to automate the 
+cloud fill process using `teamlucc`.
+
+## Cloud fill a single clouded image with a single clear image
 
 This example will use a portion of a 1986 Landsat 5 scene from Volcan Barva, 
 Costa Rica (a [TEAM 
@@ -317,30 +320,30 @@ There are three different cloud fill algorithms that can be used from
 algorithm that is native to R (though it is coded in C++ for speed reasons).  
 The R-based algorithm is a bit more flexible than the IDL algorithms, and is 
 designed to handle images in which both the base and fill image have clouds. 
-Based on the options supplied to `cloud_remove`, `teamlucc` wills select one of 
-the three algorithms to run. The `use_IDL` and `fast` parameters to 
-`cloud_remove` determine which cloud fill algorithm is used:
+Based on the options supplied to `cloud_remove`, `teamlucc` will select one of 
+the fourt algorithms to run. The `algorithm` parameter to `cloud_remove` 
+determine which cloud fill algorithm is used:
 
-| `use_IDL` | `fast`  | Algorithm used by `cloud_remove`  |
-| :-------: | :-----: | :-------------------------------: |
-| `TRUE`    | `FALSE` | CLOUD_REMOVE[^1]                  |
-| `TRUE`    | `TRUE`  | CLOUD_REMOVE_FAST[^1]             |
-| `FALSE`   | `FALSE` | `teamlucc` fill algorithm         |
-| `FALSE`   | `TRUE`  | Not supported                     |
+| Algorithm           | Requires IDL license? | Algorithm used by `cloud_remove`  |
+| :-----------------: | :---------------------: | :-------------------------------: |
+| `CLOUD_REMOVE`      | Yes                   | CLOUD_REMOVE[^1]                  |
+| `CLOUD_REMOVE_FAST` | Yes                   | CLOUD_REMOVE_FAST[^1]             |
+| `teamlucc`          | No                    | `teamlucc` fill algorithm         |
+| `simple`            | No                    | simple linear model algorithm     |
 
-First I will review the two IDL-based algorithms, then I will discuss the 
-R-based version.
+First I will review the two IDL-based algorithms, then I will discuss the two 
+R-based algorithms.
 
 #### Cloud removal using IDL code
 
-If run with `use_IDL=TRUE`, `cloud_remove` runs an IDL script provided by 
-[Xiaolin Zhu](http://geography.osu.edu/grads/xzhu/). For R to be able to run 
-this script it must know the path to IDL on your machine. For Windows users, 
-this means the path to "idl.exe". To specify this path you will need to provide 
-the `idl` parameter to the `cloud_remove` script. The default value 
-(`C:/Program Files/Exelis/IDL83/bin/bin.x86_64/idl.exe`) may or may not work on 
-your machine. I recommend you set the IDL path at the beginning of your 
-scripts:
+If run with `algorithm="CLOUD_REMOVE"` (the default), `cloud_remove` runs an 
+IDL script provided by [Xiaolin Zhu](http://geography.osu.edu/grads/xzhu/). For 
+R to be able to run this script it must know the path to IDL on your machine. 
+For Windows users, this means the path to "idl.exe". To specify this path you 
+will need to provide the `idl` parameter to the `cloud_remove` script. The 
+default value (`C:/Program Files/Exelis/IDL83/bin/bin.x86_64/idl.exe`) may or 
+may not work on your machine. I recommend you set the IDL path at the beginning 
+of your scripts:
 
 
 {% highlight r %}
@@ -361,16 +364,27 @@ around 1.5 hours on a 2.9Ghz Core-i7 3520M laptop).
 start_time <- Sys.time()
 # Ensure dataType is properly set prior to handing off to IDL
 dataType(base_cloud_mask) <- 'INT2S'
-base_filled <- cloud_remove(base_tc, fill_tc, base_cloud_mask, DN_min=0, 
-                            DN_max=255,
+filled_cr <- cloud_remove(base_tc, fill_tc, base_cloud_mask, 
+                            algorithm="CLOUD_REMOVE", DN_min=0, DN_max=255, 
                             idl=idl_path)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Loading required package: ncdf
+{% endhighlight %}
+
+
+
+{% highlight r %}
 Sys.time() - start_time
 {% endhighlight %}
 
 
 
 {% highlight text %}
-## Time difference of 1.667 hours
+## Time difference of 1.7 hours
 {% endhighlight %}
 
 Use `plotRGB` to check the output. Note that IDL does not properly code missing 
@@ -379,16 +393,16 @@ set any pixels with values less than `DN_min` (here `DN_min` is zero) to `NA`:
 
 
 {% highlight r %}
-base_filled[base_filled < 0] <- NA
-plotRGB(base_filled, stretch="lin")
+filled_cr[filled_cr < 0] <- NA
+plotRGB(filled_cr, stretch="lin")
 {% endhighlight %}
 
-![center](/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_IDL_plot.png) 
+![center](/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_cr_plot.png) 
 
-The default cloud fill approach can take a considerable amount of time to run. 
+The default cloud fill approach can take a considerable amount of time to run.  
 There is an alternative approach that can take considerably less time to run, 
-with similar results. This option can be enabled by supplying the `fast=TRUE` 
-parameter to `cloud_remove`.
+with similar results. This option can be enabled by supplying the 
+`algorithm="CLOUD_REMOVE_FAST` parameter to `cloud_remove`.
 
 The "fast" version of the algorithm makes some simplifications to improve 
 running time. Specifically, rather than follow the precise algorithm as 
@@ -409,82 +423,124 @@ same machine as used above:
 start_time <- Sys.time()
 # Ensure dataType is properly set prior to handing off to IDL
 dataType(base_cloud_mask) <- 'INT2S'
-base_filled_fast  <- cloud_remove(base_tc, fill_tc, base_cloud_mask, DN_min=0, 
-                                  DN_max=255, idl=idl_path, fast=TRUE)
+filled_crf  <- cloud_remove(base_tc, fill_tc, base_cloud_mask, 
+                                  algorithm="CLOUD_REMOVE_FAST", DN_min=0,
+                                  DN_max=255, idl=idl_path)
 Sys.time() - start_time
 {% endhighlight %}
 
 
 
 {% highlight text %}
-## Time difference of 38.5 secs
+## Time difference of 37.86 secs
 {% endhighlight %}
 
 Use `plotRGB` to check the output:
 
 
 {% highlight r %}
-base_filled_fast[base_filled_fast < 0] <- NA
-plotRGB(base_filled_fast, stretch='lin')
+filled_crf[filled_crf < 0] <- NA
+plotRGB(filled_crf, stretch='lin')
 {% endhighlight %}
 
-![center](/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_IDL_fast_plot.png) 
+![center](/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_crf_plot.png) 
 
 #### Cloud removal using native R code
 
 If you do not have IDL on your machine, there is a C++ implementation of the 
-NSPI cloud fill algorithm that will run directly in R. To run this version of 
-the algorithm, call the `cloud_remove` function with the same parameters as 
-above, but specify `use_IDL=FALSE`. This function also has a `verbose=TRUE` 
+NSPI cloud fill algorithm that will run directly in R, as well as a "simple" 
+cloud fill algorithm that uses linear models developed using the neighborhood 
+of each cloud to perform a naive fill. To run the R version of the NSPI 
+algorithm, call the `cloud_remove` function with the same parameters as above, 
+but specify `algorithm="teamlucc"`. This function also has a `verbose=TRUE` 
 option to tell `cloud_remove` to print progress statements as it is running 
 (this option is not available with the IDL scripts shown above). This version 
-is nearly identical to the IDL algorithm called with the `use_IDL=TRUE` and
-`fast=FALSE` options set, but it takes much less time to run (only 3-4 minutes 
-on my machine).  To use this routine, call `cloud_remove` with `use_IDL=FALSE`.
+is nearly identical to the IDL algorithm called with the 
+`algorithm="CLOUD_REMOVE"` option, but it takes much less time to run (only 3-4 minutes on my machine).  
 
-Note that when `cloud_remove` is run with `use_IDL=FALSE` and `verbose=TRUE`, 
-there will be a large number of status messages printed to the screen. For the 
-purposes of this demo (so that the webpage is not unnecessarily long), I have 
-not used the `verbose=TRUE` argument, but I recommend using it if you try this 
-command yourself.
+Note that when `cloud_remove` is run with `algorithm="teamlucc"` and 
+`verbose=TRUE`, there will be a large number of status messages printed to the 
+screen. For the purposes of this demo (so that the webpage is not unnecessarily 
+long), I have not used the `verbose=TRUE` argument, but I recommend using it if 
+you try this command yourself.
 
 
 {% highlight r %}
-# Takes 3-4 minutes on a 2.9Ghz Core-i7 3520M laptop
+# Takes 4-5 minutes on a 2.9Ghz Core-i7 3520M laptop
 start_time <- Sys.time()
-base_filled_R <- cloud_remove(base_tc, fill_tc, base_cloud_mask, DN_min=0, 
-                              DN_max=255, use_IDL=FALSE)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Warning: *** use_IDL=FALSE is still experimental - use results with caution ***
-## Warning: min value not known, use setMinMax
-{% endhighlight %}
-
-
-
-{% highlight r %}
+filled_tl <- cloud_remove(base_tc, fill_tc, base_cloud_mask, DN_min=0, 
+                              DN_max=255, algorithm="teamlucc")
 Sys.time() - start_time
 {% endhighlight %}
 
 
 
 {% highlight text %}
-## Time difference of 3.603 mins
+## Time difference of 3.674 mins
 {% endhighlight %}
 
 View the results with `plotRGB`:
 
 
 {% highlight r %}
-plotRGB(base_filled_R, stretch='lin')
+plotRGB(filled_tl, stretch='lin')
 {% endhighlight %}
 
-![center](/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_R_plot.png) 
+![center](/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_tl_plot.png) 
 
-## Advanced approach: automated cloud fill from an image time series
+The fastest cloud fill option is to run `cloud_remove` with 
+`algorithm="SIMPLE"`. This uses a simple cloud fill approach in which the value 
+of each clouded pixel is calculated using a linear model. The script develops a 
+separate linear model (with slope and intercept) for each band and each cloud. 
+For each cloud, and each image band, the script finds all pixels clear in both 
+the cloudy and fill images, and calculates a regression model in which pixel 
+values in the fill image are the independent variable, and pixel values in the 
+clouded image are the dependent variable. The script then uses this model to 
+predict pixel values for each band in each cloud in the clouded image. For 
+example:
+
+
+{% highlight r %}
+# Takes 2-5 seconds on a 2.9Ghz Core-i7 3520M laptop
+start_time <- Sys.time()
+filled_simple <- cloud_remove(base_tc, fill_tc, base_cloud_mask, DN_min=0, 
+                              DN_max=255, algorithm="simple")
+Sys.time() - start_time
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Time difference of 1.747 secs
+{% endhighlight %}
+
+View the results with `plotRGB`:
+
+
+{% highlight r %}
+plotRGB(filled_simple, stretch='lin')
+{% endhighlight %}
+
+![center](/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_simple_plot.png) 
+
+### Compare all four fill algorithms:
+
+To plot the results of all four fill algorithms, make a layer stack of the 
+first band of all four images, then plot:
+
+
+{% highlight r %}
+filled_comp <- stack(filled_cr[[1]], filled_crf[[1]], filled_tl[[1]], 
+                    filled_simple[[1]])
+names(filled_comp) <- c('CLOUD_REMOVE', 'CLOUD_REMOVE_FAST', 'teamlucc', 
+                       'simple')
+plot(filled_comp)
+{% endhighlight %}
+
+![center](/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_comparison_plot.png) 
+
+
+## Automated cloud fill from an image time series
 
 The `teamlucc` package also includes functions for automated cloud filling from 
 an image time series. Automatic cloud filling is performed using the 
@@ -524,6 +580,6 @@ they can be used with the `auto_cloud_fill` script.
 # end_date <- as.Date('1987-01-01')
 # filled_image <- auto_cloud_fill("C:/Data/LEDAPS_imagery", wrspath=230, 
 #                                 wrsrow=62, start_date=start_date,
-#                                 end_date=end_date, use_IDL=FALSE)
+#                                 end_date=end_date)
 # Sys.time() - start_time
 {% endhighlight %}
