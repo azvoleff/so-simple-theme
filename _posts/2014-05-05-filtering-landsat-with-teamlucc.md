@@ -240,7 +240,7 @@ espa_scenelist(l457, as.Date('1996/1/1'), as.Date('1996/12/31'),
 
 The above line of code will save a text file named 
 `NAK_ESPA_scenelist_1986.txt` in your current working directory. To place an 
-order, login to the ESPA system, and uploading the text file.
+order, login to the ESPA system, and upload the text file.
 
 After receiving an email from the ESPA system notifying you that your order is 
 processed, download the order from within R using the `espa_download` function 
