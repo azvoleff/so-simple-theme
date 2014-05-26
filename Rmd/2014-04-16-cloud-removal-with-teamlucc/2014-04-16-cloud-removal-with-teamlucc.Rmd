@@ -14,7 +14,7 @@ share: true
 This post outlines how to use the `teamlucc` package to remove thick clouds 
 from Landsat imagery using the Neighborhood Similar Pixel Interpolator (NSPI) 
 algorithm by [Zhu et 
-al.](ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6095313)[^1]. `teamlucc` 
+al.](http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6095313)[^1]. `teamlucc` 
 includes the original (modified slightly to be called from R) 
 [IDL](http://www.exelisvis.com/ProductsServices/IDL.aspx) code by [Xiaolin 
 Zhu](http://geography.osu.edu/grads/xzhu/), as well as a native R/C++ 
