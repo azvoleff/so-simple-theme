@@ -141,7 +141,7 @@ or 3 character) site name or site code that is meaningful to you.
 There are two other options we provide below to `auto_preprocess_landsat`.  
 `tc=TRUE` tells `auto_preprocess_landsat` to perform topographic correction.  
 Because of this, we also need to specify `dem_path` (with DEM files 
-preprocessed by `auto_setup_dem`, so that the DEM files for this scene can be 
+preprocessed by `auto_setup_dem`), so that the DEM files for this scene can be 
 found. Here we set `dem_path=dem_path` as we already defined this variable 
 above. `verbose=TRUE` indicates that we want detailed progress messages to 
 print while the script is running.
