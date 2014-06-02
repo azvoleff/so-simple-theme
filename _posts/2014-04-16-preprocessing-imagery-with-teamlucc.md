@@ -48,11 +48,11 @@ polygon. If you have a shapefile of an area of interest, load it into R using
 the readOGR command:
 
 {% highlight r %}
-aoi <- readOGR('C:\aoi_folder', 'aoi_shapefile')
+aoi <- readOGR('C:/aoi_folder', 'aoi_shapefile')
 {% endhighlight %}
 
 Notice that the readOGR command needs the folder the shapefile is in 
-(`C:\aoi_folder` in our example) as the first parameter, and the filename of 
+(`C:/aoi_folder` in our example) as the first parameter, and the filename of 
 the shapefile (without the ".shp" extension) as the second 
 parameter (`aoi_shapefile`) in this example).
 
@@ -135,8 +135,8 @@ options you can supply to `auto_preprocess_landsat` - see
 `auto_preprocess_landsat`. The `image_dirs` line below is just a fancy way of 
 finding all the folders located under `extract_folder` that containg ENVI 
 format CDR imagery. You could just as easily specify these folders invidually 
-as a series of strings, like: `image_dirs <- c('C:\folder1', 'C:\folder2')` if 
-you had two CDR Landsat scenes located in `C:\folder1` and `C:\folder2`, 
+as a series of strings, like: `image_dirs <- c('C:/folder1', 'C:/folder2')` if 
+you had two CDR Landsat scenes located in `C:/folder1` and `C:/folder2`, 
 respectively.
 
 The `prefix` parameter specifies a string that will be used in naming files 
@@ -154,5 +154,5 @@ print while the script is running.
 image_dirs <- dir(extract_folder 
                   pattern='^[0-9]{3}-[0-9]{3}_[0-9]{4}-[0-9]{3}_((LT[45])|(LE7))$')
 auto_preprocess_landsat(image_dirs, prefix='my_aoi', tc=TRUE,  
-                        dem_path='C:\path\to\dems', verbose=verbose)
+                        dem_path='C:/path/to/dems', verbose=verbose)
 {% endhighlight %}
