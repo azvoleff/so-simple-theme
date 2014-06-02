@@ -127,12 +127,13 @@ Now that the CDR format image files are converted to ENVI format, you are ready
 to run `auto_preprocess_landsat`. As with `auto_setup_dem`, there are many 
 options you can supply to `auto_preprocess_landsat` - see 
 `?auto_preprocess_landsat`.  The below is a simple example of how to call 
-`auto_preprocess_landsat`. The `image_dirs` line below is just a fancy way of 
-finding all the folders located under `extract_folder` that containg ENVI 
-format CDR imagery. You could just as easily specify these folders invidually 
-as a series of strings, like: `image_dirs <- c('C:/folder1', 'C:/folder2')` if 
-you had two CDR Landsat scenes located in `C:/folder1` and `C:/folder2`, 
-respectively.
+`auto_preprocess_landsat`.
+
+The `image_dirs` line below is just a fancy way of finding all the folders 
+located under `extract_folder` that contain ENVI format CDR imagery. You could 
+just as easily specify these folders invidually as a series of strings, like: 
+`image_dirs <- c('C:/folder1', 'C:/folder2')` if you had two CDR Landsat scenes 
+located in `C:/folder1` and `C:/folder2`, respectively.
 
 The `prefix` parameter specifies a string that will be used in naming files 
 output by `auto_preprocess_landsat`. For `prefix` I suggest you use a short (2 
