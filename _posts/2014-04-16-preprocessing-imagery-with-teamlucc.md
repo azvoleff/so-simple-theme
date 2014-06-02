@@ -68,7 +68,7 @@ aoi <- pathrow_poly(path_num, row_num)
 where `path_num` is the WRS-2 path number, and `row_num` is the WRS-2 row 
 number.
 
-Now that the AOI is defined, the second step is to define the `output_path` - 
+Now that the AOI is defined, the second step is to define the `dem_path` - 
 this can be any folder on disk.
 
 Finally, `auto_setup_dem` needs a list of DEM files you have available on your 
@@ -80,10 +80,10 @@ Now that all of the essential inputs are defined, `auto_setup_dem` can be
 called:
 
 {% highlight r %}
-auto_setup_dem(aoi, output_path, dem_extents)
+auto_setup_dem(aoi, dem_path, dem_extents)
 {% endhighlight %}
 
-The result will be a mosaiced DEM, in `output_path`, usuable for 
+The result will be a mosaiced DEM, in `dem_path`, usuable for 
 topographically corrrecting imagery using the `auto_preprocess_landsat` 
 function.
 
@@ -96,10 +96,6 @@ will need to convert them to another format. The `teamlucc` package will, by
 default, convert HDF images to a flat binary format with ENVI format headers, 
 as these iamge files can be easily read in R and in most commonly used remote 
 sensing and GIS software packages.
-
-{% highlight r %}
-library(teamlucc)
-{% endhighlight %}
 
 First you will need to acquire a time series of CDR imagery for your site. I 
 recommend you put all of the zip files your download from USGS in a single 
@@ -119,12 +115,11 @@ directory. A variant of the below R code can automate this for you if you have
 all of your images stored in `extract_folder`:
 
 {% highlight r %}
-image_files <- dir(extract_folder, recursive=TRUE, pattern='.hdf$')
-image_files <- file.path(extract_folder, image_files)
-out_list <- dirname(image_files)
+image_files <- dir(extract_folder, recursive=TRUE, pattern='.hdf$', 
+                   full.names=TRUE)
 for (n in 1:length(image_files)) {
     message(paste('Unstacking', image_files[n]))
-    unstack_ledapscdr(image_files[n], out_list[n])
+    unstack_ledapscdr(image_files[n])
 }
 {% endhighlight %}
 
@@ -147,12 +142,13 @@ There are two other options we provide below to `auto_preprocess_landsat`.
 `tc=TRUE` tells `auto_preprocess_landsat` to perform topographic correction.  
 Because of this, we also need to specify `dem_path` (with DEM files 
 preprocessed by `auto_setup_dem`, so that the DEM files for this scene can be 
-found.  `verbose=TRUE` indicates that we want detailed progress messages to 
+found. Here we set `dem_path=dem_path` as we already defined this variable 
+above. `verbose=TRUE` indicates that we want detailed progress messages to 
 print while the script is running.
 
 {% highlight r %}
 image_dirs <- dir(extract_folder 
                   pattern='^[0-9]{3}-[0-9]{3}_[0-9]{4}-[0-9]{3}_((LT[45])|(LE7))$')
 auto_preprocess_landsat(image_dirs, prefix='my_aoi', tc=TRUE,  
-                        dem_path='C:/path/to/dems', verbose=verbose)
+                        dem_path=dem_path, verbose=verbose)
 {% endhighlight %}
