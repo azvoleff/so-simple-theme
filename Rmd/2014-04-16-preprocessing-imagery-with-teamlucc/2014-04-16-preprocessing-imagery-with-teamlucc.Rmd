@@ -26,11 +26,10 @@ supports a number of common preprocessing steps, including:
 
 First load the `teamlucc` package, and the `rgdal` package:
 
-
-{% highlight r %}
+```{r}
 library(teamlucc)
 library(rgdal)
-{% endhighlight %}
+```
 
 ## DEM setup
 
@@ -55,60 +54,26 @@ of the boundary of the Braulio Carrillo National Park, in which the [Volcán
 Barva TEAM site](http://www.teamnetwork.org/network/sites/volc%C3%A1n-barva) is 
 located:
 
-
-{% highlight r %}
+```{r, VB_aoi_original, cache=TRUE}
 aoi <- readOGR('.', 'PA_VB')
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## OGR data source with driver: ESRI Shapefile 
-## Source: ".", layer: "PA_VB"
-## with 5 features and 8 fields
-## Feature type: wkbPolygon with 2 dimensions
-{% endhighlight %}
-
-
-
-{% highlight r %}
 plot(aoi)
-{% endhighlight %}
-
-![center](/content/2014-04-16-preprocessing-imagery-with-teamlucc/VB_aoi_original.png) 
+```
 
 As seen in the above plot, there are a number of adjoining polygons in this 
 shapefile. The functions in `teamlucc` expect the AOI to be of length one. So 
 calculate the convex hull of the AOI using the functions in the `rgeos` 
 package:
 
-
-{% highlight r %}
+```{r, cache=TRUE}
 library(rgeos)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## rgeos version: 0.3-4, (SVN revision 438)
-##  GEOS runtime version: 3.4.2-CAPI-1.8.2 r3921 
-##  Polygon checking: TRUE
-{% endhighlight %}
-
-
-
-{% highlight r %}
 aoi <- gConvexHull(aoi)
-{% endhighlight %}
+```
 
 The aoi is now a single polygon:
 
-
-{% highlight r %}
+```{r, VB_aoi_convex_hull, cache=TRUE}
 plot(aoi)
-{% endhighlight %}
-
-![center](/content/2014-04-16-preprocessing-imagery-with-teamlucc/VB_aoi_convex_hull.png) 
+```
 
 If you do not have an AOI, but know the Landsat path and row you want to work 
 with, an alternative is to define the AOI based on the path and row, using the 
@@ -116,11 +81,10 @@ with, an alternative is to define the AOI based on the path and row, using the
 `127` is the WRS-2 path number, and `47` is the WRS-2 row number for the 
 path/row at the center of the above AOI:
 
-
-{% highlight r %}
+```{r, cache=TRUE}
 library(wrspathrow)
 aoi_from_pathrow <- pathrow_poly(127, 47)
-{% endhighlight %}
+```
 
 In addition to the aoi, `auto_setup_dem` needs to know the location and spatial 
 extents of the DEM files you have available on your machine.  This list can be 
@@ -130,12 +94,11 @@ machine because you will not have the proper DEMs for this example.  Download
 the proper DEMs for the area in which you are working and place them in a 
 folder on your machine if you want to test this function.__
 
-
-{% highlight r %}
+```{r, cache=TRUE}
 dem_files <- dir('H:/Data/CGIAR_SRTM', pattern='.tif$', full.names=TRUE)
 dems <- lapply(dem_files, raster)
 dem_extents <- get_extent_polys(dems)
-{% endhighlight %}
+```
 
 For flexibility, `auto_setup_dem` can optionally crop each output DEM to the 
 spatial extent of the supplied AOI. If `crop_to_aoi=TRUE`, then 
@@ -147,19 +110,9 @@ Lastly, `auto_setup_dem` needs to know where to save its output. For this
 example, save the output to the current working directory `.`. Now that all of 
 the essential inputs are defined, `auto_setup_dem` can be called:
 
-
-{% highlight r %}
+```{r, cache=TRUE}
 auto_setup_dem(aoi, '.', dem_extents, crop_to_aoi=TRUE)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## [1] "2014-06-03 13:11:58: started \"Processing DEMS for 1 path/rows\""
-## [1] "2014-06-03 13:11:58: started \"Processing 1 of 1: 015-053\""
-## [1] "2014-06-03 13:12:09: finished \"Processing 1 of 1: 015-053\" (10.737s elapsed)"
-## [1] "2014-06-03 13:12:09: finished \"Processing DEMS for 1 path/rows\" (10.972s elapsed)"
-{% endhighlight %}
+```
 
 The result will be a mosaiced DEM, in the current working directory, that can 
 be used for topographically correcting imagery with the 
@@ -191,12 +144,11 @@ block of code, will both fail on your computer since you do not have the
 required imagery - this is only an example, download your own imagery to follow 
 along__):
 
-
-{% highlight r %}
+```{r, cache=TRUE, eval=FALSE}
 download_folder <- 'espa_downloads'
 extract_folder <- 'espa_extracts'
 espa_extract(download_folder, extract_folder)
-{% endhighlight %}
+```
 
 Next, use the `unstack_ledapscdr` function in `teamlucc` to unstack each HDF 
 format CDR image. Store all of the images for a given site within a single 
@@ -205,15 +157,14 @@ all of your images stored in `extract_folder`. Note that, if desired, you can
 specify `rmhdf=TRUE` to `unstack_ledapscdr` to make the script automatically 
 delete the original HDF files after unstacking them.
 
-
-{% highlight r %}
+```{r, cache=TRUE, eval=FALSE}
 image_files <- dir(extract_folder, recursive=TRUE, pattern='.hdf$', 
                    full.names=TRUE)
 for (n in 1:length(image_files)) {
     message(paste('Unstacking', image_files[n]))
     unstack_ledapscdr(image_files[n])
 }
-{% endhighlight %}
+```
 
 Now that the CDR format image files are converted to ENVI format, you are ready 
 to run `auto_preprocess_landsat`. As with `auto_setup_dem`, there are many 
@@ -240,57 +191,27 @@ working directory. We supply an AOI (same AOI as above) to crop the output
 images. `verbose=TRUE` indicates that we want detailed progress messages to 
 print while the script is running.
 
-
-{% highlight r %}
+```{r, cache=TRUE}
 image_dirs <- dir('espa_extracts',
                   pattern='^[0-9]{3}-[0-9]{3}_[0-9]{4}-[0-9]{3}_((LT[45])|(LE7))$',
                   full.names=TRUE)
 auto_preprocess_landsat(image_dirs, prefix='VB', tc=TRUE, dem_path='.', 
                         aoi=aoi, verbose=TRUE)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## [1] "2014-06-03 13:12:09: started \"Preprocessing images\""
-## [1] "2014-06-03 13:12:10: started \"Preprocessing 015-053_2000-044_L5TSR\""
-## [1] "2014-06-03 13:12:10: started \"015-053_2000-044_L5TSR - cropping and reprojecting\""
-## [1] "2014-06-03 13:17:58: finished \"015-053_2000-044_L5TSR - cropping and reprojecting\" (347.813s (~5.8 minutes) elapsed)"
-## [1] "2014-06-03 13:17:58: started \"015-053_2000-044_L5TSR - masking\""
-## [1] "2014-06-03 13:18:06: finished \"015-053_2000-044_L5TSR - masking\" (8.416s elapsed)"
-## [1] "2014-06-03 13:18:06: started \"015-053_2000-044_L5TSR - topocorr\""
-## [1] "2014-06-03 13:20:34: finished \"015-053_2000-044_L5TSR - topocorr\" (148.058s (~2.47 minutes) elapsed)"
-## [1] "2014-06-03 13:20:39: finished \"Preprocessing 015-053_2000-044_L5TSR\" (509.628s (~8.49 minutes) elapsed)"
-## [1] "2014-06-03 13:20:39: started \"Preprocessing 015-053_2001-014_L5TSR\""
-## [1] "2014-06-03 13:20:39: started \"015-053_2001-014_L5TSR - cropping and reprojecting\""
-## [1] "2014-06-03 13:25:32: finished \"015-053_2001-014_L5TSR - cropping and reprojecting\" (292.15s (~4.87 minutes) elapsed)"
-## [1] "2014-06-03 13:25:32: started \"015-053_2001-014_L5TSR - masking\""
-## [1] "2014-06-03 13:25:37: finished \"015-053_2001-014_L5TSR - masking\" (5.39s elapsed)"
-## [1] "2014-06-03 13:25:37: started \"015-053_2001-014_L5TSR - topocorr\""
-## [1] "2014-06-03 13:27:45: finished \"015-053_2001-014_L5TSR - topocorr\" (127.968s (~2.13 minutes) elapsed)"
-## [1] "2014-06-03 13:27:48: finished \"Preprocessing 015-053_2001-014_L5TSR\" (428.209s (~7.14 minutes) elapsed)"
-## [1] "2014-06-03 13:27:48: finished \"Preprocessing images\" (938.333s (~15.64 minutes) elapsed)"
-{% endhighlight %}
+```
 
 The result is two cropped, reprojected, and topographically corrected Landsat 
 images covering the specified AOI. One image from 2000:
 
-
-{% highlight r %}
+```{r, plot_2000_landsat, cache=TRUE}
 ls_2000 <- brick('espa_extracts/015-053_2000-044_LT5/VB_015-053_2000-044_L5TSR_tc.envi')
 ls_2000 <- linear_stretch(ls_2000, pct=5, max_val=255)
 plotRGB(ls_2000, r=4, g=3, b=2, stretch='lin')
-{% endhighlight %}
-
-![center](/content/2014-04-16-preprocessing-imagery-with-teamlucc/plot_2000_landsat.png) 
+```
 
 And one image from 2001:
 
-
-{% highlight r %}
+```{r, plot_2001_landsat, cache=TRUE}
 ls_2001 <- brick('espa_extracts/015-053_2001-014_LT5/VB_015-053_2001-014_L5TSR_tc.envi')
 ls_2001 <- linear_stretch(ls_2001, pct=2, max_val=255)
 plotRGB(ls_2001, r=4, g=3, b=2, stretch='lin')
-{% endhighlight %}
-
-![center](/content/2014-04-16-preprocessing-imagery-with-teamlucc/plot_2001_landsat.png) 
+```
