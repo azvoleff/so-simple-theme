@@ -122,7 +122,7 @@ be used for topographically correcting imagery with the
 
 Images are delivered from the CDR archive in Hierarchical Data Format (HDF). 
 Though some common remote sensing software packages can read HDF format, if you 
-wan to work with Landsat CDR images within the `teamlucc` package in R, you 
+want to work with Landsat CDR images within the `teamlucc` package in R, you 
 will need to convert them to another format. The `teamlucc` package will, by 
 default, convert HDF images to a flat binary format with ENVI format headers, 
 as these image files can be easily read in R and in most commonly used remote 
