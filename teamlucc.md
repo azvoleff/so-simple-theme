@@ -1,4 +1,5 @@
 ---
+
 layout: page
 title: teamlucc
 description: "teamlucc - azvoleff.com"
@@ -6,6 +7,7 @@ tags: [R, remote sensing, land use and cover change, GIS]
 redirect_from: "/research/teamlucc/index.html"
 comments: true
 share: true
+
 ---
 
 ## Recent Posts
