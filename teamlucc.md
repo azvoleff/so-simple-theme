@@ -1,11 +1,11 @@
 ---
-
 layout: page
 title: teamlucc
 description: "teamlucc - azvoleff.com"
 tags: [R, remote sensing, land use and cover change, GIS]
 redirect_from: "/research/teamlucc/index.html"
-
+comments: true
+share: true
 ---
 
 ## Recent Posts
@@ -34,7 +34,7 @@ analysis:
   scenes](/articles/filtering-landsat-with-teamlucc)
 
 * [Preprocessing imagery and 
-  DEMS](/articles/preprocessing-imagery-with-teamlucc)
+  DEMs](/articles/preprocessing-imagery-with-teamlucc)
 
 * [Cloud removal](/articles/cloud-removal-with-teamlucc)
 

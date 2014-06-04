@@ -1,11 +1,11 @@
 ---
-
 layout: page
 title: PyABM
 description: "PyABM - azvoleff.com"
 tags: [Alex Zvoleff, ABM, pyabm, python]
 redirect_from: "/research/pyabm/index.html"
-
+comments: true
+share: true
 ---
 
 

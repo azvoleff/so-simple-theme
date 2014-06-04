@@ -1,10 +1,10 @@
 ---
-
 layout: page
 title: glcm
 description: "glcm - azvoleff.com"
 tags: [R, remote sensing, land use and cover change]
-
+comments: true
+share: true
 ---
 
 ## Recent News
