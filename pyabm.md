@@ -18,8 +18,8 @@ repeatability of model results.
 
 PyABM was originally developed to facilitate running the 
 [ChitwanABM](/chitwanabm) agent based model. Development of the ChitwanABM is 
-complete, and future work on the PyABM toolkit is currently on hold (as of 
-March 2014).
+complete, and **work on the PyABM toolkit is currently on hold (as of March 
+2014).**
 
 Please feel free to contact me with any questions about using the toolkit.
 
