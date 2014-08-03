@@ -15,7 +15,7 @@ from grey-level co-occurrence matrices (GLCMs).
 Version 0.3.2 fixes a minor bug in the projection assigned to the test image 
 included in `glcm`. The 1.0 release of `glcm`, which will support parallel 
 computation of GLCMs and computation of GLCMs over all directions, will be 
-coming soon - stay tuned.
+coming soon - stay tuned. Type
 
 {% highlight r %}
 install.packages("glcm")
@@ -23,4 +23,3 @@ install.packages("glcm")
 
 at your R command prompt to download the latest CRAN release. See the 
 [NEWS](http://cran.r-project.org/web/packages/glcm/NEWS) file for more details.  
-Type
