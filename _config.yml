@@ -14,16 +14,9 @@ owner:
   email:          azvoleff@conservation.org
   # Social networking links used in footer. Update and remove as you like.
   twitter:        azvoleff
-  facebook:       
   github:         azvoleff
-  stackexchange:  
+  stackexchange:  azvoleff
   linkedin:       azvoleff
-  instagram:      
-  flickr:         
-  tumblr:         
-  # For Google Authorship https://plus.google.com/authorship
-  google_plus:    
-
 
 permalink:   /:categories/:title/
 markdown:    kramdown
