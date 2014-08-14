@@ -25,20 +25,6 @@ owner:
   google_plus:    
 
 
-# Links to include in top navigation
-# For external links add external: true
-links:
-  - title: About
-    url: /about
-  - title: CV
-    url: /cv
-  - title: Research
-    url: /research
-  - title: Blog
-    url: /blog
-  - title: Other
-    url: /other
-
 permalink:   /:categories/:title/
 markdown:    kramdown
 highlighter: pygments
