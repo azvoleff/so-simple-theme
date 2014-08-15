@@ -24,18 +24,18 @@ biodiversity.
 
 Below are several ongoing projects related to TEAM.
 
-#### teamlucc
+### teamlucc
 
 [teamlucc](/teamlucc) is an R package to support the preprocessing and 
 classification of satellite imagery for biodiversity monitoring and land cover 
 change modeling.
 
-#### glcm
+### glcm
 
 [glcm](/glcm) is an R package for calculating image textures measures derived 
 from grey-level co-occurrence matrices (GLCM).
 
-#### gfcanalysis
+### gfcanalysis
 [gfcanalysis](/gfcanalysis) is an R package to facilitate analyses using the [Global 
 Forest Change 
 dataset](http://earthenginepartners.appspot.com/science-2013-global-forest) 
