@@ -9,10 +9,10 @@ image:
 ---
 
 ## Research Interests
-* Land-use and land-cover change
-* Population, health, and environment approaches to conservation
-* Feedbacks between climate variability and change and human systems
-* Methodologies for studying coupled human-environment systems
+* Land use and land cover change
+* Spatial statistics and modeling
+* Using big data to study human-environment systems
+* Landscape ecology and conservation
 
 ## Current Work
 I am working with the [Tropical Ecology Assessment and Monitoring (TEAM) 
