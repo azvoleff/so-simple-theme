@@ -34,6 +34,6 @@ clusters in - the cheapest region is currently in northern Virginia in the
 United States.
 
 The easiest way I have found to get Amazon EC2 clusters up and running is using 
-[StarCluster]("http://star.mit.edu/cluster/) - a python program that makes 
+[StarCluster](http://star.mit.edu/cluster/) - a python program that makes 
 setting up, running, and managing Amazon EC2 clusters much easier.
 
