@@ -47,8 +47,7 @@ Index](http://pypi.python.org/pypi/pyabm) (PyPI).
 
 ## Documentation
 
-* [Online documentation](http://azvoleff.com/PyABM_doc) (currently offline for 
-maintenance)
+* [Online documentation](http://doc.azvoleff.com/PyABM)
 * [README file](https://raw.github.com/azvoleff/pyabm/master/README.rst)
 
 ## Related Work

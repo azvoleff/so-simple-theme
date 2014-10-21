@@ -74,7 +74,7 @@ Mask Files:
 
 ## Documentation
 
-* <a href="http://azvoleff.com/ChitwanABM_doc">Online documentation</a> 
+* <a href="http://doc.azvoleff.com/ChitwanABM">Online documentation</a> 
   (offline for maintenance as of 3/23/2013)
 * <a href="https://raw.github.com/azvoleff/chitwanabm/master/README.rst">README file</a>
 
