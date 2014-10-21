@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "GLCM rotation invariant textures"
+title: "Calculating rotation invariant GLCM textures"
 description: "Calculating rotation invariant GLCM textures in R"
 category: articles
 tags: [R, glcm, remote sensing]
@@ -14,9 +14,8 @@ is only available in `glcm` versions >= 1.0.
 
 ## Getting started
 
-First use `devtools` to install the development version of `glcm` from github, 
-then load the installed `glcm` package and the `raster` package that is also 
-needed for this example:
+First use install the latest version of `glcm`, and the `raster` package that 
+is also needed for this example:
 
 ```{r}
 install.packages("glcm")
@@ -42,7 +41,8 @@ Landsat 5 image preprocessed to surface reflectance. The image is from the
 site](http://www.teamnetwork.org/network/sites/volc%C3%A1n-barva).
 
 When `glcm` is run without specifing a shift, the default shift (1, 1) is used 
-(90 degrees), with a window size of 3 pixels x 3 pixels:
+(90 degrees), with a window size of 3 pixels x 3 pixels. Below is an example 
+from running `glcm` with the default parameters:
 
 ```{r, glcm_90deg_shift}
 test_rast <- raster(L5TSR_1986, layer=1)
@@ -56,8 +56,7 @@ c(1,1), c(1,0), c(1,-1))`. This will calculate the average GLCM texture using
 shifts of 0 degrees, 45 degrees, 90 degrees, and 135 degrees:
 
 ```{r, glcm_all_directions}
-tex_all_dir <- glcm(test_rast,
-                         shift=list(c(0,1), c(1,1), c(1,0), c(1,-1)))
+tex_all_dir <- glcm(test_rast, shift=list(c(0,1), c(1,1), c(1,0), c(1,-1)))
 plot(tex_all_dir)
 ```
 
@@ -92,13 +91,12 @@ As seen in the above, there is a performance penalty for using a rotationally
 invariant GLCM (not surprisingly, as more calculations are involved).
 
 Prior to having the ability to use multiple shifts hardcoded in `glcm`, it was 
-still possible to calculate rotationally invariant textures using the function.  
-However, the calculation had to be done manually, using an approach similar to 
-what I do below with `glcm_all_dir_manual`. How much faster is it perform the 
-averaging directly in `glcm`?
+still possible to calculate rotationally invariant textures using the `glcm` 
+function.  However, the calculation had to be done manually, using an approach 
+similar to what I do below with `glcm_all_dir_manual`. How much faster is it 
+perform the averaging directly in `glcm`?
 
 ```{r}
-
 glcm_all_dir_manual <- function(x) {
     text_0deg <- glcm(x, shift=c(0,1))
     text_45deg <- glcm(x, shift=c(1,1))
@@ -111,28 +109,16 @@ glcm_all_dir_manual <- function(x) {
 }
 tex_all_dir_manual <- glcm_all_dir_manual(test_rast)
 
-plot(tex_all_dir_manual)
-
 # Check that the textures match
 table(getValues(tex_all_dir_manual) == getValues(tex_all_dir))
-```
 
-The time difference isn't that great, but the need for repeated calls to `glcm` 
-(with mutiple read/writes to disk for large files) could lead to a more 
-substantial advantage for the direct approach with `glcm` than is apparent in 
-this simple example. Of course, the manual approach does give more flexibility 
-if you need to do other processing (or scaling, etc.) to the textures.
-
-Now run a quick benchmark to compare the two methods of calculating a direction 
-invariant texture:
-
-```{r}
 microbenchmark(glcm_all_dir_manual(test_rast), glcm_all_dir(test_rast), 
                times=5)
 ```
 
-The time taken by the two methods is close, but note that this is a lower limit 
-on the difference between the two. For larger rasters that cannot be stored in 
-memory, the benefits of handling the mean texture calculation in the native 
-GLCM C++ code will be more apparent, as the need for multiple read/writes from 
-disk will start to make the "naive" approach .
+The time difference isn't that great, but the need for repeated calls to `glcm` 
+(and the need for multiple read/writes to disk for large files) could lead to a 
+more substantial advantage for the direct approach with `glcm` than is apparent 
+in this simple example. Of course, the manual approach does give more 
+flexibility if you need to do other processing (or scaling, etc.) to the 
+textures.

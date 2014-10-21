@@ -18,7 +18,7 @@ install.packages("glcm")
 
 at your R command prompt to download the latest CRAN release. This version 
 contains several new features, most importantly the ability to calculate 
-[rotation invariant textures](_posts/2014-10-21-glcm-rotation-invariant)), and 
+[rotation invariant textures](/_posts/2014-10-21-glcm-rotation-invariant)), and 
 automatic handling of images that cannot fit in memory (using features from the 
 excellent [raster](http://cran.r-project.org/web/packages/raster/index.html) 
 package).
