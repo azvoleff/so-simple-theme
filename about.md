@@ -11,9 +11,9 @@ I am a researcher with the [Tropical Ecology Assessment and Monitoring (TEAM)
 Network](http://www.teamnetwork.org), based at [Conservation 
 International](http://www.conservation.org).
 
-I use a mixture of remote sensing, spatial modeling and statistics, and social 
-survey techniques to investigate relationships between human and environmental 
-change.
+I use a combination of remote sensing, spatial modeling and statistics, and 
+social survey techniques to investigate relationships between human and 
+environmental change.
 
 ## Contact Information
 
