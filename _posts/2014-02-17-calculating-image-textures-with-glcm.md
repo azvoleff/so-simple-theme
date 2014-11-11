@@ -18,6 +18,12 @@ installed:
 if (!(require(glcm))) install.packages("glcm")
 {% endhighlight %}
 
+
+
+{% highlight text %}
+## Loading required package: glcm
+{% endhighlight %}
+
 The below examples use an image included in the `glcm` package, a 
 red/green/blue cutout of a Landsat 5 image from 1986 from a Tropical Ecology 
 Assessment and Monitoring (TEAM) Network site in Volcan Barva, Costa Rica. The 
@@ -26,10 +32,21 @@ image is included in the glcm package as `L5TSR_1986`:
 
 {% highlight r %}
 library(raster) # needed for plotRGB function
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Loading required package: sp
+{% endhighlight %}
+
+
+
+{% highlight r %}
 plotRGB(L5TSR_1986, 3, 2, 1, stretch='lin')
 {% endhighlight %}
 
-<img src="/content/2014-02-17-calculating-image-textures-with-glcm/L5TSR_1986_plot-1.jpeg" title="1986 Landsat 5 image from Volcan Barva" alt="1986 Landsat 5 image from Volcan Barva" style="display:block;margin-left:auto;margin-right:auto;" />
+<img src="/content/2014-02-17-calculating-image-textures-with-glcm/L5TSR_1986_plot-1.png" title="1986 Landsat 5 image from Volcan Barva" alt="1986 Landsat 5 image from Volcan Barva" style="display:block;margin-left:auto;margin-right:auto;" />
 
 To calculate GLCM textures from this image using the default settings, type:
 
@@ -62,53 +79,53 @@ default.  These can all be visualized in R:
 plot(textures$glcm_mean)
 {% endhighlight %}
 
-<img src="/content/2014-02-17-calculating-image-textures-with-glcm/mean-1.jpeg" title="mean of GLCM texture" alt="mean of GLCM texture" style="display:block;margin-left:auto;margin-right:auto;" />
+<img src="/content/2014-02-17-calculating-image-textures-with-glcm/mean-1.png" title="mean of GLCM texture" alt="mean of GLCM texture" style="display:block;margin-left:auto;margin-right:auto;" />
 
 
 {% highlight r %}
 plot(textures$glcm_variance)
 {% endhighlight %}
 
-<img src="/content/2014-02-17-calculating-image-textures-with-glcm/variance-1.jpeg" title="variance of GLCM texture" alt="variance of GLCM texture" style="display:block;margin-left:auto;margin-right:auto;" />
+<img src="/content/2014-02-17-calculating-image-textures-with-glcm/variance-1.png" title="variance of GLCM texture" alt="variance of GLCM texture" style="display:block;margin-left:auto;margin-right:auto;" />
 
 
 {% highlight r %}
 plot(textures$glcm_homogeneity)
 {% endhighlight %}
 
-<img src="/content/2014-02-17-calculating-image-textures-with-glcm/homogeneity-1.jpeg" title="homogeneity of GLCM texture" alt="homogeneity of GLCM texture" style="display:block;margin-left:auto;margin-right:auto;" />
+<img src="/content/2014-02-17-calculating-image-textures-with-glcm/homogeneity-1.png" title="homogeneity of GLCM texture" alt="homogeneity of GLCM texture" style="display:block;margin-left:auto;margin-right:auto;" />
 
 
 {% highlight r %}
 plot(textures$glcm_contrast)
 {% endhighlight %}
 
-<img src="/content/2014-02-17-calculating-image-textures-with-glcm/contrast-1.jpeg" title="contrast of GLCM texture" alt="contrast of GLCM texture" style="display:block;margin-left:auto;margin-right:auto;" />
+<img src="/content/2014-02-17-calculating-image-textures-with-glcm/contrast-1.png" title="contrast of GLCM texture" alt="contrast of GLCM texture" style="display:block;margin-left:auto;margin-right:auto;" />
 
 
 {% highlight r %}
 plot(textures$glcm_dissimilarity)
 {% endhighlight %}
 
-<img src="/content/2014-02-17-calculating-image-textures-with-glcm/dissimilarity-1.jpeg" title="dissimilarity of GLCM texture" alt="dissimilarity of GLCM texture" style="display:block;margin-left:auto;margin-right:auto;" />
+<img src="/content/2014-02-17-calculating-image-textures-with-glcm/dissimilarity-1.png" title="dissimilarity of GLCM texture" alt="dissimilarity of GLCM texture" style="display:block;margin-left:auto;margin-right:auto;" />
 
 
 {% highlight r %}
 plot(textures$glcm_entropy)
 {% endhighlight %}
 
-<img src="/content/2014-02-17-calculating-image-textures-with-glcm/entropy-1.jpeg" title="entropy of GLCM texture" alt="entropy of GLCM texture" style="display:block;margin-left:auto;margin-right:auto;" />
+<img src="/content/2014-02-17-calculating-image-textures-with-glcm/entropy-1.png" title="entropy of GLCM texture" alt="entropy of GLCM texture" style="display:block;margin-left:auto;margin-right:auto;" />
 
 
 {% highlight r %}
 plot(textures$glcm_second_moment)
 {% endhighlight %}
 
-<img src="/content/2014-02-17-calculating-image-textures-with-glcm/second_moment-1.jpeg" title="second moment of GLCM texture" alt="second moment of GLCM texture" style="display:block;margin-left:auto;margin-right:auto;" />
+<img src="/content/2014-02-17-calculating-image-textures-with-glcm/second_moment-1.png" title="second moment of GLCM texture" alt="second moment of GLCM texture" style="display:block;margin-left:auto;margin-right:auto;" />
 
 
 {% highlight r %}
 plot(textures$glcm_correlation)
 {% endhighlight %}
 
-<img src="/content/2014-02-17-calculating-image-textures-with-glcm/correlation-1.jpeg" title="correlation of GLCM texture" alt="correlation of GLCM texture" style="display:block;margin-left:auto;margin-right:auto;" />
+<img src="/content/2014-02-17-calculating-image-textures-with-glcm/correlation-1.png" title="correlation of GLCM texture" alt="correlation of GLCM texture" style="display:block;margin-left:auto;margin-right:auto;" />
