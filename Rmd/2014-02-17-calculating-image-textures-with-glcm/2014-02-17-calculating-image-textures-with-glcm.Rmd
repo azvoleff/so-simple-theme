@@ -24,7 +24,7 @@ image is included in the glcm package as `L5TSR_1986`:
 
 ```{r, L5TSR_1986_plot, fig.cap='1986 Landsat 5 image from Volcan Barva'}
 library(raster) # needed for plotRGB function
-plotRGB(L5TSR_1986, 3, 2, 1, scale=1500)
+plotRGB(L5TSR_1986, 3, 2, 1, stretch='lin')
 ```
 
 To calculate GLCM textures from this image using the default settings, type:

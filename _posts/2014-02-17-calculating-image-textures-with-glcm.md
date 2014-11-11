@@ -24,7 +24,6 @@ if (!(require(glcm))) install.packages("glcm")
 ## Loading required package: glcm
 {% endhighlight %}
 
-
 The below examples use an image included in the `glcm` package, a 
 red/green/blue cutout of a Landsat 5 image from 1986 from a Tropical Ecology 
 Assessment and Monitoring (TEAM) Network site in Volcan Barva, Costa Rica. The 
@@ -32,7 +31,7 @@ image is included in the glcm package as `L5TSR_1986`:
 
 
 {% highlight r %}
-library(raster)  # needed for plotRGB function
+library(raster) # needed for plotRGB function
 {% endhighlight %}
 
 
@@ -44,19 +43,17 @@ library(raster)  # needed for plotRGB function
 
 
 {% highlight r %}
-plotRGB(L5TSR_1986, 3, 2, 1, scale = 1500)
+plotRGB(L5TSR_1986, 3, 2, 1, stretch='lin')
 {% endhighlight %}
 
-![1986 Landsat 5 image from Volcan Barva](/../content/2014-02-17-calculating-image-textures-with-glcm/L5TSR_1986_plot.png) 
-
+![1986 Landsat 5 image from Volcan Barva](/content/2014-02-17-calculating-image-textures-with-glcm/L5TSR_1986_plot-1.png) 
 
 To calculate GLCM textures from this image using the default settings, type:
 
 
 {% highlight r %}
-textures <- glcm(raster(L5TSR_1986, layer = 3))
+textures <- glcm(raster(L5TSR_1986, layer=3))
 {% endhighlight %}
-
 
 where `raster(L5TSR_1986, layer=3)` selects the third (red) layer.  To see the 
 textures that have been calculated by default, type:
@@ -74,7 +71,6 @@ names(textures)
 ## [7] "glcm_second_moment" "glcm_correlation"
 {% endhighlight %}
 
-
 This shows the eight GLCM texture statistics that have been calculated by 
 default.  These can all be visualized in R:
 
@@ -83,61 +79,53 @@ default.  These can all be visualized in R:
 plot(textures$glcm_mean)
 {% endhighlight %}
 
-!["mean" GLCM texture calculated by glcm R package](/../content/2014-02-17-calculating-image-textures-with-glcm/mean.png) 
-
+!["mean" GLCM texture calculated by glcm R package](/content/2014-02-17-calculating-image-textures-with-glcm/mean-1.png) 
 
 
 {% highlight r %}
 plot(textures$glcm_variance)
 {% endhighlight %}
 
-!["variance" GLCM texture calculated by glcm R package](/../content/2014-02-17-calculating-image-textures-with-glcm/variance.png) 
-
+!["variance" GLCM texture calculated by glcm R package](/content/2014-02-17-calculating-image-textures-with-glcm/variance-1.png) 
 
 
 {% highlight r %}
 plot(textures$glcm_homogeneity)
 {% endhighlight %}
 
-!["homogeneity" GLCM texture calculated by glcm R package](/../content/2014-02-17-calculating-image-textures-with-glcm/homogeneity.png) 
-
+!["homogeneity" GLCM texture calculated by glcm R package](/content/2014-02-17-calculating-image-textures-with-glcm/homogeneity-1.png) 
 
 
 {% highlight r %}
 plot(textures$glcm_contrast)
 {% endhighlight %}
 
-!["contrast" GLCM texture calculated by glcm R package](/../content/2014-02-17-calculating-image-textures-with-glcm/contrast.png) 
-
+!["contrast" GLCM texture calculated by glcm R package](/content/2014-02-17-calculating-image-textures-with-glcm/contrast-1.png) 
 
 
 {% highlight r %}
 plot(textures$glcm_dissimilarity)
 {% endhighlight %}
 
-!["dissimilarity" GLCM texture calculated by glcm R package](/../content/2014-02-17-calculating-image-textures-with-glcm/dissimilarity.png) 
-
+!["dissimilarity" GLCM texture calculated by glcm R package](/content/2014-02-17-calculating-image-textures-with-glcm/dissimilarity-1.png) 
 
 
 {% highlight r %}
 plot(textures$glcm_entropy)
 {% endhighlight %}
 
-!["entropy" GLCM texture calculated by glcm R package](/../content/2014-02-17-calculating-image-textures-with-glcm/entropy.png) 
-
+!["entropy" GLCM texture calculated by glcm R package](/content/2014-02-17-calculating-image-textures-with-glcm/entropy-1.png) 
 
 
 {% highlight r %}
 plot(textures$glcm_second_moment)
 {% endhighlight %}
 
-!["second moment" GLCM texture calculated by glcm R package](/../content/2014-02-17-calculating-image-textures-with-glcm/second_moment.png) 
-
+!["second moment" GLCM texture calculated by glcm R package](/content/2014-02-17-calculating-image-textures-with-glcm/second_moment-1.png) 
 
 
 {% highlight r %}
 plot(textures$glcm_correlation)
 {% endhighlight %}
 
-!["correlation" GLCM texture calculated by glcm R package](/../content/2014-02-17-calculating-image-textures-with-glcm/correlation.png) 
-
+!["correlation" GLCM texture calculated by glcm R package](/content/2014-02-17-calculating-image-textures-with-glcm/correlation-1.png) 
