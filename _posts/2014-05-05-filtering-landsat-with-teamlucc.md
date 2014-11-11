@@ -48,6 +48,27 @@ if (!require(teamlucc)) install_github('azvoleff/teamlucc')
 
 
 
+{% highlight text %}
+## Warning: replacing previous import by 'raster::buffer' when loading
+## 'teamlucc'
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Warning: replacing previous import by 'raster::interpolate' when loading
+## 'teamlucc'
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Warning: replacing previous import by 'raster::rotated' when loading
+## 'teamlucc'
+{% endhighlight %}
+
+
+
 {% highlight r %}
 library(rgdal)
 {% endhighlight %}
@@ -55,9 +76,9 @@ library(rgdal)
 
 
 {% highlight text %}
-## rgdal: version: 0.8-16, (SVN revision 498)
+## rgdal: version: 0.9-1, (SVN revision 518)
 ## Geospatial Data Abstraction Library extensions to R successfully loaded
-## Loaded GDAL runtime: GDAL 1.10.1, released 2013/08/26
+## Loaded GDAL runtime: GDAL 1.11.0, released 2014/04/16
 ## Path to GDAL shared files: C:/Users/azvoleff/R/win-library/3.1/rgdal/gdal
 ## GDAL does not use iconv for recoding strings.
 ## Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]
@@ -167,7 +188,7 @@ text(coordinates(NAK_pathrows), labels=paste(NAK_pathrows$PATH,
                                              NAK_pathrows$ROW, sep=', '))
 {% endhighlight %}
 
-![center](/content/2014-05-05-filtering-landsat-with-teamlucc/pathrow_versus_zoi.png) 
+<img src="/content/2014-05-05-filtering-landsat-with-teamlucc/pathrow_versus_zoi-1.png" title="center" alt="center" style="display:block;margin-left:auto;margin-right:auto;" />
 
 From the above plots, we can see that it takes scenes from three Landsat 
 path/rows to cover the entire Nam Kading ZOI. Suppose we need images from 
@@ -189,7 +210,7 @@ Now use `ee_plot` to plot the available imagery from within that time period:
 ee_plot(l457, start_date, end_date)
 {% endhighlight %}
 
-![center](/content/2014-05-05-filtering-landsat-with-teamlucc/ee_plot.png) 
+<img src="/content/2014-05-05-filtering-landsat-with-teamlucc/ee_plot-1.png" title="center" alt="center" style="display:block;margin-left:auto;margin-right:auto;" />
 
 Each box in this plot represents a single Landsat scene from the Landsat 
 archive. The color of each box indicates the path and row of that scene, while 
@@ -218,7 +239,7 @@ best (lowest cloud cover) image for each path and row for each month. Then,
 ee_plot(l457, start_date, end_date, normalize=TRUE)
 {% endhighlight %}
 
-![center](/content/2014-05-05-filtering-landsat-with-teamlucc/ee_plot_normalized.png) 
+<img src="/content/2014-05-05-filtering-landsat-with-teamlucc/ee_plot_normalized-1.png" title="center" alt="center" style="display:block;margin-left:auto;margin-right:auto;" />
 
 This type of plot is helpful in visualizing the periods in which the greatest 
 proportion of a site can be covered by cloud-free (or nearly cloud-free) 
@@ -259,7 +280,7 @@ espa_download('azvoleff@example.com', '272014-114611', 'D:/ESPA_Downloads')
 
 
 {% highlight text %}
-## Error: D:/ESPA_Downloads does not appear to be a valid directory
+## Error in espa_download("azvoleff@example.com", "272014-114611", "D:/ESPA_Downloads"): Due to changes in the ESPA system, espa_download is not working as of 7/1/2014
 {% endhighlight %}
 
 Note that the above warning occurs since I supplied a non-existent output 
