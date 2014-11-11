@@ -43,34 +43,34 @@ names(textures)
 This shows the eight GLCM texture statistics that have been calculated by 
 default.  These can all be visualized in R:
 
-```{r, mean, fig.cap='"mean" GLCM texture calculated by glcm R package'}
+```{r, mean, fig.cap="mean of GLCM texture"}
 plot(textures$glcm_mean)
 ```
 
-```{r, variance, fig.cap='"variance" GLCM texture calculated by glcm R package'}
+```{r, variance, fig.cap='variance of GLCM texture'}
 plot(textures$glcm_variance)
 ```
 
-```{r, homogeneity, fig.cap='"homogeneity" GLCM texture calculated by glcm R package'}
+```{r, homogeneity, fig.cap="homogeneity of GLCM texture"}
 plot(textures$glcm_homogeneity)
 ```
 
-```{r, contrast, fig.cap='"contrast" GLCM texture calculated by glcm R package'}
+```{r, contrast, fig.cap='contrast of GLCM texture'}
 plot(textures$glcm_contrast)
 ```
 
-```{r, dissimilarity, fig.cap='"dissimilarity" GLCM texture calculated by glcm R package'}
+```{r, dissimilarity, fig.cap='dissimilarity of GLCM texture'}
 plot(textures$glcm_dissimilarity)
 ```
 
-```{r, entropy, fig.cap='"entropy" GLCM texture calculated by glcm R package'}
+```{r, entropy, fig.cap='entropy of GLCM texture'}
 plot(textures$glcm_entropy)
 ```
 
-```{r, second_moment, fig.cap='"second moment" GLCM texture calculated by glcm R package'}
+```{r, second_moment, fig.cap='second moment of GLCM texture'}
 plot(textures$glcm_second_moment)
 ```
 
-```{r, correlation, fig.cap='"correlation" GLCM texture calculated by glcm R package'}
+```{r, correlation, fig.cap='correlation of GLCM texture'}
 plot(textures$glcm_correlation)
 ```

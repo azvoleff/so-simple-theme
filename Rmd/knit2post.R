@@ -9,6 +9,7 @@ knit2post <- function(input, local_base_dir='../../.', server_base_dir="/") {
     fig.path <- paste0(file.path(abs_local_base_dir, 'content', sub(".Rmd$", "", basename(input))), '/')
     opts_chunk$set(fig.path=fig.path)
     opts_chunk$set(fig.cap="center")
+    opts_chunk$set(out.extra="style=\"display:block;margin-left:auto;margin-right:auto;\"")
     render_jekyll()
     # Only publish in _posts if there is a date in the filename
     if (grepl('[0-9]{4}-[0-9]{2}-[0-9]{2}', input)) {
