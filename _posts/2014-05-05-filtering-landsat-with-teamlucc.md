@@ -272,6 +272,9 @@ the specified output folder to see if each image already exists, and will not
 re-download existing files unless the existing files do not match the files 
 available on ESPA.
 
+**Note the below code is not working as of 7/1/2014 due to changes in the ESPA 
+download system. I will update this post when the code is working again**
+
 
 {% highlight r %}
 espa_download('azvoleff@example.com', '272014-114611', 'D:/ESPA_Downloads')
@@ -282,7 +285,6 @@ espa_download('azvoleff@example.com', '272014-114611', 'D:/ESPA_Downloads')
 {% highlight text %}
 ## Error in espa_download("azvoleff@example.com", "272014-114611", "D:/ESPA_Downloads"): Due to changes in the ESPA system, espa_download is not working as of 7/1/2014
 {% endhighlight %}
-
-Note that the above warning occurs since I supplied a non-existent output 
+<!--Note that the above warning occurs since I supplied a non-existent output 
 folder for this example - if the function were run on a real order it would 
-print status messages showing the results of the download.
+print status messages showing the results of the download.-->
