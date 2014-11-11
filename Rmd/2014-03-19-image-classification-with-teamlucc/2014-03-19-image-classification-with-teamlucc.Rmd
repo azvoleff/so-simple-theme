@@ -15,14 +15,20 @@ First load the `devtools` package, used for installing `teamlucc`. Install the
 `devtools` package if it is not already installed:
 
 ```{r, cache=TRUE}
-if (!require(devtools)) install.packages('devtools')
+if (!require(devtools)) {
+    install.packages('devtools')
+    library(devtools)
+}
 ```
 
-Now load the teamlucc package, using `devtools` to install it from github if it 
-is not yet installed.
+Now load the `teamlucc` package, using `devtools` to install it from github if 
+it is not yet installed:
 
 ```{r, cache=TRUE}
-if (!require(teamlucc)) install_github('azvoleff/teamlucc')
+if (!require(teamlucc)) {
+    install_github('azvoleff/teamlucc')
+    library(teamlucc)
+}
 ```
 
 Also load the `rgdal` package needed for reading/writing shapefiles:
@@ -96,8 +102,8 @@ the `training` parameter. It can be useful though in testing.
 
 ```{r, cache=TRUE}
 set.seed(0) # Set a random seed so results can be reproduced
-train_data <- get_pixels(L5TSR_1986, train_polys, 
-                                    class_col="class_1986", training=.6)
+train_data <- get_pixels(L5TSR_1986, train_polys, class_col="class_1986", 
+                         training=.6)
 ```
 
 A summary method is provided by `teamlucc` for printing summary statistics on 
@@ -107,25 +113,40 @@ training datasets:
 summary(train_data)
 ```
 
-To perform the actual image classification, we will use the `classify_image` 
-function. This function automates image classification using a support vector 
-machine (SVM) classifier. There are many options that can be provided to 
-`classify_image` - for this example we will just use the defaults.
+To perform the actual image classification, we will use the `classify` 
+function. Prior to using that function, we need to train a classifier. The 
+`train_classifier` function automates training a random forest or support 
+vector machine (SVM) classifier. There are many options that can be provided to 
+`train_classifier` - for this example we will just use the defaults.  The 
+default is to use a random forest classifier.
 
 ```{r, cache=TRUE}
-classification <- classify_image(L5TSR_1986, train_data)
+clfr <- train_classifier(train_data)
+```
+
+Now we can use the `classify` function to perform the image classification:
+
+```{r, cache=TRUE}
+cls <- classify(L5TSR_1986, clfr)
 ```
 
 To see the predicted classes, use `spplot`:
 
 ```{r, predicted_classes, fig.cap="Predicted classes", cache=TRUE}
-spplot(classification$pred_classes)
+spplot(cls$classes)
 ```
 
 We can also see the class probabilities (per pixel probabilities of membership of each class):
 
 ```{r, class_probabilities, fig.cap="Predicted probabilities of each class", cache=TRUE}
-spplot(classification$pred_probs)
+spplot(cls$probs)
+```
+
+The output from `classify` also includes a table indicating the coding for the 
+output:
+
+```{r, cache=TRUE}
+print(cls$codes)
 ```
 
 ### Parallel processing
@@ -135,25 +156,32 @@ If you have a machine that has multiple processors (or multiple cores), using
 more than one processor can significantly increase the speed of some 
 calculations. `teamlucc` supports parallel computations (using the capabilities 
 of the `raster` package). To enable this functionality, first install the
-`snow` package if it is not already installed:
+`doParallel` package if it is not already installed, and load the package:
 
 ```{r, cache=TRUE}
-if (!require(devtools)) install.packages('snow')
+if (!require(doParallel)) {
+    install.packages('doParallel')
+    library(doParallel)
+}
 ```
 
-Now, just call `beginCluster()`, and by default any calculations that are coded 
-to run in parallel will use all the available CPUs on your machine. After 
-running computations, always call `endCluster()` to stop the cluster. Both the 
-`get_pixels` and `image_classify` functions in `teamlucc` support 
-parallel computations. Below is the code for the same classification problem we 
-just ran, but this time run in parallel:
+Now, just call `registerDoParallel()`, and by default any calculations that are 
+coded to run in parallel will use half of the available CPUs on your machine.  
+You can also specify a number of CPUs to use, by running, for example, 
+`registerDoParallel(2)` to use two CPUs. The `get_pixels`, `train_classifier`  
+and `classify` functions in `teamlucc` all support parallel computation, and 
+will run in parallel automatically if you have called `registerDoParallel`.  
+Below is the code for the same classification problem we just ran, but this 
+time we run the classification in parallel:
 
 ```{r, cache=TRUE}
-beginCluster()
-train_data_par <- get_pixels(L5TSR_1986, train_polys, 
-                                    class_col="class_1986", training=.6)
-classification_par <- classify_image(L5TSR_1986, train_data)
-endCluster()
+library(doParallel)
+registerDoParallel(2)
+set.seed(0) # Set a random seed so results match what we got earlier
+train_data_par <- get_pixels(L5TSR_1986, train_polys, class_col="class_1986", 
+                             training=.6)
+clfr_par <- train_classifier(train_data)
+cls_par <- classify(L5TSR_1986, clfr)
 ```
 
 ## Accuracy assessment
@@ -181,15 +209,20 @@ user's, producer's, and overall accuracies, calculated as in Olofsson et al.
     Remote Sensing of Environment 129:122-131.
 
 To calculate a basic contingency table, assuming that population frequencies of 
-the observed classes can be estimated from the classification output, run the 
-`accuracy` function using the model calculated above:
+the observed classes can be estimated from the classification output, and using 
+the 40% of pixels that were excluded from training the classifier as testing 
+data, run the `accuracy` function using the model calculated above:
 
 ```{r}
-acc <- accuracy(classification$model, pop=classification$pred_classes)
+acc <- accuracy(clfr)
 ```
 
-A `summary` method provided by `teamlucc` calculates user's, producers, and 
-overall accuracy, and quantity and allocation disagreement:
+Note the warning from `accuracy`, which is reminding us that we did not provide 
+population frequencies for the classes.
+
+A`summary` method for the `accuracy` object is provided by `teamlucc`, and
+calculates user's, producers, and overall accuracy, and quantity and allocation 
+disagreement:
 
 ```{r}
 summary(acc)

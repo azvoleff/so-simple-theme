@@ -16,29 +16,22 @@ First load the `devtools` package, used for installing `teamlucc`. Install the
 
 
 {% highlight r %}
-if (!require(devtools)) install.packages('devtools')
+if (!require(devtools)) {
+    install.packages('devtools')
+    library(devtools)
+}
 {% endhighlight %}
 
-
-Now load the teamlucc package, using `devtools` to install it from github if it 
-is not yet installed.
+Now load the `teamlucc` package, using `devtools` to install it from github if 
+it is not yet installed:
 
 
 {% highlight r %}
-if (!require(teamlucc)) install_github('azvoleff/teamlucc')
+if (!require(teamlucc)) {
+    install_github('azvoleff/teamlucc')
+    library(teamlucc)
+}
 {% endhighlight %}
-
-
-
-{% highlight text %}
-## Loading required package: teamlucc
-## Loading required package: Rcpp
-## Loading required package: RcppArmadillo
-## Loading required package: raster
-## Loading required package: sp
-## SDMTools 1.1-13 (2012-11-08)
-{% endhighlight %}
-
 
 Also load the `rgdal` package needed for reading/writing shapefiles:
 
@@ -50,15 +43,14 @@ library(rgdal)
 
 
 {% highlight text %}
-## rgdal: version: 0.8-16, (SVN revision 498)
+## rgdal: version: 0.9-1, (SVN revision 518)
 ## Geospatial Data Abstraction Library extensions to R successfully loaded
-## Loaded GDAL runtime: GDAL 1.10.1, released 2013/08/26
-## Path to GDAL shared files: C:/Users/azvoleff/Documents/R/win-library/3.0/rgdal/gdal
+## Loaded GDAL runtime: GDAL 1.11.0, released 2014/04/16
+## Path to GDAL shared files: C:/Users/azvoleff/R/win-library/3.1/rgdal/gdal
 ## GDAL does not use iconv for recoding strings.
 ## Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]
-## Path to PROJ.4 shared files: C:/Users/azvoleff/Documents/R/win-library/3.0/rgdal/proj
+## Path to PROJ.4 shared files: C:/Users/azvoleff/R/win-library/3.1/rgdal/proj
 {% endhighlight %}
-
 
 ## Collect training data for supervised classification
 
@@ -75,7 +67,6 @@ image:
 train_polys <- get_extent_polys(L5TSR_1986)
 {% endhighlight %}
 
-
 Add an empty field named "class_1986" to the object, and delete the extent polygon 
 (because we don't need it, and just want an empty shapefile):
 
@@ -85,7 +76,6 @@ train_polys$class_1986 <- '' # Add an empty column named "class_1986"
 train_polys <- train_polys[-1, ] # Delete extent polygon
 {% endhighlight %}
 
-
 Now save the `train_polys` object to a shapefile using `writeOGR` from the 
 `rgdal` package. The `"."` below just means "save the shapefile in the current 
 directory".
@@ -94,7 +84,6 @@ directory".
 {% highlight r %}
 writeOGR(train_polys, ".", "training_data", "ESRI Shapefile")
 {% endhighlight %}
-
 
 Open the generated "training_data.shp" shapefile in a GIS program (I recommend 
 [QGIS](http://www.qgis.org)) and digitize a number of polygons in each of the 
@@ -111,7 +100,6 @@ Or: (for this example) you can use the thirty training polygons included in the
 {% highlight r %}
 train_polys <- L5TSR_1986_2001_training
 {% endhighlight %}
-
 
 ## Classify image
 
@@ -132,10 +120,9 @@ the `training` parameter. It can be useful though in testing.
 
 {% highlight r %}
 set.seed(0) # Set a random seed so results can be reproduced
-train_data <- get_pixels(L5TSR_1986, train_polys, 
-                                    class_col="class_1986", training=.6)
+train_data <- get_pixels(L5TSR_1986, train_polys, class_col="class_1986", 
+                         training=.6)
 {% endhighlight %}
-
 
 A summary method is provided by `teamlucc` for printing summary statistics on 
 training datasets:
@@ -148,86 +135,132 @@ summary(train_data)
 
 
 {% highlight text %}
-## Object of class "Training_data"
+## Object of class "pixel_data"
 ## 
 ## Number of classes:	2
 ## Number of polygons:	30
 ## Number of pixels:	120
+## Number of sources:	1
 ## 
 ## Training data statistics:
-##        class n_pixels n_polys train_frac
-## 1     Forest       68      17       0.71
-## 2 Non.forest       52      13       0.46
+## Source: local data frame [2 x 5]
 ## 
-## Training fraction:	0.6
+##       class n_polys n_train_pixels n_test_pixels train_frac
+## 1    Forest      17             48            20       0.71
+## 2 NonForest      13             24            28       0.46
+## 
+## Number of training samples:	72
+## Number of testing samples:	48
+## Training fraction:		0.6
 {% endhighlight %}
 
-
-To perform the actual image classification, we will use the `classify_image` 
-function. This function automates image classification using a support vector 
-machine (SVM) classifier. There are many options that can be provided to 
-`classify_image` - for this example we will just use the defaults.
+To perform the actual image classification, we will use the `classify` 
+function. Prior to using that function, we need to train a classifier. The 
+`train_classifier` function automates training a random forest or support 
+vector machine (SVM) classifier. There are many options that can be provided to 
+`train_classifier` - for this example we will just use the defaults.  The 
+default is to use a random forest classifier.
 
 
 {% highlight r %}
-classification <- classify_image(L5TSR_1986, train_data)
+clfr <- train_classifier(train_data)
 {% endhighlight %}
 
 
 
 {% highlight text %}
-## [1] "Training classifier..."
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Loading required package: kernlab
-## 
-## Attaching package: 'kernlab'
-## 
-## The following objects are masked from 'package:raster':
-## 
-##     buffer, rotated
-## 
-## 
-## Attaching package: 'e1071'
-## 
-## The following object is masked from 'package:raster':
-## 
-##     interpolate
-## 
+## Loading required package: randomForest
+## randomForest 4.6-10
+## Type rfNews() to see new features/changes/bug fixes.
 ## Loading required package: lattice
 ## Loading required package: ggplot2
 {% endhighlight %}
 
+Now we can use the `classify` function to perform the image classification:
+
+
+{% highlight r %}
+cls <- classify(L5TSR_1986, clfr)
+{% endhighlight %}
+
 
 
 {% highlight text %}
-## [1] "Predicting classes..."
-## [1] "Calculating class probabilities..."
+## Warning in .local(x, ...): min value not known, use setMinMax
 {% endhighlight %}
 
+
+
+{% highlight text %}
+## Warning in .local(x, ...): min value not known, use setMinMax
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Loading required package: parallel
+## 
+## Attaching package: 'parallel'
+## 
+## The following objects are masked from 'package:snow':
+## 
+##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+##     clusterExport, clusterMap, clusterSplit, makeCluster,
+##     parApply, parCapply, parLapply, parRapply, parSapply,
+##     splitIndices, stopCluster
+## 
+## Loading required package: iterators
+## Loading required package: foreach
+## foreach: simple, scalable parallel programming from Revolution Analytics
+## Use Revolution R for scalability, fault tolerance and more.
+## http://www.revolutionanalytics.com
+## 
+## Attaching package: 'mmap'
+## 
+## The following object is masked from 'package:Rcpp':
+## 
+##     sizeof
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Warning in int64(): unsupported int64, use int32 or real64
+{% endhighlight %}
 
 To see the predicted classes, use `spplot`:
 
 
 {% highlight r %}
-spplot(classification$pred_classes)
+spplot(cls$classes)
 {% endhighlight %}
 
-![Predicted classes](/content/2014-03-19-image-classification-with-teamlucc/predicted_classes.png) 
-
+<img src="/content/2014-03-19-image-classification-with-teamlucc/predicted_classes-1.png" title="Predicted classes" alt="Predicted classes" style="display:block;margin-left:auto;margin-right:auto;" />
 
 We can also see the class probabilities (per pixel probabilities of membership of each class):
 
 
 {% highlight r %}
-spplot(classification$pred_probs)
+spplot(cls$probs)
 {% endhighlight %}
 
-![Predicted probabilities of each class](/content/2014-03-19-image-classification-with-teamlucc/class_probabilities.png) 
+<img src="/content/2014-03-19-image-classification-with-teamlucc/class_probabilities-1.png" title="Predicted probabilities of each class" alt="Predicted probabilities of each class" style="display:block;margin-left:auto;margin-right:auto;" />
 
+The output from `classify` also includes a table indicating the coding for the 
+output:
+
+
+{% highlight r %}
+print(cls$codes)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+##   code     class
+## 1    0    Forest
+## 2    1 NonForest
+{% endhighlight %}
 
 ### Parallel processing
 
@@ -236,82 +269,53 @@ If you have a machine that has multiple processors (or multiple cores), using
 more than one processor can significantly increase the speed of some 
 calculations. `teamlucc` supports parallel computations (using the capabilities 
 of the `raster` package). To enable this functionality, first install the
-`snow` package if it is not already installed:
+`doParallel` package if it is not already installed, and load the package:
 
 
 {% highlight r %}
-if (!require(devtools)) install.packages('snow')
-{% endhighlight %}
-
-
-Now, just call `beginCluster()`, and by default any calculations that are coded 
-to run in parallel will use all the available CPUs on your machine. After 
-running computations, always call `endCluster()` to stop the cluster. Both the 
-`get_pixels` and `image_classify` functions in `teamlucc` support 
-parallel computations. Below is the code for the same classification problem we 
-just ran, but this time run in parallel:
-
-
-{% highlight r %}
-beginCluster()
+if (!require(doParallel)) {
+    install.packages('doParallel')
+    library(doParallel)
+}
 {% endhighlight %}
 
 
 
 {% highlight text %}
-## Loading required package: snow
+## Loading required package: doParallel
 {% endhighlight %}
 
-
-
-{% highlight text %}
-## 4 cores detected
-{% endhighlight %}
-
+Now, just call `registerDoParallel()`, and by default any calculations that are 
+coded to run in parallel will use half of the available CPUs on your machine.  
+You can also specify a number of CPUs to use, by running, for example, 
+`registerDoParallel(2)` to use two CPUs. The `get_pixels`, `train_classifier`  
+and `classify` functions in `teamlucc` all support parallel computation, and 
+will run in parallel automatically if you have called `registerDoParallel`.  
+Below is the code for the same classification problem we just ran, but this 
+time we run the classification in parallel:
 
 
 {% highlight r %}
-train_data_par <- get_pixels(L5TSR_1986, train_polys, 
-                                    class_col="class_1986", training=.6)
+library(doParallel)
+registerDoParallel(2)
+set.seed(0) # Set a random seed so results match what we got earlier
+train_data_par <- get_pixels(L5TSR_1986, train_polys, class_col="class_1986", 
+                             training=.6)
+clfr_par <- train_classifier(train_data)
+cls_par <- classify(L5TSR_1986, clfr)
 {% endhighlight %}
 
 
 
 {% highlight text %}
-## Using cluster with 4 nodes
-{% endhighlight %}
-
-
-
-{% highlight r %}
-classification_par <- classify_image(L5TSR_1986, train_data)
+## Warning in .local(x, ...): min value not known, use setMinMax
 {% endhighlight %}
 
 
 
 {% highlight text %}
-## Loading required package: doSNOW
-## Loading required package: foreach
-## foreach: simple, scalable parallel programming from Revolution Analytics
-## Use Revolution R for scalability, fault tolerance and more.
-## http://www.revolutionanalytics.com
-## Loading required package: iterators
+## Warning in .local(x, ...): min value not known, use setMinMax
 {% endhighlight %}
-
-
-
-{% highlight text %}
-## [1] "Training classifier..."
-## [1] "Predicting classes..."
-## [1] "Calculating class probabilities..."
-{% endhighlight %}
-
-
-
-{% highlight r %}
-endCluster()
-{% endhighlight %}
-
 
 ## Accuracy assessment
 
@@ -338,17 +342,28 @@ user's, producer's, and overall accuracies, calculated as in Olofsson et al.
     Remote Sensing of Environment 129:122-131.
 
 To calculate a basic contingency table, assuming that population frequencies of 
-the observed classes can be estimated from the classification output, run the 
-`accuracy` function using the model calculated above:
+the observed classes can be estimated from the classification output, and using 
+the 40% of pixels that were excluded from training the classifier as testing 
+data, run the `accuracy` function using the model calculated above:
 
 
 {% highlight r %}
-acc <- accuracy(classification$model, pop=classification$pred_classes)
+acc <- accuracy(clfr)
 {% endhighlight %}
 
 
-A `summary` method provided by `teamlucc` calculates user's, producers, and 
-overall accuracy, and quantity and allocation disagreement:
+
+{% highlight text %}
+## Warning in calc_accuracy(predicted, observed, pop, reclass_mat): pop was
+## not provided - assuming sample frequencies equal population frequencies
+{% endhighlight %}
+
+Note the warning from `accuracy`, which is reminding us that we did not provide 
+population frequencies for the classes.
+
+A`summary` method for the `accuracy` object is provided by `teamlucc`, and
+calculates user's, producers, and overall accuracy, and quantity and allocation 
+disagreement:
 
 
 {% highlight r %}
@@ -360,28 +375,26 @@ summary(acc)
 {% highlight text %}
 ## Object of class "accuracy"
 ## 
-## Training samples:	72
 ## Testing samples:	48
 ## 
 ## Sample contingency table:
-##             observed
-## predicted     Forest Non.forest     Sum   Users
-##   Forest     18.0000     9.0000 27.0000  0.6667
-##   Non.forest  2.0000    19.0000 21.0000  0.9048
-##   Sum        20.0000    28.0000 48.0000        
-##   Producers   0.9000     0.6786          0.7708
+##            observed
+## predicted    Forest NonForest   Total   Users
+##   Forest    16.0000    3.0000 19.0000  0.8421
+##   NonForest  4.0000   25.0000 29.0000  0.8621
+##   Total     20.0000   28.0000 48.0000        
+##   Producers  0.8000    0.8929          0.8542
 ## 
 ## Population contingency table:
-##             observed
-## predicted    Forest Non.forest    Sum  Users
-##   Forest     0.4490     0.2245 0.6736 0.6667
-##   Non.forest 0.0311     0.2954 0.3264 0.9048
-##   Sum        0.4801     0.5199 1.0000       
-##   Producers  0.9352     0.5681        0.7444
+##            observed
+## predicted   Forest NonForest  Total  Users
+##   Forest    0.3333    0.0625 0.3958 0.8421
+##   NonForest 0.0833    0.5208 0.6042 0.8621
+##   Total     0.4167    0.5833 1.0000       
+##   Producers 0.8000    0.8929        0.8542
 ## 
-## Overall accuracy:	0.7444
+## Overall accuracy:	0.8542
 ## 
-## Quantity disagreement:		0.1934
-## Allocation disagreement:	0.0622
+## Quantity disagreement:		0.0208
+## Allocation disagreement:	0.125
 {% endhighlight %}
-
