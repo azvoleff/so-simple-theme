@@ -21,3 +21,13 @@ share: true
 co-occurrence matrices (GLCM). See the [`glcm` github project 
 page](https://github.com/azvoleff/glcm) for the latest development release.
 
+## Using `glcm`
+
+There are a number of posts on using `glcm`. Here are the two of the most 
+relevant introductory posts:
+
+* [Calculating image textures with 
+  `glcm`](/articles/calculating-image-textures-with-glcm)
+
+* [Calculating rotation-invariant GLCM 
+  statistics](/articles/glcm-rotation-invariant)
