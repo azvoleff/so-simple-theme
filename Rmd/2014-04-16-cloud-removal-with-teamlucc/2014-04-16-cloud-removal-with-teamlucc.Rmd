@@ -430,7 +430,7 @@ first band of all four images, then plot:
 
 ```{r, cloud_remove_comparison_plot, cache=TRUE}
 filled_comp <- stack(filled_cr[[1]], filled_crf[[1]], filled_tl[[1]], 
-                    filled_simple[[1]])
+                     filled_simple[[1]])
 names(filled_comp) <- c('CLOUD_REMOVE', 'CLOUD_REMOVE_FAST', 'teamlucc', 
                        'simple')
 plot(filled_comp)

@@ -35,7 +35,56 @@ later:
 
 {% highlight r %}
 library(teamlucc)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Loading required package: Rcpp
+## Loading required package: raster
+## Loading required package: sp
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Warning: replacing previous import by 'raster::buffer' when loading
+## 'teamlucc'
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Warning: replacing previous import by 'raster::interpolate' when loading
+## 'teamlucc'
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Warning: replacing previous import by 'raster::rotated' when loading
+## 'teamlucc'
+{% endhighlight %}
+
+
+
+{% highlight r %}
 library(SDMTools)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## 
+## Attaching package: 'SDMTools'
+## 
+## The following object is masked from 'package:teamlucc':
+## 
+##     accuracy
+## 
+## The following object is masked from 'package:raster':
+## 
+##     distance
 {% endhighlight %}
 
 If `teamlucc` is not installed, install it using `devtools`"
@@ -105,9 +154,9 @@ base <- brick('vb_1986_005_b234.tif')
 
 
 {% highlight text %}
-## rgdal: version: 0.8-16, (SVN revision 498)
+## rgdal: version: 0.9-1, (SVN revision 518)
 ## Geospatial Data Abstraction Library extensions to R successfully loaded
-## Loaded GDAL runtime: GDAL 1.10.1, released 2013/08/26
+## Loaded GDAL runtime: GDAL 1.11.0, released 2014/04/16
 ## Path to GDAL shared files: C:/Users/azvoleff/R/win-library/3.1/rgdal/gdal
 ## GDAL does not use iconv for recoding strings.
 ## Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]
@@ -127,7 +176,7 @@ Notice the cloud cover in the base image:
 plotRGB(base, stretch='lin')
 {% endhighlight %}
 
-![Base image](/content/2014-04-16-cloud-removal-with-teamlucc/base_image.png) 
+<img src="/content/2014-04-16-cloud-removal-with-teamlucc/base_image-1.png" title="Base image" alt="Base image" style="display:block;margin-left:auto;margin-right:auto;" />
 
 The fill image also has cloud cover, but less than the fill image - there are 
 areas of the fill that can be used to fill clouded pixels in the base image:
@@ -137,7 +186,7 @@ areas of the fill that can be used to fill clouded pixels in the base image:
 plotRGB(fill, stretch='lin')
 {% endhighlight %}
 
-![Fill image](/content/2014-04-16-cloud-removal-with-teamlucc/fill_image.png) 
+<img src="/content/2014-04-16-cloud-removal-with-teamlucc/fill_image-1.png" title="Fill image" alt="Fill image" style="display:block;margin-left:auto;margin-right:auto;" />
 
 ### Topographic correction
 
@@ -173,6 +222,17 @@ clouds).
 {% highlight r %}
 base_tc <- topographic_corr(base, slp_asp, sunelev=90-47.34, sunazimuth=134.04, 
                             DN_min=0, DN_max=255)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Warning: executing %dopar% sequentially: no parallel backend registered
+{% endhighlight %}
+
+
+
+{% highlight r %}
 fill_tc <- topographic_corr(fill, slp_asp, sunelev=90-46.80, sunazimuth=129.88, 
                             DN_min=0, DN_max=255)
 {% endhighlight %}
@@ -182,14 +242,14 @@ fill_tc <- topographic_corr(fill, slp_asp, sunelev=90-46.80, sunazimuth=129.88,
 plotRGB(base_tc, stretch='lin')
 {% endhighlight %}
 
-![Base image after topographic correction](/content/2014-04-16-cloud-removal-with-teamlucc/base_tc.png) 
+<img src="/content/2014-04-16-cloud-removal-with-teamlucc/base_tc-1.png" title="Base image after topographic correction" alt="Base image after topographic correction" style="display:block;margin-left:auto;margin-right:auto;" />
 
 
 {% highlight r %}
 plotRGB(fill_tc, stretch='lin')
 {% endhighlight %}
 
-![Fill image after topographic correction](/content/2014-04-16-cloud-removal-with-teamlucc/fill_tc.png) 
+<img src="/content/2014-04-16-cloud-removal-with-teamlucc/fill_tc-1.png" title="Fill image after topographic correction" alt="Fill image after topographic correction" style="display:block;margin-left:auto;margin-right:auto;" />
 
 ### Construct cloud masks
 
@@ -239,14 +299,14 @@ viewed earlier:
 plot(base_cloud_mask)
 {% endhighlight %}
 
-![Base image cloud mask](/content/2014-04-16-cloud-removal-with-teamlucc/base_cloud_mask.png) 
+<img src="/content/2014-04-16-cloud-removal-with-teamlucc/base_cloud_mask-1.png" title="Base image cloud mask" alt="Base image cloud mask" style="display:block;margin-left:auto;margin-right:auto;" />
 
 
 {% highlight r %}
 plot(fill_cloud_mask)
 {% endhighlight %}
 
-![Fill image cloud mask](/content/2014-04-16-cloud-removal-with-teamlucc/fill_cloud_mask.png) 
+<img src="/content/2014-04-16-cloud-removal-with-teamlucc/fill_cloud_mask-1.png" title="Fill image cloud mask" alt="Fill image cloud mask" style="display:block;margin-left:auto;margin-right:auto;" />
 
 Now use these two masks to mask out the clouds in the fill and base images, by 
 setting clouded areas to zero (as the `cloud_remove` code treats pixels with 
@@ -301,7 +361,7 @@ where n is the number of clouds in the image:
 plot(base_cloud_mask)
 {% endhighlight %}
 
-![Final base image cloud mask](/content/2014-04-16-cloud-removal-with-teamlucc/base_cloud_mask_recoded.png) 
+<img src="/content/2014-04-16-cloud-removal-with-teamlucc/base_cloud_mask_recoded-1.png" title="Final base image cloud mask" alt="Final base image cloud mask" style="display:block;margin-left:auto;margin-right:auto;" />
 
 ### Fill clouds
 
@@ -384,7 +444,7 @@ Sys.time() - start_time
 
 
 {% highlight text %}
-## Time difference of 1.7 hours
+## Time difference of 1.637638 hours
 {% endhighlight %}
 
 Use `plotRGB` to check the output. Note that IDL does not properly code missing 
@@ -397,7 +457,7 @@ filled_cr[filled_cr < 0] <- NA
 plotRGB(filled_cr, stretch="lin")
 {% endhighlight %}
 
-![center](/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_cr_plot.png) 
+<img src="/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_cr_plot-1.png" title="center" alt="center" style="display:block;margin-left:auto;margin-right:auto;" />
 
 The default cloud fill approach can take a considerable amount of time to run.  
 There is an alternative approach that can take considerably less time to run, 
@@ -432,7 +492,7 @@ Sys.time() - start_time
 
 
 {% highlight text %}
-## Time difference of 37.86 secs
+## Time difference of 47.31073 secs
 {% endhighlight %}
 
 Use `plotRGB` to check the output:
@@ -443,7 +503,7 @@ filled_crf[filled_crf < 0] <- NA
 plotRGB(filled_crf, stretch='lin')
 {% endhighlight %}
 
-![center](/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_crf_plot.png) 
+<img src="/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_crf_plot-1.png" title="center" alt="center" style="display:block;margin-left:auto;margin-right:auto;" />
 
 #### Cloud removal using native R code
 
@@ -476,7 +536,7 @@ Sys.time() - start_time
 
 
 {% highlight text %}
-## Time difference of 3.674 mins
+## Time difference of 7.101377 mins
 {% endhighlight %}
 
 View the results with `plotRGB`:
@@ -486,7 +546,7 @@ View the results with `plotRGB`:
 plotRGB(filled_tl, stretch='lin')
 {% endhighlight %}
 
-![center](/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_tl_plot.png) 
+<img src="/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_tl_plot-1.png" title="center" alt="center" style="display:block;margin-left:auto;margin-right:auto;" />
 
 The fastest cloud fill option is to run `cloud_remove` with 
 `algorithm="SIMPLE"`. This uses a simple cloud fill approach in which the value 
@@ -511,7 +571,7 @@ Sys.time() - start_time
 
 
 {% highlight text %}
-## Time difference of 1.747 secs
+## Time difference of 1.046105 secs
 {% endhighlight %}
 
 View the results with `plotRGB`:
@@ -521,7 +581,7 @@ View the results with `plotRGB`:
 plotRGB(filled_simple, stretch='lin')
 {% endhighlight %}
 
-![center](/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_simple_plot.png) 
+<img src="/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_simple_plot-1.png" title="center" alt="center" style="display:block;margin-left:auto;margin-right:auto;" />
 
 ### Compare all four fill algorithms:
 
@@ -537,7 +597,7 @@ names(filled_comp) <- c('CLOUD_REMOVE', 'CLOUD_REMOVE_FAST', 'teamlucc',
 plot(filled_comp)
 {% endhighlight %}
 
-![center](/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_comparison_plot.png) 
+<img src="/content/2014-04-16-cloud-removal-with-teamlucc/cloud_remove_comparison_plot-1.png" title="center" alt="center" style="display:block;margin-left:auto;margin-right:auto;" />
 
 
 ## Automated cloud fill from an image time series
