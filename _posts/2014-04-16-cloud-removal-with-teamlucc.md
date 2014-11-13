@@ -492,7 +492,7 @@ Sys.time() - start_time
 
 
 {% highlight text %}
-## Time difference of 47.31073 secs
+## Time difference of 55.48255 secs
 {% endhighlight %}
 
 Use `plotRGB` to check the output:
@@ -536,7 +536,7 @@ Sys.time() - start_time
 
 
 {% highlight text %}
-## Time difference of 7.101377 mins
+## Time difference of 3.320532 mins
 {% endhighlight %}
 
 View the results with `plotRGB`:
@@ -571,7 +571,7 @@ Sys.time() - start_time
 
 
 {% highlight text %}
-## Time difference of 1.046105 secs
+## Time difference of 0.6300631 secs
 {% endhighlight %}
 
 View the results with `plotRGB`:
@@ -591,9 +591,10 @@ first band of all four images, then plot:
 
 {% highlight r %}
 filled_comp <- stack(filled_cr[[1]], filled_crf[[1]], filled_tl[[1]], 
-                    filled_simple[[1]])
+                     filled_simple[[1]])
 names(filled_comp) <- c('CLOUD_REMOVE', 'CLOUD_REMOVE_FAST', 'teamlucc', 
                        'simple')
+filled_comp <- linear_stretch(filled_comp, pct=2, max_val=255)
 plot(filled_comp)
 {% endhighlight %}
 

@@ -433,6 +433,7 @@ filled_comp <- stack(filled_cr[[1]], filled_crf[[1]], filled_tl[[1]],
                      filled_simple[[1]])
 names(filled_comp) <- c('CLOUD_REMOVE', 'CLOUD_REMOVE_FAST', 'teamlucc', 
                        'simple')
+filled_comp <- linear_stretch(filled_comp, pct=2, max_val=255)
 plot(filled_comp)
 ```
 
