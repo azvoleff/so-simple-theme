@@ -5,7 +5,7 @@ description: "How to use the teamlucc to preprocess Landsat CDR surface reflecta
 category: articles
 tags: [R, teamlucc, remote sensing, Landsat]
 comments: true
-modified: 2014-06-03
+modified: 2014-11-13
 share: true
 ---
 
@@ -16,10 +16,10 @@ the [Landsat Surface Reflectance Climate Data Record
 (CDR)](http://landsat.usgs.gov/CDR_LSR.php) archive. The `teamlucc` package 
 supports a number of common preprocessing steps, including:
 
-* Conversion of HDF format CDR files to ENVI format
+* Conversion of CDR files to any GDAL supported file format
 * Cropping Landsat tiles to a given area of interest (AOI)
-* Mosaicing and cropping of DEM tiles (such as ASTER or SRTM) to a given 
-  AOI or Landsat path/row
+* Mosaicking and cropping of DEM tiles (such as ASTER or SRTM) to a given AOI 
+  or Landsat path/row
 * Topographic correction of CDR scenes
 
 ## Getting started
@@ -46,15 +46,15 @@ step and move ahead to the next section.
 can mosaic multiple DEM files if needed to cover an AOI. To use 
 `auto_setup_dem`, the user must first define the area of interest with an AOI 
 polygon. If you have a shapefile of an area of interest, load it into R using 
-the readOGR command. The readOGR command needs the folder the shapefile is in 
-(in our example the current working directory, specified by `.`) as the first 
-parameter, and the filename of the shapefile (without the ".shp" extension) as 
-the second parameter (`PA_VB`) in this example). This example uses a shapefile 
-of the boundary of the Braulio Carrillo National Park, in which the [Volcán 
-Barva TEAM site](http://www.teamnetwork.org/network/sites/volc%C3%A1n-barva) is 
-located:
+the `readOGR` command. The `readOGR` command needs the folder the shapefile is 
+in (in this example the current working directory, specified by `.`) as the 
+first parameter, and the filename of the shapefile (without the ".shp" 
+extension) as the second parameter (`PA_VB`) in this example). This example 
+uses a shapefile of the boundary of the Braulio Carrillo National Park, in 
+which the [Volcán Barva TEAM 
+site](http://www.teamnetwork.org/network/sites/volc%C3%A1n-barva) is located:
 
-```{r, VB_aoi_original, cache=TRUE}
+```{r, VB_aoi_original}
 aoi <- readOGR('.', 'PA_VB')
 plot(aoi)
 ```
@@ -64,14 +64,14 @@ shapefile. The functions in `teamlucc` expect the AOI to be of length one. So
 calculate the convex hull of the AOI using the functions in the `rgeos` 
 package:
 
-```{r, cache=TRUE}
+```{r}
 library(rgeos)
 aoi <- gConvexHull(aoi)
 ```
 
-The aoi is now a single polygon:
+The AOI is now a single polygon:
 
-```{r, VB_aoi_convex_hull, cache=TRUE}
+```{r, VB_aoi_convex_hull}
 plot(aoi)
 ```
 
@@ -81,12 +81,12 @@ with, an alternative is to define the AOI based on the path and row, using the
 `127` is the WRS-2 path number, and `47` is the WRS-2 row number for the 
 path/row at the center of the above AOI:
 
-```{r, cache=TRUE}
+```{r}
 library(wrspathrow)
 aoi_from_pathrow <- pathrow_poly(127, 47)
 ```
 
-In addition to the aoi, `auto_setup_dem` needs to know the location and spatial 
+In addition to the AOI, `auto_setup_dem` needs to know the location and spatial 
 extents of the DEM files you have available on your machine.  This list can be 
 assembled automatically using the `get_extent_polys` function in `teamlucc`.  
 See `?get_extent_polys` for more information. __The below code will fail on your 
@@ -94,8 +94,8 @@ machine because you will not have the proper DEMs for this example.  Download
 the proper DEMs for the area in which you are working and place them in a 
 folder on your machine if you want to test this function.__
 
-```{r, cache=TRUE}
-dem_files <- dir('H:/Data/CGIAR_SRTM', pattern='.tif$', full.names=TRUE)
+```{r}
+dem_files <- dir('H:/Data/CGIAR_SRTM/Tiles', pattern='.tif$', full.names=TRUE)
 dems <- lapply(dem_files, raster)
 dem_extents <- get_extent_polys(dems)
 ```
@@ -110,23 +110,22 @@ Lastly, `auto_setup_dem` needs to know where to save its output. For this
 example, save the output to the current working directory `.`. Now that all of 
 the essential inputs are defined, `auto_setup_dem` can be called:
 
-```{r, cache=TRUE}
+```{r}
 auto_setup_dem(aoi, '.', dem_extents, crop_to_aoi=TRUE)
 ```
 
-The result will be a mosaiced DEM, in the current working directory, that can 
+The result will be a mosaicked DEM, in the current working directory, that can 
 be used for topographically correcting imagery with the 
 `auto_preprocess_landsat` function.
 
 ## Preprocessing
 
-Images are delivered from the CDR archive in Hierarchical Data Format (HDF). 
-Though some common remote sensing software packages can read HDF format, if you 
-want to work with Landsat CDR images within the `teamlucc` package in R, you 
-will need to convert them to another format. The `teamlucc` package will, by 
-default, convert HDF images to a flat binary format with ENVI format headers, 
-as these image files can be easily read in R and in most commonly used remote 
-sensing and GIS software packages.
+Images are delivered from the CDR archive in either ENVI format, GeoTIFF 
+format, or Hierarchical Data Format (HDF). The `teamlucc` package will, by 
+default, convert HDF or ENVI format images to a GeoTIFF format, as these image 
+files can be easily read in R and in most commonly used remote sensing and GIS 
+software packages. This example assumes you want GeoTIFF output - see the help 
+files for `teamlucc` for other output options.
 
 First you will need to acquire a time series of CDR imagery for your site. The 
 `espa_download` function can facilitate downloading files from an ESPA order. 
@@ -144,39 +143,22 @@ block of code, will both fail on your computer since you do not have the
 required imagery - this is only an example, download your own imagery to follow 
 along__):
 
-```{r, cache=TRUE, eval=FALSE}
+```{r}
 download_folder <- 'espa_downloads'
 extract_folder <- 'espa_extracts'
 espa_extract(download_folder, extract_folder)
 ```
 
-Next, use the `unstack_ledapscdr` function in `teamlucc` to unstack each HDF 
-format CDR image. Store all of the images for a given site within a single 
-directory. A variant of the below R code can automate this for you if you have 
-all of your images stored in `extract_folder`. Note that, if desired, you can 
-specify `rmhdf=TRUE` to `unstack_ledapscdr` to make the script automatically 
-delete the original HDF files after unstacking them.
-
-```{r, cache=TRUE, eval=FALSE}
-image_files <- dir(extract_folder, recursive=TRUE, pattern='.hdf$', 
-                   full.names=TRUE)
-for (n in 1:length(image_files)) {
-    message(paste('Unstacking', image_files[n]))
-    unstack_ledapscdr(image_files[n])
-}
-```
-
-Now that the CDR format image files are converted to ENVI format, you are ready 
-to run `auto_preprocess_landsat`. As with `auto_setup_dem`, there are many 
-options you can supply to `auto_preprocess_landsat` - see 
-`?auto_preprocess_landsat`.  The below is a simple example of how to call 
-`auto_preprocess_landsat`.
+Now that the CDR format image files are extracted, you are ready to run 
+`auto_preprocess_landsat`. As with `auto_setup_dem`, there are many options you 
+can supply to `auto_preprocess_landsat` - see `?auto_preprocess_landsat`.  The 
+below is a simple example of how to call `auto_preprocess_landsat`.
 
 The `image_dirs` line below is just a fancy way of finding all the folders 
-located in the `espa_extracts` folder that contain ENVI format CDR imagery.  
-You could just as easily specify these folders invidually as a series of 
-strings, like: `image_dirs <- c('C:/folder1', 'C:/folder2')` if you had two CDR 
-Landsat scenes located in `C:/folder1` and `C:/folder2`, respectively.
+located in `extract_folder` that contain CDR imagery.  You could just as easily 
+specify these folders individually as as a list of strings, like: `image_dirs 
+<- c('C:/folder1', 'C:/folder2')` if you had two CDR Landsat scenes located in 
+`C:/folder1` and `C:/folder2`, respectively.
 
 The `prefix` parameter specifies a string that will be used in naming files 
 output by `auto_preprocess_landsat`. For `prefix` I suggest you use a short (2 
@@ -189,29 +171,34 @@ preprocessed by `auto_setup_dem` are located), so that the DEM files for this
 scene can be found. Here we set `dem_path='.'` as the DEM is in our current 
 working directory. We supply an AOI (same AOI as above) to crop the output 
 images. `verbose=TRUE` indicates that we want detailed progress messages to 
-print while the script is running.
+print while the script is running. The output of `auto_preprocess_landsat` is a 
+`data.frame` with a list of the preprocessed files and their file formats.
 
-```{r, cache=TRUE}
+```{r}
 image_dirs <- dir('espa_extracts',
                   pattern='^[0-9]{3}-[0-9]{3}_[0-9]{4}-[0-9]{3}_((LT[45])|(LE7))$',
                   full.names=TRUE)
-auto_preprocess_landsat(image_dirs, prefix='VB', tc=TRUE, dem_path='.', 
-                        aoi=aoi, verbose=TRUE)
+filelist <- auto_preprocess_landsat(image_dirs, prefix='VB', tc=TRUE, 
+                                    dem_path='.', aoi=aoi, verbose=TRUE)
 ```
 
 The result is two cropped, reprojected, and topographically corrected Landsat 
 images covering the specified AOI. One image from 2000:
 
-```{r, plot_2000_landsat, cache=TRUE}
-ls_2000 <- brick('espa_extracts/015-053_2000-044_LT5/VB_015-053_2000-044_L5TSR_tc.envi')
-ls_2000 <- linear_stretch(ls_2000, pct=5, max_val=255)
-plotRGB(ls_2000, r=4, g=3, b=2, stretch='lin')
+```{r, plot_2000_landsat}
+ls_2000 <-  brick('espa_extracts/015-053_2000-044_LT5/VB_015-053_2000-044_L5TSR_tc.tif')
+ls_2000 <- linear_stretch(ls_2000, pct=2, max_val=255)
+browse_image(ls_2000, r=4, g=3, b=2)
 ```
 
 And one image from 2001:
 
-```{r, plot_2001_landsat, cache=TRUE}
-ls_2001 <- brick('espa_extracts/015-053_2001-014_LT5/VB_015-053_2001-014_L5TSR_tc.envi')
+```{r, plot_2001_landsat}
+ls_2001 <- brick('espa_extracts/015-053_2001-014_LT5/VB_015-053_2001-014_L5TSR_tc.tif')
 ls_2001 <- linear_stretch(ls_2001, pct=2, max_val=255)
-plotRGB(ls_2001, r=4, g=3, b=2, stretch='lin')
+browse_image(ls_2001, r=4, g=3, b=2)
 ```
+
+There is a fair amount of cloud cover in the 2000 image. See the post on [cloud 
+removal](/articles/cloud-removal-with-teamlucc) for one means of addressing 
+this issue.

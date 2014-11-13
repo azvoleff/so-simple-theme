@@ -5,7 +5,7 @@ description: "How to use the teamlucc to preprocess Landsat CDR surface reflecta
 category: articles
 tags: [R, teamlucc, remote sensing, Landsat]
 comments: true
-modified: 2014-06-03
+modified: 2014-11-13
 share: true
 ---
 
@@ -16,10 +16,10 @@ the [Landsat Surface Reflectance Climate Data Record
 (CDR)](http://landsat.usgs.gov/CDR_LSR.php) archive. The `teamlucc` package 
 supports a number of common preprocessing steps, including:
 
-* Conversion of HDF format CDR files to ENVI format
+* Conversion of CDR files to any GDAL supported file format
 * Cropping Landsat tiles to a given area of interest (AOI)
-* Mosaicing and cropping of DEM tiles (such as ASTER or SRTM) to a given 
-  AOI or Landsat path/row
+* Mosaicking and cropping of DEM tiles (such as ASTER or SRTM) to a given AOI 
+  or Landsat path/row
 * Topographic correction of CDR scenes
 
 ## Getting started
@@ -29,7 +29,53 @@ First load the `teamlucc` package, and the `rgdal` package:
 
 {% highlight r %}
 library(teamlucc)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Loading required package: Rcpp
+## Loading required package: raster
+## Loading required package: sp
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Warning: replacing previous import by 'raster::buffer' when loading
+## 'teamlucc'
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Warning: replacing previous import by 'raster::interpolate' when loading
+## 'teamlucc'
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Warning: replacing previous import by 'raster::rotated' when loading
+## 'teamlucc'
+{% endhighlight %}
+
+
+
+{% highlight r %}
 library(rgdal)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## rgdal: version: 0.9-1, (SVN revision 518)
+## Geospatial Data Abstraction Library extensions to R successfully loaded
+## Loaded GDAL runtime: GDAL 1.11.0, released 2014/04/16
+## Path to GDAL shared files: C:/Users/azvoleff/R/win-library/3.1/rgdal/gdal
+## GDAL does not use iconv for recoding strings.
+## Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]
+## Path to PROJ.4 shared files: C:/Users/azvoleff/R/win-library/3.1/rgdal/proj
 {% endhighlight %}
 
 ## DEM setup
@@ -47,13 +93,13 @@ step and move ahead to the next section.
 can mosaic multiple DEM files if needed to cover an AOI. To use 
 `auto_setup_dem`, the user must first define the area of interest with an AOI 
 polygon. If you have a shapefile of an area of interest, load it into R using 
-the readOGR command. The readOGR command needs the folder the shapefile is in 
-(in our example the current working directory, specified by `.`) as the first 
-parameter, and the filename of the shapefile (without the ".shp" extension) as 
-the second parameter (`PA_VB`) in this example). This example uses a shapefile 
-of the boundary of the Braulio Carrillo National Park, in which the [Volcán 
-Barva TEAM site](http://www.teamnetwork.org/network/sites/volc%C3%A1n-barva) is 
-located:
+the `readOGR` command. The `readOGR` command needs the folder the shapefile is 
+in (in this example the current working directory, specified by `.`) as the 
+first parameter, and the filename of the shapefile (without the ".shp" 
+extension) as the second parameter (`PA_VB`) in this example). This example 
+uses a shapefile of the boundary of the Braulio Carrillo National Park, in 
+which the [Volcán Barva TEAM 
+site](http://www.teamnetwork.org/network/sites/volc%C3%A1n-barva) is located:
 
 
 {% highlight r %}
@@ -75,7 +121,7 @@ aoi <- readOGR('.', 'PA_VB')
 plot(aoi)
 {% endhighlight %}
 
-![center](/content/2014-04-16-preprocessing-imagery-with-teamlucc/VB_aoi_original.png) 
+<img src="/content/2014-04-16-preprocessing-imagery-with-teamlucc/VB_aoi_original-1.png" title="center" alt="center" style="display:block;margin-left:auto;margin-right:auto;" />
 
 As seen in the above plot, there are a number of adjoining polygons in this 
 shapefile. The functions in `teamlucc` expect the AOI to be of length one. So 
@@ -90,7 +136,7 @@ library(rgeos)
 
 
 {% highlight text %}
-## rgeos version: 0.3-4, (SVN revision 438)
+## rgeos version: 0.3-8, (SVN revision 460)
 ##  GEOS runtime version: 3.4.2-CAPI-1.8.2 r3921 
 ##  Polygon checking: TRUE
 {% endhighlight %}
@@ -101,14 +147,14 @@ library(rgeos)
 aoi <- gConvexHull(aoi)
 {% endhighlight %}
 
-The aoi is now a single polygon:
+The AOI is now a single polygon:
 
 
 {% highlight r %}
 plot(aoi)
 {% endhighlight %}
 
-![center](/content/2014-04-16-preprocessing-imagery-with-teamlucc/VB_aoi_convex_hull.png) 
+<img src="/content/2014-04-16-preprocessing-imagery-with-teamlucc/VB_aoi_convex_hull-1.png" title="center" alt="center" style="display:block;margin-left:auto;margin-right:auto;" />
 
 If you do not have an AOI, but know the Landsat path and row you want to work 
 with, an alternative is to define the AOI based on the path and row, using the 
@@ -122,7 +168,7 @@ library(wrspathrow)
 aoi_from_pathrow <- pathrow_poly(127, 47)
 {% endhighlight %}
 
-In addition to the aoi, `auto_setup_dem` needs to know the location and spatial 
+In addition to the AOI, `auto_setup_dem` needs to know the location and spatial 
 extents of the DEM files you have available on your machine.  This list can be 
 assembled automatically using the `get_extent_polys` function in `teamlucc`.  
 See `?get_extent_polys` for more information. __The below code will fail on your 
@@ -132,7 +178,7 @@ folder on your machine if you want to test this function.__
 
 
 {% highlight r %}
-dem_files <- dir('H:/Data/CGIAR_SRTM', pattern='.tif$', full.names=TRUE)
+dem_files <- dir('H:/Data/CGIAR_SRTM/Tiles', pattern='.tif$', full.names=TRUE)
 dems <- lapply(dem_files, raster)
 dem_extents <- get_extent_polys(dems)
 {% endhighlight %}
@@ -155,25 +201,24 @@ auto_setup_dem(aoi, '.', dem_extents, crop_to_aoi=TRUE)
 
 
 {% highlight text %}
-## [1] "2014-06-03 13:11:58: started \"Processing DEMS for 1 path/rows\""
-## [1] "2014-06-03 13:11:58: started \"Processing 1 of 1: 015-053\""
-## [1] "2014-06-03 13:12:09: finished \"Processing 1 of 1: 015-053\" (10.737s elapsed)"
-## [1] "2014-06-03 13:12:09: finished \"Processing DEMS for 1 path/rows\" (10.972s elapsed)"
+## [1] "2014-11-13 16:49:49: started \"Processing DEMS for 1 path/rows\""
+## [1] "2014-11-13 16:49:50: started \"Processing 1 of 1: 015-053\""
+## [1] "2014-11-13 16:50:00: finished \"Processing 1 of 1: 015-053\" (10.047s elapsed)"
+## [1] "2014-11-13 16:50:00: finished \"Processing DEMS for 1 path/rows\" (10.285s elapsed)"
 {% endhighlight %}
 
-The result will be a mosaiced DEM, in the current working directory, that can 
+The result will be a mosaicked DEM, in the current working directory, that can 
 be used for topographically correcting imagery with the 
 `auto_preprocess_landsat` function.
 
 ## Preprocessing
 
-Images are delivered from the CDR archive in Hierarchical Data Format (HDF). 
-Though some common remote sensing software packages can read HDF format, if you 
-wan to work with Landsat CDR images within the `teamlucc` package in R, you 
-will need to convert them to another format. The `teamlucc` package will, by 
-default, convert HDF images to a flat binary format with ENVI format headers, 
-as these image files can be easily read in R and in most commonly used remote 
-sensing and GIS software packages.
+Images are delivered from the CDR archive in either ENVI format, GeoTIFF 
+format, or Hierarchical Data Format (HDF). The `teamlucc` package will, by 
+default, convert HDF or ENVI format images to a GeoTIFF format, as these image 
+files can be easily read in R and in most commonly used remote sensing and GIS 
+software packages. This example assumes you want GeoTIFF output - see the help 
+files for `teamlucc` for other output options.
 
 First you will need to acquire a time series of CDR imagery for your site. The 
 `espa_download` function can facilitate downloading files from an ESPA order. 
@@ -198,34 +243,23 @@ extract_folder <- 'espa_extracts'
 espa_extract(download_folder, extract_folder)
 {% endhighlight %}
 
-Next, use the `unstack_ledapscdr` function in `teamlucc` to unstack each HDF 
-format CDR image. Store all of the images for a given site within a single 
-directory. A variant of the below R code can automate this for you if you have 
-all of your images stored in `extract_folder`. Note that, if desired, you can 
-specify `rmhdf=TRUE` to `unstack_ledapscdr` to make the script automatically 
-delete the original HDF files after unstacking them.
 
 
-{% highlight r %}
-image_files <- dir(extract_folder, recursive=TRUE, pattern='.hdf$', 
-                   full.names=TRUE)
-for (n in 1:length(image_files)) {
-    message(paste('Unstacking', image_files[n]))
-    unstack_ledapscdr(image_files[n])
-}
+{% highlight text %}
+## 1 of 2. Extracting LT50150532000044-SC20140514195145.tar.gz to espa_extracts/015-053_2000-044_LT5
+## 2 of 2. Extracting LT50150532001014-SC20140514195632.tar.gz to espa_extracts/015-053_2001-014_LT5
 {% endhighlight %}
 
-Now that the CDR format image files are converted to ENVI format, you are ready 
-to run `auto_preprocess_landsat`. As with `auto_setup_dem`, there are many 
-options you can supply to `auto_preprocess_landsat` - see 
-`?auto_preprocess_landsat`.  The below is a simple example of how to call 
-`auto_preprocess_landsat`.
+Now that the CDR format image files are extracted, you are ready to run 
+`auto_preprocess_landsat`. As with `auto_setup_dem`, there are many options you 
+can supply to `auto_preprocess_landsat` - see `?auto_preprocess_landsat`.  The 
+below is a simple example of how to call `auto_preprocess_landsat`.
 
 The `image_dirs` line below is just a fancy way of finding all the folders 
-located in the `espa_extracts` folder that contain ENVI format CDR imagery.  
-You could just as easily specify these folders invidually as a series of 
-strings, like: `image_dirs <- c('C:/folder1', 'C:/folder2')` if you had two CDR 
-Landsat scenes located in `C:/folder1` and `C:/folder2`, respectively.
+located in `extract_folder` that contain CDR imagery.  You could just as easily 
+specify these folders individually as as a list of strings, like: `image_dirs 
+<- c('C:/folder1', 'C:/folder2')` if you had two CDR Landsat scenes located in 
+`C:/folder1` and `C:/folder2`, respectively.
 
 The `prefix` parameter specifies a string that will be used in naming files 
 output by `auto_preprocess_landsat`. For `prefix` I suggest you use a short (2 
@@ -238,38 +272,67 @@ preprocessed by `auto_setup_dem` are located), so that the DEM files for this
 scene can be found. Here we set `dem_path='.'` as the DEM is in our current 
 working directory. We supply an AOI (same AOI as above) to crop the output 
 images. `verbose=TRUE` indicates that we want detailed progress messages to 
-print while the script is running.
+print while the script is running. The output of `auto_preprocess_landsat` is a 
+`data.frame` with a list of the preprocessed files and their file formats.
 
 
 {% highlight r %}
 image_dirs <- dir('espa_extracts',
                   pattern='^[0-9]{3}-[0-9]{3}_[0-9]{4}-[0-9]{3}_((LT[45])|(LE7))$',
                   full.names=TRUE)
-auto_preprocess_landsat(image_dirs, prefix='VB', tc=TRUE, dem_path='.', 
-                        aoi=aoi, verbose=TRUE)
+filelist <- auto_preprocess_landsat(image_dirs, prefix='VB', tc=TRUE, 
+                                    dem_path='.', aoi=aoi, verbose=TRUE)
 {% endhighlight %}
 
 
 
 {% highlight text %}
-## [1] "2014-06-03 13:12:09: started \"Preprocessing images\""
-## [1] "2014-06-03 13:12:10: started \"Preprocessing 015-053_2000-044_L5TSR\""
-## [1] "2014-06-03 13:12:10: started \"015-053_2000-044_L5TSR - cropping and reprojecting\""
-## [1] "2014-06-03 13:17:58: finished \"015-053_2000-044_L5TSR - cropping and reprojecting\" (347.813s (~5.8 minutes) elapsed)"
-## [1] "2014-06-03 13:17:58: started \"015-053_2000-044_L5TSR - masking\""
-## [1] "2014-06-03 13:18:06: finished \"015-053_2000-044_L5TSR - masking\" (8.416s elapsed)"
-## [1] "2014-06-03 13:18:06: started \"015-053_2000-044_L5TSR - topocorr\""
-## [1] "2014-06-03 13:20:34: finished \"015-053_2000-044_L5TSR - topocorr\" (148.058s (~2.47 minutes) elapsed)"
-## [1] "2014-06-03 13:20:39: finished \"Preprocessing 015-053_2000-044_L5TSR\" (509.628s (~8.49 minutes) elapsed)"
-## [1] "2014-06-03 13:20:39: started \"Preprocessing 015-053_2001-014_L5TSR\""
-## [1] "2014-06-03 13:20:39: started \"015-053_2001-014_L5TSR - cropping and reprojecting\""
-## [1] "2014-06-03 13:25:32: finished \"015-053_2001-014_L5TSR - cropping and reprojecting\" (292.15s (~4.87 minutes) elapsed)"
-## [1] "2014-06-03 13:25:32: started \"015-053_2001-014_L5TSR - masking\""
-## [1] "2014-06-03 13:25:37: finished \"015-053_2001-014_L5TSR - masking\" (5.39s elapsed)"
-## [1] "2014-06-03 13:25:37: started \"015-053_2001-014_L5TSR - topocorr\""
-## [1] "2014-06-03 13:27:45: finished \"015-053_2001-014_L5TSR - topocorr\" (127.968s (~2.13 minutes) elapsed)"
-## [1] "2014-06-03 13:27:48: finished \"Preprocessing 015-053_2001-014_L5TSR\" (428.209s (~7.14 minutes) elapsed)"
-## [1] "2014-06-03 13:27:48: finished \"Preprocessing images\" (938.333s (~15.64 minutes) elapsed)"
+## Warning: executing %dopar% sequentially: no parallel backend registered
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## [1] "2014-11-13 16:50:52: started \"Preprocessing 015-053_2000-044_L5TSR\""
+## [1] "2014-11-13 16:50:52: started \"cropping and reprojecting\""
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Warning in build_mask_vrt(file_base, mask_vrt_file, file_format): Using
+## "fmask_band" instead of newer "cfmask_band" band name
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## [1] "2014-11-13 16:51:03: finished \"cropping and reprojecting\" (10.787s elapsed)"
+## [1] "2014-11-13 16:51:03: started \"topocorr\""
+## [1] "2014-11-13 16:53:25: finished \"topocorr\" (142.071s (~2.37 minutes) elapsed)"
+## [1] "2014-11-13 16:53:25: started \"writing data\""
+## [1] "2014-11-13 16:53:29: finished \"writing data\" (4.052s elapsed)"
+## [1] "2014-11-13 16:53:29: finished \"Preprocessing 015-053_2000-044_L5TSR\" (156.919s (~2.62 minutes) elapsed)"
+## [1] "2014-11-13 16:53:30: started \"Preprocessing 015-053_2001-014_L5TSR\""
+## [1] "2014-11-13 16:53:30: started \"cropping and reprojecting\""
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Warning in build_mask_vrt(file_base, mask_vrt_file, file_format): Using
+## "fmask_band" instead of newer "cfmask_band" band name
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## [1] "2014-11-13 16:53:44: finished \"cropping and reprojecting\" (14.161s elapsed)"
+## [1] "2014-11-13 16:53:44: started \"topocorr\""
+## [1] "2014-11-13 16:55:55: finished \"topocorr\" (131.256s (~2.19 minutes) elapsed)"
+## [1] "2014-11-13 16:55:55: started \"writing data\""
+## [1] "2014-11-13 16:55:59: finished \"writing data\" (4.236s elapsed)"
+## [1] "2014-11-13 16:55:59: finished \"Preprocessing 015-053_2001-014_L5TSR\" (149.662s (~2.49 minutes) elapsed)"
 {% endhighlight %}
 
 The result is two cropped, reprojected, and topographically corrected Landsat 
@@ -277,20 +340,24 @@ images covering the specified AOI. One image from 2000:
 
 
 {% highlight r %}
-ls_2000 <- brick('espa_extracts/015-053_2000-044_LT5/VB_015-053_2000-044_L5TSR_tc.envi')
-ls_2000 <- linear_stretch(ls_2000, pct=5, max_val=255)
-plotRGB(ls_2000, r=4, g=3, b=2, stretch='lin')
+ls_2000 <-  brick('espa_extracts/015-053_2000-044_LT5/VB_015-053_2000-044_L5TSR_tc.tif')
+ls_2000 <- linear_stretch(ls_2000, pct=2, max_val=255)
+browse_image(ls_2000, r=4, g=3, b=2)
 {% endhighlight %}
 
-![center](/content/2014-04-16-preprocessing-imagery-with-teamlucc/plot_2000_landsat.png) 
+<img src="/content/2014-04-16-preprocessing-imagery-with-teamlucc/plot_2000_landsat-1.png" title="center" alt="center" style="display:block;margin-left:auto;margin-right:auto;" />
 
 And one image from 2001:
 
 
 {% highlight r %}
-ls_2001 <- brick('espa_extracts/015-053_2001-014_LT5/VB_015-053_2001-014_L5TSR_tc.envi')
+ls_2001 <- brick('espa_extracts/015-053_2001-014_LT5/VB_015-053_2001-014_L5TSR_tc.tif')
 ls_2001 <- linear_stretch(ls_2001, pct=2, max_val=255)
-plotRGB(ls_2001, r=4, g=3, b=2, stretch='lin')
+browse_image(ls_2001, r=4, g=3, b=2)
 {% endhighlight %}
 
-![center](/content/2014-04-16-preprocessing-imagery-with-teamlucc/plot_2001_landsat.png) 
+<img src="/content/2014-04-16-preprocessing-imagery-with-teamlucc/plot_2001_landsat-1.png" title="center" alt="center" style="display:block;margin-left:auto;margin-right:auto;" />
+
+There is a fair amount of cloud cover in the 2000 image. See the post on [cloud 
+removal](/articles/cloud-removal-with-teamlucc) for one means of addressing 
+this issue.
