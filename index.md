@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Homepage
-description: "Homepage for Alex Zvoleff, Postdoctoral Associate at Conservation International"
+description: "Homepage for Alex Zvoleff, Director, Data Science at Conservation International"
 tags: [Alex Zvoleff, R, python, remote sensing]
 ---
 

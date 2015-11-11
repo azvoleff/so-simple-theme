@@ -7,13 +7,13 @@ image:
   feature: bg_forest_path.jpg
 ---
 
-I am a researcher with the [Tropical Ecology Assessment and Monitoring (TEAM) 
-Network](http://www.teamnetwork.org), based at [Conservation 
-International](http://www.conservation.org).
+I am Director of Data Science for [Vital Signs](http://www.vitalsigns.org) at 
+Conservation International.
 
-I use a combination of remote sensing, spatial modeling and statistics, and 
-social survey techniques to investigate relationships between human and 
-environmental change.
+I work on the problems at the intersection of climate, population, and land use 
+and land cover change research, using a mixture of remote sensing, spatial 
+modeling and statistics, and social survey techniques to investigate 
+relationships between human and environmental change.
 
 ## Contact Information
 
@@ -24,7 +24,7 @@ environmental change.
 
 ## Mailing Address
 
-TEAM Network  
+Vital Signs
 Conservation International  
 2011 Crystal Dr. Suite 500  
 Arlington, VA 22202  
