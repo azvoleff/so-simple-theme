@@ -10,10 +10,10 @@ image:
 I am Director of Data Science for [Vital Signs](http://www.vitalsigns.org) at 
 Conservation International.
 
-I work on the problems at the intersection of climate, population, and land use 
-and land cover change research, using a mixture of remote sensing, spatial 
-modeling and statistics, and social survey techniques to investigate 
-relationships between human and environmental change.
+I work on problems at the intersection of climate, population, and land use and 
+land cover change research, using a mixture of remote sensing, spatial modeling 
+and statistics, and social survey techniques to investigate relationships 
+between human and environmental change.
 
 ## Contact Information
 
