@@ -8,20 +8,33 @@ image:
 ---
 
 ## Research Interests
-* Land use and land cover change
-* Spatial statistics and modeling
-* Using big data to study human-environment systems
-* Landscape ecology and conservation
+* Interactions among climate, land use and land cover change, and livelihoods
+* Methods and tools for integrating social and biophysical datasets to inform 
+  conservation
+* Modeling and data visualization
 
-## Current Work
-I am working with the [Tropical Ecology Assessment and Monitoring (TEAM) 
+## Short Bio
+I am Senior Director of Resilience Science in the Moore Center for Science at 
+Conservation International. I lead research on the role of nature in supporting 
+climate resilience, pathways for transformative adaptation to climate change, 
+and the development of new methods and tools that integrate large 
+interdisciplinary datasets to study interactions among climate, land use and 
+land cover change, and human-wellbeing. My work uses statistics and spatial 
+modeling to assimilate data from a broad range of sources to ensure the best 
+possible information is available, and accessible by non-expert audiences, to 
+inform conservation decisions. I received my Ph.D. in geography in a joint 
+program at San Diego State University and the University of California, Santa 
+Barbara, and have a master’s from Columbia University.
+
+## Past Research
+
+### TEAM
+I worked with the [Tropical Ecology Assessment and Monitoring (TEAM) 
 Network](http://teamnetwork.org) on a project investigating the effects of 
 climate change and land use and cover change around tropical protected areas on 
-biodiversity. We are linking species data from plot and camera trap monitoring 
-to satellite observations to study linkages between land cover change and 
+biodiversity. We linked species data from plot and camera trap monitoring to 
+satellite observations to study linkages between land cover change and 
 biodiversity.
-
-Below are several ongoing projects related to TEAM.
 
 ### teamlucc
 
@@ -40,8 +53,6 @@ Forest Change
 dataset](http://earthenginepartners.appspot.com/science-2013-global-forest) 
 released devolped by [Hansen et al. 
 (2013)](http://www.sciencemag.org/content/342/6160/850).
-
-## Past Research
 
 <a name='PyABM'>
 
