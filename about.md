@@ -7,7 +7,7 @@ image:
   feature: bg_forest_path.jpg
 ---
 
-I am Director of Data Science for [Vital Signs](http://www.vitalsigns.org) at 
+I am Senior Director of Data Science in the Moore Center for Science at 
 Conservation International.
 
 I work on problems at the intersection of climate, population, and land use and 
@@ -19,12 +19,10 @@ between human and environmental change.
 
 | Email: | <a href="mailto:azvoleff@conservation.org">azvoleff@conservation.org</a> |
 | Phone: | 703-341-2749 |
-| Fax:   | 703-979-0953 |
 | Skype: | azvoleff     |
 
 ## Mailing Address
 
-Vital Signs
 Conservation International  
-2011 Crystal Dr. Suite 500  
+2011 Crystal Dr. Suite 600  
 Arlington, VA 22202  
