@@ -7,7 +7,7 @@ image:
   feature: bg_forest_path.jpg
 ---
 
-I am Senior Director of Data Science in the Moore Center for Science at 
+I am Senior Director of Resilience Science in the Moore Center for Science at 
 Conservation International.
 
 I work on problems at the intersection of climate, population, and land use and 
